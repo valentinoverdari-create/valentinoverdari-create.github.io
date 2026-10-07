@@ -25,7 +25,7 @@
   <header>
     <div>
       <h1>Valentino</h1>
-      <p class="fr">Étudiant en école d'ingénieur à Toulouse</p>
+      <p class="fr">Élève ingénieur à l'ENSEEIHT, Toulouse</p>
       <p class="en">Engineering student in Toulouse</p>
     </div>
     <button onclick="toggleLang()">FR / EN</button>
@@ -33,11 +33,12 @@
 
   <nav>
     <button onclick="goHome('s-welcome')"><span class="fr">Bienvenue</span><span class="en">Welcome</span></button>
-    <button onclick="goHome('s-engineering')"><span class="fr">Parcours ingénieur</span><span class="en">Engineering course</span></button>
-    <button onclick="goHome('s-mobility')"><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></button>
-    <button onclick="goHome('s-sustainability')"><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></button>
-    <button onclick="goHome('s-sport')"><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></button>
-    <button onclick="goHome('s-career')"><span class="fr">Projet professionnel</span><span class="en">Career Development</span></button>
+    <button onclick="goHome('s-engineering')"><span class="fr">Mon Parcours</span><span class="en">Engineering course</span></button>
+    <button onclick="goHome('s-mobility')"><span class="fr">Projet de Mobilité</span><span class="en">International Mobility</span></button>
+    <button onclick="goHome('s-sustainability')"><span class="fr">Engagement Citoyen</span><span class="en">Civic Engagement</span></button>
+    <button onclick="goHome('s-sport')"><span class="fr">Sport</span><span class="en">Sport</span></button>
+    <button onclick="goHome('s-career')"><span class="fr">Projet Professionnel</span><span class="en">Career Development</span></button>
+    <button onclick="goHome('s-projects')"><span class="fr">Mes Projets</span><span class="en">My Projects</span></button>
   </nav>
 
   <!-- PAGE D'ACCUEIL : résumés -->
@@ -50,30 +51,30 @@
     </div>
 
     <div class="card" id="s-engineering">
-      <h2 onclick="openSection('engineering')"><span class="fr">Parcours ingénieur</span><span class="en">Engineering course</span></h2>
-      <p class="fr">Résumé de tes projets et réalisations.</p>
-      <p class="en">Summary of your projects and productions.</p>
+      <h2 onclick="openSection('engineering')"><span class="fr">Mon Parcours</span><span class="en">Engineering course</span></h2>
+      <p class="fr">Élève ingénieur à l'ENSEEIHT en première année</p>
+      <p class="en">First year student in an engineering school</p>
       <button onclick="openSection('engineering')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
     </div>
 
     <div class="card" id="s-mobility">
       <h2 onclick="openSection('mobility')"><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></h2>
-      <p class="fr">Résumé de ta mobilité (PCE, LV2...).</p>
+      <p class="fr">Stage de 6 mois à Turin (Leonardo) durant une année de césure entre M1 et M2</p>
       <p class="en">Summary of your mobility (PCE, LV2...).</p>
       <button onclick="openSection('mobility')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
     </div>
 
     <div class="card" id="s-sustainability">
-      <h2 onclick="openSection('sustainability')"><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
+      <h2 onclick="openSection('sustainability')"><span class="fr">Engagement Citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
       <p class="fr">Résumé de ton engagement.</p>
       <p class="en">Summary of your engagement.</p>
       <button onclick="openSection('sustainability')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
     </div>
 
     <div class="card" id="s-sport">
-      <h2 onclick="openSection('sport')"><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></h2>
-      <p class="fr">Résumé de tes activités.</p>
-      <p class="en">Summary of your activities.</p>
+      <h2 onclick="openSection('sport')"><span class="fr">Sport</span><span class="en">Sport</span></h2>
+      <p class="fr">Je suis cycliste, et j'affectionne particulèrement les longues distances (voyages à vélo)</p>
+      <p class="en">I am a road cyclist, specialising in long range</p>
       <button onclick="openSection('sport')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
     </div>
 
@@ -95,7 +96,7 @@
 
   <section id="engineering" class="detail">
     <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Parcours ingénieur</span><span class="en">Engineering course</span></h2>
+    <h2><span class="fr">Mon Parcours</span><span class="en">Engineering course</span></h2>
     <h3><span class="fr">Projets</span><span class="en">Projects</span></h3>
     <p class="fr">Description détaillée de ton projet.</p>
     <p class="en">Detailed description of your project.</p>
@@ -125,9 +126,9 @@
 
   <section id="sport" class="detail">
     <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></h2>
-    <p class="fr">À compléter.</p>
-    <p class="en">To be completed.</p>
+    <h2><span class="fr">Sport</span><span class="en">Sport</span></h2>
+    <p class="fr">Je suis cycliste. J'ai découvert ce sport grâce au triathlon, que j'ai pratiqué pendant 5 ans.</p>
+    <p class="en">I am a road cyclist, coming from triathlon</p>
   </section>
 
   <section id="career" class="detail">
