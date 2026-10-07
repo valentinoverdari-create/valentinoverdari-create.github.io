@@ -6,56 +6,107 @@
   <title>Mon e-portfolio</title>
   <style>
     body { font-family: sans-serif; max-width: 900px; margin: 0 auto; padding: 1rem; }
-    nav button { padding: .5rem .8rem; margin: .2rem; cursor: pointer; }
-    nav button.active { font-weight: bold; text-decoration: underline; }
-    .tab { display: none; }
-    .tab.active { display: block; }
+    header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    nav { position: sticky; top: 0; background: white; padding: .5rem 0; border-bottom: 1px solid #ccc; }
+    nav button { padding: .4rem .7rem; margin: .15rem; cursor: pointer; }
+    .card { border: 1px solid #ccc; border-radius: 8px; padding: 1rem; margin: 1rem 0; }
+    .card h2 { margin-top: 0; cursor: pointer; }
+    .detail { display: none; }
+    .detail.active { display: block; }
+    #home.hidden { display: none; }
     body.en .fr { display: none; }
     body:not(.en) .en { display: none; }
     img { max-width: 100%; height: auto; }
+    footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ccc; text-align: center; }
   </style>
 </head>
 
 <body>
   <header>
-    <h1>Valentino</h1>
-    <p class="fr">Élève ingénieur à l'ENSEEIHT à Toulouse</p>
-    <p class="en">Engineering student in Toulouse</p>
-    <p>
-      <a href="cv.pdf" target="_blank">CV</a> |
-      <a href="https://www.linkedin.com/in/TON-PROFIL" target="_blank">LinkedIn</a> |
-      <a href="https://github.com/valentinoverdari-create" target="_blank">GitHub</a>
-    </p>
+    <div>
+      <h1>Valentino</h1>
+      <p class="fr">Étudiant en école d'ingénieur à Toulouse</p>
+      <p class="en">Engineering student in Toulouse</p>
+    </div>
     <button onclick="toggleLang()">FR / EN</button>
-
-    <nav>
-      <button class="active" onclick="showTab('welcome', this)">Welcome</button>
-      <button onclick="showTab('engineering', this)">Engineering course</button>
-      <button onclick="showTab('mobility', this)">International Mobility</button>
-      <button onclick="showTab('sustainability', this)">Sustainability &amp; Civic Engagement</button>
-      <button onclick="showTab('sport', this)">Sport &amp; other activities</button>
-      <button onclick="showTab('career', this)">Career Development</button>
-    </nav>
   </header>
 
-  <section id="welcome" class="tab active">
+  <nav>
+    <button onclick="goHome('s-welcome')">Welcome</button>
+    <button onclick="goHome('s-engineering')">Engineering course</button>
+    <button onclick="goHome('s-mobility')">International Mobility</button>
+    <button onclick="goHome('s-sustainability')">Sustainability &amp; Civic Engagement</button>
+    <button onclick="goHome('s-sport')">Sport &amp; other activities</button>
+    <button onclick="goHome('s-career')">Career Development</button>
+  </nav>
+
+  <!-- PAGE D'ACCUEIL : résumés -->
+  <main id="home">
+    <div class="card" id="s-welcome">
+      <h2 onclick="openSection('welcome')">Welcome</h2>
+      <p class="fr">Résumé court de ta présentation.</p>
+      <p class="en">Short summary of your introduction.</p>
+      <button onclick="openSection('welcome')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
+    </div>
+
+    <div class="card" id="s-engineering">
+      <h2 onclick="openSection('engineering')">Engineering course</h2>
+      <p class="fr">Résumé de tes projets et productions.</p>
+      <p class="en">Summary of your projects and productions.</p>
+      <button onclick="openSection('engineering')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
+    </div>
+
+    <div class="card" id="s-mobility">
+      <h2 onclick="openSection('mobility')">International Mobility</h2>
+      <p class="fr">Résumé de ta mobilité (PCE, LV2...).</p>
+      <p class="en">Summary of your mobility (PCE, LV2...).</p>
+      <button onclick="openSection('mobility')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
+    </div>
+
+    <div class="card" id="s-sustainability">
+      <h2 onclick="openSection('sustainability')">Sustainability &amp; Civic Engagement</h2>
+      <p class="fr">Résumé de ton engagement.</p>
+      <p class="en">Summary of your engagement.</p>
+      <button onclick="openSection('sustainability')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
+    </div>
+
+    <div class="card" id="s-sport">
+      <h2 onclick="openSection('sport')">Sport &amp; other activities</h2>
+      <p class="fr">Résumé de tes activités.</p>
+      <p class="en">Summary of your activities.</p>
+      <button onclick="openSection('sport')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
+    </div>
+
+    <div class="card" id="s-career">
+      <h2 onclick="openSection('career')">Career Development</h2>
+      <p class="fr">Résumé de ton projet professionnel.</p>
+      <p class="en">Summary of your career plans.</p>
+      <button onclick="openSection('career')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
+    </div>
+  </main>
+
+  <!-- VUES DÉTAILLÉES -->
+  <section id="welcome" class="detail">
+    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2>Welcome</h2>
-    <p class="fr">Présentation courte : qui tu es, ton parcours.</p>
-    <p class="en">Short introduction: who you are, your background.</p>
+    <p class="fr">Présentation complète.</p>
+    <p class="en">Full introduction.</p>
   </section>
 
-  <section id="engineering" class="tab">
+  <section id="engineering" class="detail">
+    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2>Engineering course</h2>
     <h3>Projects</h3>
-    <p class="fr">Description de ton projet.</p>
-    <p class="en">Description of your project.</p>
+    <p class="fr">Description détaillée de ton projet.</p>
+    <p class="en">Detailed description of your project.</p>
     <img src="projet1.jpg" alt="Photo du projet 1">
     <h3>Productions</h3>
     <p class="fr">Tes rendus, rapports, présentations.</p>
     <p class="en">Your reports and presentations.</p>
   </section>
 
-  <section id="mobility" class="tab">
+  <section id="mobility" class="detail">
+    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2>International Mobility</h2>
     <h3>PCE</h3>
     <p class="fr">À compléter.</p>
@@ -65,30 +116,50 @@
     <p class="en">To be completed.</p>
   </section>
 
-  <section id="sustainability" class="tab">
+  <section id="sustainability" class="detail">
+    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2>Sustainability &amp; Civic Engagement</h2>
     <p class="fr">À compléter.</p>
     <p class="en">To be completed.</p>
   </section>
 
-  <section id="sport" class="tab">
+  <section id="sport" class="detail">
+    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2>Sport &amp; other activities</h2>
     <p class="fr">À compléter.</p>
     <p class="en">To be completed.</p>
   </section>
 
-  <section id="career" class="tab">
+  <section id="career" class="detail">
+    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2>Career Development</h2>
     <p class="fr">À compléter.</p>
     <p class="en">To be completed.</p>
   </section>
 
+  <footer>
+    <a href="cv.pdf" target="_blank">CV</a> |
+    <a href="https://www.linkedin.com/in/TON-PROFIL" target="_blank">LinkedIn</a>
+  </footer>
+
   <script>
-    function showTab(id, btn) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    function hideDetails() {
+      document.querySelectorAll('.detail').forEach(d => d.classList.remove('active'));
+    }
+    function openSection(id) {
+      hideDetails();
+      document.getElementById('home').classList.add('hidden');
       document.getElementById(id).classList.add('active');
-      btn.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+    function goHome(anchor) {
+      hideDetails();
+      document.getElementById('home').classList.remove('hidden');
+      if (anchor) {
+        document.getElementById(anchor).scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo(0, 0);
+      }
     }
     function toggleLang() {
       document.body.classList.toggle('en');
