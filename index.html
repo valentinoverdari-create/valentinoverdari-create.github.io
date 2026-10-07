@@ -4,56 +4,95 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mon e-portfolio</title>
+  <style>
+    body { font-family: sans-serif; max-width: 900px; margin: 0 auto; padding: 1rem; }
+    nav button { padding: .5rem .8rem; margin: .2rem; cursor: pointer; }
+    nav button.active { font-weight: bold; text-decoration: underline; }
+    .tab { display: none; }
+    .tab.active { display: block; }
+    body.en .fr { display: none; }
+    body:not(.en) .en { display: none; }
+    img { max-width: 100%; height: auto; }
+  </style>
 </head>
 
 <body>
   <header>
     <h1>Valentino</h1>
-    <p>Étudiant en école d'ingénieur à Toulouse</p>
+    <p class="fr">Étudiant en école d'ingénieur à Toulouse</p>
+    <p class="en">Engineering student in Toulouse</p>
+    <p>
+      <a href="cv.pdf" target="_blank">CV</a> |
+      <a href="https://www.linkedin.com/in/TON-PROFIL" target="_blank">LinkedIn</a> |
+      <a href="https://github.com/valentinoverdari-create" target="_blank">GitHub</a>
+    </p>
+    <button onclick="toggleLang()">FR / EN</button>
+
     <nav>
-      <a href="#welcome">Welcome</a> |
-      <a href="#engineering">Engineering course</a> |
-      <a href="#mobility">International Mobility</a> |
-      <a href="#sustainability">Sustainability &amp; Civic Engagement</a> |
-      <a href="#sport">Sport &amp; other activities</a> |
-      <a href="#career">Career Development</a>
+      <button class="active" onclick="showTab('welcome', this)">Welcome</button>
+      <button onclick="showTab('engineering', this)">Engineering course</button>
+      <button onclick="showTab('mobility', this)">International Mobility</button>
+      <button onclick="showTab('sustainability', this)">Sustainability &amp; Civic Engagement</button>
+      <button onclick="showTab('sport', this)">Sport &amp; other activities</button>
+      <button onclick="showTab('career', this)">Career Development</button>
     </nav>
   </header>
 
-  <section id="welcome">
+  <section id="welcome" class="tab active">
     <h2>Welcome</h2>
-    <p>Présentation courte : qui tu es, ton parcours, ce que contient le portfolio.</p>
+    <p class="fr">Présentation courte : qui tu es, ton parcours.</p>
+    <p class="en">Short introduction: who you are, your background.</p>
   </section>
 
-  <section id="engineering">
+  <section id="engineering" class="tab">
     <h2>Engineering course</h2>
     <h3>Projects</h3>
-    <p>Tes projets, avec un court descriptif.</p>
+    <p class="fr">Description de ton projet.</p>
+    <p class="en">Description of your project.</p>
+    <img src="projet1.jpg" alt="Photo du projet 1">
     <h3>Productions</h3>
-    <p>Tes rendus, rapports, présentations.</p>
+    <p class="fr">Tes rendus, rapports, présentations.</p>
+    <p class="en">Your reports and presentations.</p>
   </section>
 
-  <section id="mobility">
+  <section id="mobility" class="tab">
     <h2>International Mobility</h2>
     <h3>PCE</h3>
-    <p>À compléter.</p>
+    <p class="fr">À compléter.</p>
+    <p class="en">To be completed.</p>
     <h3>LV2</h3>
-    <p>À compléter.</p>
+    <p class="fr">À compléter.</p>
+    <p class="en">To be completed.</p>
   </section>
 
-  <section id="sustainability">
+  <section id="sustainability" class="tab">
     <h2>Sustainability &amp; Civic Engagement</h2>
-    <p>À compléter.</p>
+    <p class="fr">À compléter.</p>
+    <p class="en">To be completed.</p>
   </section>
 
-  <section id="sport">
+  <section id="sport" class="tab">
     <h2>Sport &amp; other activities</h2>
-    <p>À compléter.</p>
+    <p class="fr">À compléter.</p>
+    <p class="en">To be completed.</p>
   </section>
 
-  <section id="career">
+  <section id="career" class="tab">
     <h2>Career Development</h2>
-    <p>À compléter.</p>
+    <p class="fr">À compléter.</p>
+    <p class="en">To be completed.</p>
   </section>
+
+  <script>
+    function showTab(id, btn) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+    }
+    function toggleLang() {
+      document.body.classList.toggle('en');
+    }
+  </script>
 </body>
 </html>
