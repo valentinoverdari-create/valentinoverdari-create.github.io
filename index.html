@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mon e-portfolio</title>
+  <title>Valentino – e-portfolio</title>
   <style>
     body { font-family: sans-serif; max-width: 900px; margin: 0 auto; padding: 1rem; }
     header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
@@ -26,62 +26,61 @@
     <div>
       <h1>Valentino</h1>
       <p class="fr">Élève ingénieur à l'ENSEEIHT, Toulouse</p>
-      <p class="en">Engineering student in Toulouse</p>
+      <p class="en">Engineering student at ENSEEIHT, Toulouse</p>
     </div>
     <button onclick="toggleLang()">FR / EN</button>
   </header>
 
   <nav>
     <button onclick="goHome('s-welcome')"><span class="fr">Bienvenue</span><span class="en">Welcome</span></button>
-    <button onclick="goHome('s-engineering')"><span class="fr">Mon Parcours</span><span class="en">Engineering course</span></button>
-    <button onclick="goHome('s-mobility')"><span class="fr">Projet de Mobilité Internationale</span><span class="en">International Mobility</span></button>
-    <button onclick="goHome('s-sustainability')"><span class="fr">Engagement Citoyen</span><span class="en">Civic Engagement</span></button>
-    <button onclick="goHome('s-sport')"><span class="fr">Sport</span><span class="en">Sport</span></button>
-    <button onclick="goHome('s-career')"><span class="fr">Projet Professionnel</span><span class="en">Career Development</span></button>
-    <button onclick="goHome('s-projects')"><span class="fr">Mes Projets</span><span class="en">My Projects</span></button>
+    <button onclick="goHome('s-engineering')"><span class="fr">Mon parcours</span><span class="en">Engineering course</span></button>
+    <button onclick="goHome('s-mobility')"><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></button>
+    <button onclick="goHome('s-sustainability')"><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></button>
+    <button onclick="goHome('s-sport')"><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></button>
+    <button onclick="goHome('s-career')"><span class="fr">Projet professionnel</span><span class="en">Career Development</span></button>
   </nav>
 
   <!-- PAGE D'ACCUEIL : résumés -->
   <main id="home">
     <div class="card" id="s-welcome">
       <h2 onclick="openSection('welcome')"><span class="fr">Bienvenue</span><span class="en">Welcome</span></h2>
-      <p class="fr">Résumé court de ta présentation.</p>
-      <p class="en">Short summary of your introduction.</p>
+      <p class="fr">Élève ingénieur passionné de vélo et d'aéronautique : voici mon parcours, mes projets et mes engagements.</p>
+      <p class="en">Engineering student with a passion for cycling and aeronautics: here are my background, projects and commitments.</p>
       <button onclick="openSection('welcome')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
     </div>
 
     <div class="card" id="s-engineering">
-      <h2 onclick="openSection('engineering')"><span class="fr">Mon Parcours</span><span class="en">Engineering course</span></h2>
-      <p class="fr">Élève ingénieur à l'ENSEEIHT en première année</p>
-      <p class="en">First year student in an engineering school</p>
+      <h2 onclick="openSection('engineering')"><span class="fr">Mon parcours</span><span class="en">Engineering course</span></h2>
+      <p class="fr">Élève ingénieur en première année à l'ENSEEIHT, après une classe préparatoire. Ma formation, mon TIPE, mes projets personnels et mes réalisations.</p>
+      <p class="en">First-year engineering student at ENSEEIHT, after preparatory classes. My education, my TIPE research project, my personal projects and my productions.</p>
       <button onclick="openSection('engineering')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
     </div>
 
     <div class="card" id="s-mobility">
-      <h2 onclick="openSection('mobility')"><span class="fr">Projet de Mobilité Internationale</span><span class="en">International Mobility</span></h2>
-      <p class="fr">Stage de 6 mois à Turin (Leonardo) durant une année de césure entre M1 et M2</p>
-      <p class="en">Summary of your mobility (PCE, LV2...).</p>
+      <h2 onclick="openSection('mobility')"><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></h2>
+      <p class="fr">Projet : un stage de six mois à Turin, chez Leonardo, pendant une année de césure entre le M1 et le M2.</p>
+      <p class="en">Plan: a six-month internship in Turin at Leonardo, during a gap year between M1 and M2 (the two years of the Master's programme).</p>
       <button onclick="openSection('mobility')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
     </div>
 
     <div class="card" id="s-sustainability">
-      <h2 onclick="openSection('sustainability')"><span class="fr">Engagement Citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
-      <p class="fr">Résumé de ton engagement.</p>
-      <p class="en">Summary of your engagement.</p>
+      <h2 onclick="openSection('sustainability')"><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
+      <p class="fr">Actions de sensibilisation : handicap et VHS (procès King Kong).</p>
+      <p class="en">Awareness-raising actions: disability and VHS (King Kong trial).</p>
       <button onclick="openSection('sustainability')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
     </div>
 
     <div class="card" id="s-sport">
-      <h2 onclick="openSection('sport')"><span class="fr">Sport</span><span class="en">Sport</span></h2>
-      <p class="fr">Je suis cycliste, et j'affectionne particulèrement les longues distances (voyages à vélo)</p>
-      <p class="en">I am a road cyclist, specialising in long range</p>
+      <h2 onclick="openSection('sport')"><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></h2>
+      <p class="fr">Je pratique le vélo de route, surtout sur longues distances et en voyages à vélo. J'y suis venu par le triathlon, pratiqué pendant cinq ans.</p>
+      <p class="en">I'm a road cyclist with a taste for long distances and multi-day bike trips. I came to cycling through triathlon, which I practised for five years.</p>
       <button onclick="openSection('sport')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
     </div>
 
     <div class="card" id="s-career">
       <h2 onclick="openSection('career')"><span class="fr">Projet professionnel</span><span class="en">Career Development</span></h2>
-      <p class="fr">Résumé de ton projet professionnel.</p>
-      <p class="en">Summary of your career plans.</p>
+      <p class="fr">À compléter : domaine visé et prochaines étapes.</p>
+      <p class="en">To be completed: target field and next steps.</p>
       <button onclick="openSection('career')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
     </div>
   </main>
@@ -90,45 +89,87 @@
   <section id="welcome" class="detail">
     <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2><span class="fr">Bienvenue</span><span class="en">Welcome</span></h2>
-    <p class="fr">Présentation complète.</p>
-    <p class="en">Full introduction.</p>
+    <p class="fr">À compléter : présentation, ce que contient ce portfolio.</p>
+    <p class="en">To be completed: introduction, what this portfolio contains.</p>
   </section>
 
   <section id="engineering" class="detail">
     <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Mon Parcours</span><span class="en">Engineering course</span></h2>
+    <h2><span class="fr">Mon parcours</span><span class="en">Engineering course</span></h2>
+
+    <h3><span class="fr">Formation</span><span class="en">Education</span></h3>
+    <p class="fr">Lycée : à compléter (établissement, années, bac). Classe préparatoire : à compléter. ENSEEIHT : à compléter (filière).</p>
+    <p class="en">High school: to be completed. Preparatory classes: to be completed. ENSEEIHT: to be completed (specialisation).</p>
+
     <h3><span class="fr">Projets</span><span class="en">Projects</span></h3>
-    <p class="fr">Description détaillée de ton projet.</p>
-    <p class="en">Detailed description of your project.</p>
-    <img src="projet1.jpg" alt="Photo du projet 1">
+
+    <h4><span class="fr">TIPE</span><span class="en">TIPE (personal research project, preparatory classes)</span></h4>
+    <p class="fr">Asservissement en position d'un volet d'aile d'avion. À compléter : objectif, méthode, résultats.</p>
+    <p class="en">Position control of an aircraft wing flap. To be completed: goal, method, results.</p>
+    <!-- <img src="tipe.jpg" alt="Schéma du TIPE"> -->
+
+    <h4><span class="fr">Avions radiocommandés</span><span class="en">Radio-controlled aircraft</span></h4>
+    <p class="fr">Projet interrompu faute de budget et de temps. À compléter : ce que j'ai construit, ce que j'en ai retenu.</p>
+    <p class="en">Project stopped for lack of budget and time. To be completed: what I built, what I learned.</p>
+
+    <h4><span class="fr">Projets vélo</span><span class="en">Bike projects</span></h4>
+    <p class="fr">Vélo à pignon fixe, randonneuse, révisions. À compléter : ce que j'ai fait sur chacun.</p>
+    <p class="en">Fixed-gear bike, touring bike, servicing. To be completed: what I did on each.</p>
+
     <h3><span class="fr">Réalisations</span><span class="en">Productions</span></h3>
-    <p class="fr">Tes rendus, rapports, présentations.</p>
-    <p class="en">Your reports and presentations.</p>
+    <p class="fr">À compléter : rapports, présentations, rendus.</p>
+    <p class="en">To be completed: reports, presentations, deliverables.</p>
   </section>
 
   <section id="mobility" class="detail">
     <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></h2>
+
     <h3>PCE</h3>
     <p class="fr">À compléter.</p>
     <p class="en">To be completed.</p>
-    <h3>LV2</h3>
-    <p class="fr">À compléter.</p>
-    <p class="en">To be completed.</p>
+
+    <h3><span class="fr">LV2 et autres langues</span><span class="en">LV2 and other languages</span></h3>
+    <p class="fr">LV2 : langue des signes. Italien : ma langue paternelle. Allemand : étudié au collège et au lycée, niveau élémentaire.</p>
+    <p class="en">LV2: sign language. Italian: my paternal language. German: studied in middle and high school, basic level.</p>
   </section>
 
   <section id="sustainability" class="detail">
     <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
-    <p class="fr">À compléter.</p>
-    <p class="en">To be completed.</p>
+
+    <h3><span class="fr">Sensibilisation au handicap</span><span class="en">Disability awareness</span></h3>
+    <p class="fr">À compléter : ce que j'ai fait, mon rôle, ce que j'en retiens.</p>
+    <p class="en">To be completed: what I did, my role, what I took from it.</p>
+
+    <h3><span class="fr">Procès King Kong (VHS)</span><span class="en">King Kong trial (VHS)</span></h3>
+    <p class="fr">À compléter : de quoi il s'agit (écrire VHS en toutes lettres), mon rôle.</p>
+    <p class="en">To be completed: what it is (spell out VHS), my role.</p>
   </section>
 
   <section id="sport" class="detail">
     <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Sport</span><span class="en">Sport</span></h2>
-    <p class="fr">Je suis cycliste. J'ai découvert ce sport grâce au triathlon, que j'ai pratiqué pendant 5 ans.</p>
-    <p class="en">I am a road cyclist, coming from triathlon</p>
+    <h2><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></h2>
+
+    <h3><span class="fr">Vélo</span><span class="en">Cycling</span></h3>
+    <p class="fr">Je pratique le vélo de route, surtout sur longues distances et en voyages à vélo. À compléter : un voyage marquant, les distances.</p>
+    <p class="en">I'm a road cyclist with a taste for long distances and multi-day bike trips. To be completed: a memorable trip, distances.</p>
+
+    <h3>Triathlon</h3>
+    <p class="fr">Pratiqué pendant cinq ans : c'est ce sport qui m'a fait découvrir le vélo. J'ai aussi fait partie du staff du triathlon de Choisy.</p>
+    <p class="en">Practised for five years: it's the sport that introduced me to cycling. I was also part of the staff at the Choisy triathlon.</p>
+
+    <h3><span class="fr">Autres sports</span><span class="en">Other sports</span></h3>
+    <p class="fr">Rugby, tennis, catamaran (voile), ski.</p>
+    <p class="en">Rugby, tennis, catamaran sailing, skiing.</p>
+
+    <h3>Run &amp; Ride</h3>
+    <p class="fr">À compléter.</p>
+    <p class="en">To be completed.</p>
+
+    <h3><span class="fr">Aéronautique</span><span class="en">Aeronautics</span></h3>
+    <p class="fr">BIA (brevet d'initiation à l'aéronautique), avec des baptêmes de l'air en avion et en planeur.</p>
+    <p class="en">BIA (aeronautics initiation certificate), with introductory flights in a plane and a glider.</p>
   </section>
 
   <section id="career" class="detail">
@@ -164,12 +205,13 @@
     }
     function toggleLang() {
       document.body.classList.toggle('en');
+      document.documentElement.lang = document.body.classList.contains('en') ? 'en' : 'fr';
     }
     function setNavOffset() {
       document.documentElement.style.setProperty('--nav-h', document.querySelector('nav').offsetHeight + 'px');
     }
-window.addEventListener('load', setNavOffset);
-window.addEventListener('resize', setNavOffset);
+    window.addEventListener('load', setNavOffset);
+    window.addEventListener('resize', setNavOffset);
   </script>
 </body>
 </html>
