@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Valentino – e-portfolio</title>
   <style>
-    :root { --navy: #1f2a44; }
+    :root { --navy: #1f2a44; --title: #1b5fa6; }
     body { font-family: sans-serif; max-width: 960px; margin: 0 auto; padding: 0 1rem 1rem; background: #f6f7fb; color: #222; }
 
-    /* Couleurs par rubrique */
+    /* Couleurs par rubrique (boutons du menu, tuiles, boutons Retour) */
     .c1 { --c: #2a6f97; }
     .c2 { --c: #6a4c93; }
     .c3 { --c: #12776c; }
@@ -25,16 +25,18 @@
     nav button { padding: .4rem .8rem; margin: .15rem; cursor: pointer; border: 2px solid var(--c); background: white; color: var(--c); border-radius: 999px; font: inherit; font-weight: bold; }
     nav button:hover { background: var(--c); color: white; }
 
-    /* Rubriques de la page d'accueil */
-    .rubrique { margin: 1.8rem 0; scroll-margin-top: calc(var(--nav-h, 100px) + 10px); }
-    .rubrique h2 { background: var(--c); color: white; padding: .6rem 1rem; border-radius: 8px; margin: 0 0 .6rem; }
-    .intro { margin: .4rem 0 1rem; }
+    /* Titres : centrés, grands, tous de la même couleur */
+    .rubrique { margin: 2.4rem 0; scroll-margin-top: calc(var(--nav-h, 100px) + 10px); }
+    .rubrique h2 { text-align: center; font-size: 2rem; color: var(--title); margin: 0 0 .6rem; }
+    .sous-titre { text-align: center; font-size: 1.3rem; color: var(--title); margin: 1.6rem 0 .8rem; }
+    .intro { text-align: center; margin: .4rem 0 1rem; }
 
     /* Tuiles : photo en haut, titre et aperçu en dessous */
     .tiles { display: grid; gap: 1rem; grid-template-columns: repeat(var(--cols, 3), 1fr); }
     .cols-2 { --cols: 2; }
     .cols-3 { --cols: 3; }
     .cols-4 { --cols: 4; }
+    .tiles.cols-1 { grid-template-columns: minmax(0, 360px); justify-content: center; }
     .tile {
       display: flex; flex-direction: column; padding: 0; border: none; border-radius: 10px;
       overflow: hidden; background: white; box-shadow: 0 1px 4px rgba(0,0,0,.18);
@@ -49,7 +51,7 @@
       background-image: linear-gradient(rgba(0,0,0,.05), rgba(0,0,0,.3)), var(--img, none);
       background-size: cover; background-position: center;
     }
-    .cols-2 .tile-img { height: 170px; }
+    .cols-1 .tile-img, .cols-2 .tile-img { height: 170px; }
     .cols-4 .tile-img { height: 100px; }
     .tile-body { display: block; padding: .7rem .8rem .9rem; border-top: 4px solid var(--c); }
     .tile-title { display: block; font-weight: bold; color: var(--c); margin-bottom: .3rem; }
@@ -61,7 +63,8 @@
     /* Pages détaillées */
     .detail { display: none; background: white; border-radius: 10px; padding: 1rem 1.2rem; margin: 1.2rem 0; }
     .detail.active { display: block; }
-    .detail h2 { border-left: 8px solid var(--c); padding-left: .6rem; color: var(--c); }
+    .detail h2 { text-align: center; font-size: 1.8rem; color: var(--title); }
+    .detail h3 { color: var(--title); }
     .detail p { text-indent: 1.5em; }
     .back { padding: .4rem .8rem; cursor: pointer; border: 2px solid var(--c); background: white; color: var(--c); border-radius: 999px; font: inherit; font-weight: bold; }
     .back:hover { background: var(--c); color: white; }
@@ -101,8 +104,8 @@
 
     <section class="rubrique c1" id="s-welcome">
       <h2><span class="fr">Bienvenue</span><span class="en">Welcome</span></h2>
-      <p class="fr">Élève ingénieur passionné de vélo et d'aéronautique : voici mon parcours, mes projets et mes engagements.</p>
-      <p class="en">Engineering student with a passion for cycling and aeronautics: here are my background, projects and commitments.</p>
+      <p class="intro fr">Élève ingénieur passionné de vélo et d'aéronautique : voici mon parcours, mes projets et mes engagements.</p>
+      <p class="intro en">Engineering student with a passion for cycling and aeronautics: here are my background, projects and commitments.</p>
     </section>
 
     <section class="rubrique c2" id="s-engineering">
@@ -187,9 +190,11 @@
 
     <section class="rubrique c5" id="s-sport">
       <h2><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></h2>
-      <p class="intro fr">Je pratique le vélo de route, surtout sur longues distances et en itinérance. Mes projets personnels (avions radiocommandés, vélos) sont aussi ici.</p>
-      <p class="intro en">I ride road bikes, mostly over long distances and on bike-touring trips. My personal projects (radio-controlled planes, bikes) are here too.</p>
-      <div class="tiles cols-3">
+      <p class="intro fr">Je pratique le vélo de route, surtout sur longues distances et en itinérance. Mes projets personnels (modélisme RC, vélos) sont aussi ici.</p>
+      <p class="intro en">I ride road bikes, mostly over long distances and on bike-touring trips. My personal projects (RC modelling, bikes) are here too.</p>
+
+      <h3 class="sous-titre">Sport</h3>
+      <div class="tiles cols-4">
         <button class="tile" style="--img:url('tuile-velo.jpg')" onclick="openSection('d-velo')">
           <span class="tile-img"></span>
           <span class="tile-body">
@@ -218,6 +223,10 @@
             <span class="tile-preview"><span class="fr">À compléter.</span><span class="en">To be completed.</span></span>
           </span>
         </button>
+      </div>
+
+      <h3 class="sous-titre"><span class="fr">Autres activités</span><span class="en">Other activities</span></h3>
+      <div class="tiles cols-2">
         <button class="tile" style="--img:url('tuile-velos.jpg')" onclick="openSection('d-velos')">
           <span class="tile-img"></span>
           <span class="tile-body">
@@ -225,11 +234,11 @@
             <span class="tile-preview"><span class="fr">Un fixie monté sur un cadre acier des années 1970 (2025).</span><span class="en">A fixie built on a 1970s steel frame (2025).</span></span>
           </span>
         </button>
-        <button class="tile" style="--img:url('tuile-avions.jpg')" onclick="openSection('d-avions')">
+        <button class="tile" style="--img:url('tuile-modelisme.jpg')" onclick="openSection('d-modelisme')">
           <span class="tile-img"></span>
           <span class="tile-body">
-            <span class="tile-title"><span class="fr">Avions radiocommandés</span><span class="en">Radio-controlled aircraft</span></span>
-            <span class="tile-preview"><span class="fr">Deux avions en carton mousse construits en 2024.</span><span class="en">Two foam-board planes built in 2024.</span></span>
+            <span class="tile-title"><span class="fr">Modélisme RC</span><span class="en">RC modelling</span></span>
+            <span class="tile-preview"><span class="fr">Avions en carton mousse (2024) et voitures RC bricolées.</span><span class="en">Foam-board planes (2024) and RC cars I tinkered with.</span></span>
           </span>
         </button>
       </div>
@@ -239,14 +248,20 @@
       <h2><span class="fr">Projet professionnel</span><span class="en">Career Development</span></h2>
       <p class="intro fr">Mon projet professionnel, éclairé par le parcours de professionnels que j'ai rencontrés.</p>
       <p class="intro en">My career plans, seen through the career paths of professionals I met.</p>
-      <div class="tiles cols-4">
+
+      <h3 class="sous-titre"><span class="fr">Mon projet</span><span class="en">My plans</span></h3>
+      <div class="tiles cols-1">
         <button class="tile" style="--img:url('tuile-projet.jpg')" onclick="openSection('d-projet')">
           <span class="tile-img"></span>
           <span class="tile-body">
-            <span class="tile-title"><span class="fr">Mon projet</span><span class="en">My plans</span></span>
-            <span class="tile-preview"><span class="fr">À compléter.</span><span class="en">To be completed.</span></span>
+            <span class="tile-title"><span class="fr">Ce que je vise</span><span class="en">What I'm aiming for</span></span>
+            <span class="tile-preview"><span class="fr">À compléter : domaine, type de poste, prochaines étapes.</span><span class="en">To be completed: field, type of role, next steps.</span></span>
           </span>
         </button>
+      </div>
+
+      <h3 class="sous-titre"><span class="fr">Mes rencontres</span><span class="en">The professionals I met</span></h3>
+      <div class="tiles cols-3">
         <button class="tile" style="--img:url('tuile-pro1.jpg')" onclick="openSection('d-pro1')">
           <span class="tile-img"></span>
           <span class="tile-body">
@@ -386,9 +401,11 @@
     -->
   </section>
 
-  <section id="d-avions" class="detail c5">
+  <section id="d-modelisme" class="detail c5">
     <button class="back" onclick="goHome('s-sport')">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Avions radiocommandés</span><span class="en">Radio-controlled aircraft</span></h2>
+    <h2><span class="fr">Modélisme RC</span><span class="en">RC modelling</span></h2>
+
+    <h3><span class="fr">Avions</span><span class="en">Aircraft</span></h3>
     <p class="fr">En 2024, j'ai construit deux avions radiocommandés en carton mousse, en parallèle, à partir de plans trouvés en ligne. Les deux se sont écrasés lors de leur premier vol, notamment à cause de mon manque d'expérience en pilotage. J'ai arrêté ces projets : d'une part, je n'avais pas le budget pour acheter un simulateur sur PC ; d'autre part, et surtout, je n'avais pas de terrain dégagé et accessible pour faire voler les avions en sécurité. Ces projets ont été mes premiers pas dans l'électronique, aussi bien de puissance que d'information.</p>
     <p class="en">In 2024, I built two radio-controlled aircraft from foam board, side by side, using plans I found online. Both crashed on their first flight, mainly because of my lack of piloting experience. I stopped the projects: I had no budget for a PC flight simulator and, above all, no open, accessible field where I could fly the planes safely. These projects were my first steps into electronics, both power and signal electronics.</p>
     <!--
@@ -397,12 +414,16 @@
       <figcaption><span class="fr">Un des deux avions avant son premier vol.</span><span class="en">One of the two planes before its first flight.</span></figcaption>
     </figure>
     -->
+
+    <h3><span class="fr">Voitures</span><span class="en">Cars</span></h3>
+    <p class="fr">À compléter : les voitures RC que j'ai eues et bricolées (modèles, modifications, ce que j'en ai appris).</p>
+    <p class="en">To be completed: the RC cars I owned and tinkered with (models, modifications, what I learned).</p>
   </section>
 
   <!-- PAGES DÉTAILLÉES : Projet professionnel -->
   <section id="d-projet" class="detail c6">
     <button class="back" onclick="goHome('s-career')">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Mon projet</span><span class="en">My plans</span></h2>
+    <h2><span class="fr">Ce que je vise</span><span class="en">What I'm aiming for</span></h2>
     <p class="fr">À compléter : le domaine et le type de poste que je vise, ce qui m'attire, les prochaines étapes.</p>
     <p class="en">To be completed: the field and type of role I'm aiming for, what attracts me, the next steps.</p>
   </section>
