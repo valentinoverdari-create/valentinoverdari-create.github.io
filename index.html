@@ -5,15 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Valentino – e-portfolio</title>
   <style>
-    body { font-family: sans-serif; max-width: 900px; margin: 0 auto; padding: 1rem; }
-    header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
-    nav { position: sticky; top: 0; background: white; padding: .5rem 0; border-bottom: 1px solid #ccc; }
-    nav button { padding: .4rem .7rem; margin: .15rem; cursor: pointer; }
-    .card { border: 1px solid #ccc; border-radius: 8px; padding: 1rem; margin: 1rem 0; scroll-margin-top: calc(var(--nav-h, 100px) + 10px); }
-    .card h2 { margin-top: 0; cursor: pointer; }
-    .detail { display: none; }
+    :root { --navy: #1f2a44; }
+    body { font-family: sans-serif; max-width: 960px; margin: 0 auto; padding: 0 1rem 1rem; background: #f6f7fb; color: #222; }
+
+    /* Couleurs par rubrique */
+    .c1 { --c: #2a6f97; }
+    .c2 { --c: #6a4c93; }
+    .c3 { --c: #12776c; }
+    .c4 { --c: #b85c00; }
+    .c5 { --c: #c8372d; }
+    .c6 { --c: #2e7d32; }
+
+    header { background: var(--navy); color: white; padding: 1.2rem 1rem; border-radius: 0 0 12px 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
+    header h1 { margin: 0; }
+    header p { margin: .2rem 0 0; }
+    header button { padding: .4rem .8rem; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; }
+
+    nav { position: sticky; top: 0; z-index: 10; background: #f6f7fb; padding: .6rem 0; border-bottom: 1px solid #ddd; }
+    nav button { padding: .4rem .8rem; margin: .15rem; cursor: pointer; border: 2px solid var(--c); background: white; color: var(--c); border-radius: 999px; font-weight: bold; font: inherit; font-weight: bold; }
+    nav button:hover { background: var(--c); color: white; }
+
+    /* Rubriques de la page d'accueil */
+    .rubrique { margin: 1.8rem 0; scroll-margin-top: calc(var(--nav-h, 100px) + 10px); }
+    .rubrique h2 { background: var(--c); color: white; padding: .6rem 1rem; border-radius: 8px; margin: 0 0 .6rem; }
+    .intro { margin: .4rem 0 1rem; }
+
+    /* Tuiles cliquables avec photo */
+    .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+    .tile {
+      height: 140px; border: none; border-radius: 10px; cursor: pointer;
+      display: flex; align-items: flex-end; text-align: left; padding: .8rem;
+      color: white; font: inherit; font-size: 1.05rem; font-weight: bold;
+      background-color: var(--c);
+      background-image: linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.65)), var(--img, none);
+      background-size: cover; background-position: center;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .tile:hover { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0,0,0,.25); }
+    .tile:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; }
+
+    /* Pages détaillées */
+    .detail { display: none; background: white; border-radius: 10px; padding: 1rem 1.2rem; margin: 1.2rem 0; }
     .detail.active { display: block; }
+    .detail h2 { border-left: 8px solid var(--c); padding-left: .6rem; color: var(--c); }
     .detail p { text-indent: 1.5em; }
+    .back { padding: .4rem .8rem; cursor: pointer; border: 2px solid var(--c); background: white; color: var(--c); border-radius: 999px; font: inherit; font-weight: bold; }
+    .back:hover { background: var(--c); color: white; }
+
     #home.hidden { display: none; }
     body.en .fr { display: none; }
     body:not(.en) .en { display: none; }
@@ -36,78 +74,89 @@
   </header>
 
   <nav>
-    <button onclick="goHome('s-welcome')"><span class="fr">Bienvenue</span><span class="en">Welcome</span></button>
-    <button onclick="goHome('s-engineering')"><span class="fr">Mon parcours</span><span class="en">Engineering course</span></button>
-    <button onclick="goHome('s-mobility')"><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></button>
-    <button onclick="goHome('s-sustainability')"><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></button>
-    <button onclick="goHome('s-sport')"><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></button>
-    <button onclick="goHome('s-career')"><span class="fr">Projet professionnel</span><span class="en">Career Development</span></button>
+    <button class="c1" onclick="goHome('s-welcome')"><span class="fr">Bienvenue</span><span class="en">Welcome</span></button>
+    <button class="c2" onclick="goHome('s-engineering')"><span class="fr">Mon parcours</span><span class="en">Engineering course</span></button>
+    <button class="c3" onclick="goHome('s-mobility')"><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></button>
+    <button class="c4" onclick="goHome('s-sustainability')"><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></button>
+    <button class="c5" onclick="goHome('s-sport')"><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></button>
+    <button class="c6" onclick="goHome('s-career')"><span class="fr">Projet professionnel</span><span class="en">Career Development</span></button>
   </nav>
 
-  <!-- PAGE D'ACCUEIL : résumés -->
+  <!-- PAGE D'ACCUEIL -->
   <main id="home">
-    <div class="card" id="s-welcome">
-      <h2 onclick="openSection('welcome')"><span class="fr">Bienvenue</span><span class="en">Welcome</span></h2>
+
+    <section class="rubrique c1" id="s-welcome">
+      <h2><span class="fr">Bienvenue</span><span class="en">Welcome</span></h2>
       <p class="fr">Élève ingénieur passionné de vélo et d'aéronautique : voici mon parcours, mes projets et mes engagements.</p>
       <p class="en">Engineering student with a passion for cycling and aeronautics: here are my background, projects and commitments.</p>
-      <button onclick="openSection('welcome')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
-    </div>
+    </section>
 
-    <div class="card" id="s-engineering">
-      <h2 onclick="openSection('engineering')"><span class="fr">Mon parcours</span><span class="en">Engineering course</span></h2>
-      <p class="fr">Élève ingénieur en première année à l'ENSEEIHT, après une classe préparatoire. Ma formation, mon TIPE, mes projets personnels et mes réalisations.</p>
-      <p class="en">First-year engineering student at ENSEEIHT, after preparatory classes. My education, my TIPE research project, my personal projects and my productions.</p>
-      <button onclick="openSection('engineering')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
-    </div>
+    <section class="rubrique c2" id="s-engineering">
+      <h2><span class="fr">Mon parcours</span><span class="en">Engineering course</span></h2>
+      <p class="intro fr">Élève ingénieur en première année à l'ENSEEIHT, après une classe préparatoire.</p>
+      <p class="intro en">First-year engineering student at ENSEEIHT, after preparatory classes.</p>
+      <div class="tiles">
+        <button class="tile" style="--img:url('tuile-formation.jpg')" onclick="openSection('d-formation')"><span class="fr">Formation</span><span class="en">Education</span></button>
+        <button class="tile" style="--img:url('tuile-tipe.jpg')" onclick="openSection('d-tipe')"><span>TIPE</span></button>
+        <button class="tile" style="--img:url('tuile-avions.jpg')" onclick="openSection('d-avions')"><span class="fr">Avions radiocommandés</span><span class="en">Radio-controlled aircraft</span></button>
+        <button class="tile" style="--img:url('tuile-velos.jpg')" onclick="openSection('d-velos')"><span class="fr">Projets vélo</span><span class="en">Bike projects</span></button>
+        <button class="tile" style="--img:url('tuile-realisations.jpg')" onclick="openSection('d-realisations')"><span class="fr">Réalisations</span><span class="en">Productions</span></button>
+      </div>
+    </section>
 
-    <div class="card" id="s-mobility">
-      <h2 onclick="openSection('mobility')"><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></h2>
-      <p class="fr">Projet : un stage de six mois à Turin, chez Leonardo, pendant une année de césure entre le M1 et le M2.</p>
-      <p class="en">Plan: a six-month internship in Turin at Leonardo, during a gap year between M1 and M2 (the two years of the Master's programme).</p>
-      <button onclick="openSection('mobility')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
-    </div>
+    <section class="rubrique c3" id="s-mobility">
+      <h2><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></h2>
+      <p class="intro fr">Projet : un stage de six mois à Turin, chez Leonardo, pendant une année de césure entre le M1 et le M2.</p>
+      <p class="intro en">Plan: a six-month internship in Turin at Leonardo, during a gap year between M1 and M2 (the two years of the Master's programme).</p>
+      <div class="tiles">
+        <button class="tile" style="--img:url('tuile-pce.jpg')" onclick="openSection('d-pce')"><span>PCE</span></button>
+        <button class="tile" style="--img:url('tuile-langues.jpg')" onclick="openSection('d-langues')"><span class="fr">Langues</span><span class="en">Languages</span></button>
+      </div>
+    </section>
 
-    <div class="card" id="s-sustainability">
-      <h2 onclick="openSection('sustainability')"><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
-      <p class="fr">Actions de sensibilisation : handicap et VHS (procès King Kong).</p>
-      <p class="en">Awareness-raising actions: disability and VHS (King Kong trial).</p>
-      <button onclick="openSection('sustainability')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
-    </div>
+    <section class="rubrique c4" id="s-sustainability">
+      <h2><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
+      <p class="intro fr">Actions de sensibilisation (handicap, VHS avec le procès King Kong) et bénévolat au triathlon de Choisy-au-Bac.</p>
+      <p class="intro en">Awareness-raising actions (disability, VHS with the King Kong trial) and volunteering at the Choisy-au-Bac triathlon.</p>
+      <div class="tiles">
+        <button class="tile" style="--img:url('tuile-handicap.jpg')" onclick="openSection('d-handicap')"><span class="fr">Sensibilisation au handicap</span><span class="en">Disability awareness</span></button>
+        <button class="tile" style="--img:url('tuile-kingkong.jpg')" onclick="openSection('d-kingkong')"><span class="fr">Procès King Kong (VHS)</span><span class="en">King Kong trial (VHS)</span></button>
+        <button class="tile" style="--img:url('tuile-benevolat.jpg')" onclick="openSection('d-benevolat')"><span class="fr">Bénévolat à Choisy-au-Bac</span><span class="en">Volunteering at Choisy-au-Bac</span></button>
+      </div>
+    </section>
 
-    <div class="card" id="s-sport">
-      <h2 onclick="openSection('sport')"><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></h2>
-      <p class="fr">Je pratique le vélo de route, surtout sur longues distances et en itinérance.</p>
-      <p class="en">I ride road bikes, mostly over long distances and on bike-touring trips.</p>
-      <button onclick="openSection('sport')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
-    </div>
+    <section class="rubrique c5" id="s-sport">
+      <h2><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></h2>
+      <p class="intro fr">Je pratique le vélo de route, surtout sur longues distances et en itinérance.</p>
+      <p class="intro en">I ride road bikes, mostly over long distances and on bike-touring trips.</p>
+      <div class="tiles">
+        <button class="tile" style="--img:url('tuile-velo.jpg')" onclick="openSection('d-velo')"><span class="fr">Vélo</span><span class="en">Cycling</span></button>
+        <button class="tile" style="--img:url('tuile-triathlon.jpg')" onclick="openSection('d-triathlon')"><span>Triathlon</span></button>
+        <button class="tile" style="--img:url('tuile-autres-sports.jpg')" onclick="openSection('d-autres-sports')"><span class="fr">Autres sports</span><span class="en">Other sports</span></button>
+        <button class="tile" style="--img:url('tuile-runride.jpg')" onclick="openSection('d-runride')"><span>Run &amp; Ride</span></button>
+        <button class="tile" style="--img:url('tuile-aero.jpg')" onclick="openSection('d-aero')"><span class="fr">Aéronautique</span><span class="en">Aeronautics</span></button>
+      </div>
+    </section>
 
-    <div class="card" id="s-career">
-      <h2 onclick="openSection('career')"><span class="fr">Projet professionnel</span><span class="en">Career Development</span></h2>
+    <section class="rubrique c6" id="s-career">
+      <h2><span class="fr">Projet professionnel</span><span class="en">Career Development</span></h2>
       <p class="fr">À compléter : domaine visé et prochaines étapes.</p>
       <p class="en">To be completed: target field and next steps.</p>
-      <button onclick="openSection('career')"><span class="fr">Voir le détail</span><span class="en">See details</span></button>
-    </div>
+    </section>
+
   </main>
 
-  <!-- VUES DÉTAILLÉES -->
-  <section id="welcome" class="detail">
-    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Bienvenue</span><span class="en">Welcome</span></h2>
-    <p class="fr">À compléter : présentation, ce que contient ce portfolio.</p>
-    <p class="en">To be completed: introduction, what this portfolio contains.</p>
-  </section>
-
-  <section id="engineering" class="detail">
-    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Mon parcours</span><span class="en">Engineering course</span></h2>
-
-    <h3><span class="fr">Formation</span><span class="en">Education</span></h3>
+  <!-- PAGES DÉTAILLÉES : Mon parcours -->
+  <section id="d-formation" class="detail c2">
+    <button class="back" onclick="goHome('s-engineering')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Formation</span><span class="en">Education</span></h2>
     <p class="fr">J'ai obtenu un baccalauréat général au lycée Pierre d'Ailly. J'ai ensuite fait une classe préparatoire (PCSI puis PSI) au lycée Marcelin Berthelot. À l'issue de cette formation, j'ai intégré le département 3EA (électronique, énergie électrique et automatique) de l'ENSEEIHT.</p>
     <p class="en">I earned a general baccalaureate (the French high school diploma) at Lycée Pierre d'Ailly. I then attended preparatory classes for the French engineering schools (PCSI, then PSI tracks) at Lycée Marcelin Berthelot. After that, I joined the 3EA department (electronics, electrical engineering and automation) of ENSEEIHT.</p>
+  </section>
 
-    <h3><span class="fr">Projets</span><span class="en">Projects</span></h3>
-
-    <h4><span class="fr">TIPE</span><span class="en">TIPE (personal research project, preparatory classes)</span></h4>
+  <section id="d-tipe" class="detail c2">
+    <button class="back" onclick="goHome('s-engineering')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">TIPE</span><span class="en">TIPE (personal research project, preparatory classes)</span></h2>
     <p class="fr">Asservissement en position d'un volet d'aile d'avion. À compléter : objectif, méthode, résultats.</p>
     <p class="en">Position control of an aircraft wing flap. To be completed: goal, method, results.</p>
     <!--
@@ -116,8 +165,11 @@
       <figcaption><span class="fr">Schéma de principe de l'asservissement.</span><span class="en">Block diagram of the control system.</span></figcaption>
     </figure>
     -->
+  </section>
 
-    <h4><span class="fr">Avions radiocommandés</span><span class="en">Radio-controlled aircraft</span></h4>
+  <section id="d-avions" class="detail c2">
+    <button class="back" onclick="goHome('s-engineering')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Avions radiocommandés</span><span class="en">Radio-controlled aircraft</span></h2>
     <p class="fr">En 2024, j'ai construit deux avions radiocommandés en carton mousse, en parallèle, à partir de plans trouvés en ligne. Les deux se sont écrasés lors de leur premier vol, notamment à cause de mon manque d'expérience en pilotage. J'ai arrêté ces projets : d'une part, je n'avais pas le budget pour acheter un simulateur sur PC ; d'autre part, et surtout, je n'avais pas de terrain dégagé et accessible pour faire voler les avions en sécurité. Ces projets ont été mes premiers pas dans l'électronique, aussi bien de puissance que d'information.</p>
     <p class="en">In 2024, I built two radio-controlled aircraft from foam board, side by side, using plans I found online. Both crashed on their first flight, mainly because of my lack of piloting experience. I stopped the projects: I had no budget for a PC flight simulator and, above all, no open, accessible field where I could fly the planes safely. These projects were my first steps into electronics, both power and signal electronics.</p>
     <!--
@@ -126,8 +178,11 @@
       <figcaption><span class="fr">Un des deux avions avant son premier vol.</span><span class="en">One of the two planes before its first flight.</span></figcaption>
     </figure>
     -->
+  </section>
 
-    <h4><span class="fr">Projets vélo</span><span class="en">Bike projects</span></h4>
+  <section id="d-velos" class="detail c2">
+    <button class="back" onclick="goHome('s-engineering')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Projets vélo</span><span class="en">Bike projects</span></h2>
     <p class="fr">Grâce à ma pratique du cyclisme, j'ai appris dès le lycée les rudiments de la mécanique vélo. En 2025, j'ai franchi un cap : j'ai récupéré un cadre en acier des années 1970 pour en faire un fixie (vélo monovitesse sans roue libre). J'ai ainsi acquis une connaissance plus approfondie du rôle de chaque pièce d'un vélo, que j'ai ensuite partagée en aidant un ami à monter son propre fixie.</p>
     <p class="en">Cycling taught me the basics of bike mechanics back in high school. In 2025, I took it a step further: I salvaged a 1970s steel frame and turned it into a fixie (a single-speed bike with no freewheel). This gave me a much deeper understanding of how each part of a bike works, which I then shared by helping a friend build their own fixie.</p>
     <!--
@@ -136,43 +191,56 @@
       <figcaption><span class="fr">Mon fixie terminé.</span><span class="en">My finished fixie.</span></figcaption>
     </figure>
     -->
+  </section>
 
-    <h3><span class="fr">Réalisations</span><span class="en">Productions</span></h3>
+  <section id="d-realisations" class="detail c2">
+    <button class="back" onclick="goHome('s-engineering')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Réalisations</span><span class="en">Productions</span></h2>
     <p class="fr">À compléter : rapports, présentations, rendus.</p>
     <p class="en">To be completed: reports, presentations, deliverables.</p>
   </section>
 
-  <section id="mobility" class="detail">
-    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></h2>
-
-    <h3>PCE</h3>
+  <!-- PAGES DÉTAILLÉES : Mobilité internationale -->
+  <section id="d-pce" class="detail c3">
+    <button class="back" onclick="goHome('s-mobility')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2>PCE</h2>
     <p class="fr">À compléter.</p>
     <p class="en">To be completed.</p>
+  </section>
 
-    <h3><span class="fr">LV2 et autres langues</span><span class="en">LV2 and other languages</span></h3>
+  <section id="d-langues" class="detail c3">
+    <button class="back" onclick="goHome('s-mobility')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">LV2 et autres langues</span><span class="en">LV2 and other languages</span></h2>
     <p class="fr">LV2 : langue des signes. Italien : ma langue paternelle. Allemand : étudié au collège et au lycée, niveau élémentaire.</p>
     <p class="en">LV2: sign language. Italian: my paternal language. German: studied in middle and high school, basic level.</p>
   </section>
 
-  <section id="sustainability" class="detail">
-    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
-
-    <h3><span class="fr">Sensibilisation au handicap</span><span class="en">Disability awareness</span></h3>
+  <!-- PAGES DÉTAILLÉES : Engagement -->
+  <section id="d-handicap" class="detail c4">
+    <button class="back" onclick="goHome('s-sustainability')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Sensibilisation au handicap</span><span class="en">Disability awareness</span></h2>
     <p class="fr">À compléter : ce que j'ai fait, mon rôle, ce que j'en retiens.</p>
     <p class="en">To be completed: what I did, my role, what I took from it.</p>
+  </section>
 
-    <h3><span class="fr">Procès King Kong (VHS)</span><span class="en">King Kong trial (VHS)</span></h3>
+  <section id="d-kingkong" class="detail c4">
+    <button class="back" onclick="goHome('s-sustainability')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Procès King Kong (VHS)</span><span class="en">King Kong trial (VHS)</span></h2>
     <p class="fr">À compléter : de quoi il s'agit (écrire VHS en toutes lettres), mon rôle.</p>
     <p class="en">To be completed: what it is (spell out VHS), my role.</p>
   </section>
 
-  <section id="sport" class="detail">
-    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></h2>
+  <section id="d-benevolat" class="detail c4">
+    <button class="back" onclick="goHome('s-sustainability')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Bénévolat au triathlon de Choisy-au-Bac</span><span class="en">Volunteering at the Choisy-au-Bac triathlon</span></h2>
+    <p class="fr">J'ai été bénévole au triathlon de Choisy-au-Bac à deux reprises : en 2022 pour signaler le parcours, puis en 2023 comme vélo-balai. À compléter : ce que j'en retiens.</p>
+    <p class="en">I volunteered twice at the Choisy-au-Bac triathlon: in 2022 as a course marshal, signalling the route to the athletes, and in 2023 as a sweep rider, closing the race behind the last participants. To be completed: what I took from it.</p>
+  </section>
 
-    <h3><span class="fr">Vélo</span><span class="en">Cycling</span></h3>
+  <!-- PAGES DÉTAILLÉES : Sport et autres activités -->
+  <section id="d-velo" class="detail c5">
+    <button class="back" onclick="goHome('s-sport')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Vélo</span><span class="en">Cycling</span></h2>
     <p class="fr">Je pratique le vélo de route, surtout sur longues distances et en itinérance. Pour ma première itinérance, je suis parti seul avec ma randonneuse dans l'Avesnois. Ce que je retiens surtout, ce sont les rencontres faites en chemin, qui m'ont aidé à ne pas me sentir seul pendant ces quatre jours.</p>
     <p class="en">I ride road bikes, mostly over long distances and on bike-touring trips. For my first tour, I set off alone on my touring bike through the Avesnois region in northern France. What I remember most are the people I met along the way, who kept me from feeling lonely during those four days.</p>
     <!--
@@ -181,29 +249,34 @@
       <figcaption><span class="fr">Première itinérance dans l'Avesnois.</span><span class="en">My first bike tour in the Avesnois.</span></figcaption>
     </figure>
     -->
-
-    <h3>Triathlon</h3>
-    <p class="fr">J'ai pratiqué le triathlon pendant cinq ans, avec des compétitions de Run and Bike (course en binôme avec un seul vélo : pendant que l'un pédale, l'autre court à côté), où mon binôme et moi avons obtenu de bons résultats. J'ai retenu l'importance de la coordination au sein du binôme, et à quel point changer de partenaire peut la perturber, et donc la performance. J'ai aussi été bénévole lors du triathlon de Choisy-au-Bac, en 2022 pour signaler le parcours puis en temps que vélo-balais en 2023.</p>
-    <p class="en">I did triathlon for five years, including Run and Bike competitions (a team event for two athletes sharing one bike: while one rides, the other runs alongside), where my partner and I got good results. What stayed with me is how important coordination within the pair is, and how much changing partners can disrupt it, and therefore performance. I also volunteered at the Choisy-au-Bac triathlon, in 2022 to report the route and in 2023 as a broom bike.</p>
-    
-    <h3><span class="fr">Autres sports</span><span class="en">Other sports</span></h3>
-    <p class="fr">J'ai joué au rugby pendant quatre ans, ce qui m'a appris l'esprit d'équipe. J'ai aussi suivi plusieurs stages de catamaran : ils m'ont ouvert à une autre culture du sport et appris à manœuvrer en binôme.</p>
-    <p class="en">I played rugby for four years, which taught me team spirit. I also took several catamaran sailing courses, which opened me up to a different sporting culture and taught me to handle a boat as a pair.</p>
-
-    <h3>Run &amp; Ride</h3>
-    <p class="fr">À compléter.</p>
-    <p class="en">To be completed.</p>
-
-    <h3><span class="fr">Aéronautique</span><span class="en">Aeronautics</span></h3>
-    <p class="fr">En 2024, j'ai passé le BIA (brevet d'initiation à l'aéronautique) et, à cette occasion, effectué mes baptêmes de l'air en avion et en planeur.</p>
-    <p class="en">In 2024, I took the BIA (a French aeronautics initiation certificate) and, as part of it, went on my first flights in a plane and a glider.</p>
   </section>
 
-  <section id="career" class="detail">
-    <button onclick="goHome()">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Projet professionnel</span><span class="en">Career Development</span></h2>
+  <section id="d-triathlon" class="detail c5">
+    <button class="back" onclick="goHome('s-sport')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2>Triathlon</h2>
+    <p class="fr">J'ai pratiqué le triathlon pendant cinq ans, avec des compétitions de Run and Bike (course en binôme avec un seul vélo : pendant que l'un pédale, l'autre court à côté), où mon binôme et moi avons obtenu de bons résultats. J'ai retenu l'importance de la coordination au sein du binôme, et à quel point changer de partenaire peut la perturber, et donc la performance. J'ai aussi été bénévole au triathlon de Choisy-au-Bac (voir « Développement durable et engagement citoyen »).</p>
+    <p class="en">I did triathlon for five years, including Run and Bike competitions (a team event for two athletes sharing one bike: while one rides, the other runs alongside), where my partner and I got good results. What stayed with me is how important coordination within the pair is, and how much changing partners can disrupt it, and therefore performance. I also volunteered at the Choisy-au-Bac triathlon (see "Sustainability &amp; Civic Engagement").</p>
+  </section>
+
+  <section id="d-autres-sports" class="detail c5">
+    <button class="back" onclick="goHome('s-sport')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Autres sports</span><span class="en">Other sports</span></h2>
+    <p class="fr">J'ai joué au rugby pendant quatre ans, ce qui m'a appris l'esprit d'équipe. J'ai aussi suivi plusieurs stages de catamaran : ils m'ont ouvert à une autre culture du sport et appris à manœuvrer en binôme.</p>
+    <p class="en">I played rugby for four years, which taught me team spirit. I also took several catamaran sailing courses, which opened me up to a different sporting culture and taught me to handle a boat as a pair.</p>
+  </section>
+
+  <section id="d-runride" class="detail c5">
+    <button class="back" onclick="goHome('s-sport')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2>Run &amp; Ride</h2>
     <p class="fr">À compléter.</p>
     <p class="en">To be completed.</p>
+  </section>
+
+  <section id="d-aero" class="detail c5">
+    <button class="back" onclick="goHome('s-sport')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Aéronautique</span><span class="en">Aeronautics</span></h2>
+    <p class="fr">En 2024, j'ai passé le BIA (brevet d'initiation à l'aéronautique) et, à cette occasion, effectué mes baptêmes de l'air en avion et en planeur.</p>
+    <p class="en">In 2024, I took the BIA (a French aeronautics initiation certificate) and, as part of it, went on my first flights in a plane and a glider.</p>
   </section>
 
   <footer>
