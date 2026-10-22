@@ -6,7 +6,8 @@
   <title>Valentino – e-portfolio</title>
   <style>
     :root { --navy: #1f2a44; --title: #1b5fa6; }
-    body { font-family: sans-serif; max-width: 960px; margin: 0 auto; padding: 0 1rem 1rem; background: #f6f7fb; color: #222; }
+    body { font-family: sans-serif; margin: 0; background: #f6f7fb; color: #222; }
+    .page { max-width: 960px; margin: 0 auto; padding: 0 1rem 1rem; }
 
     /* Couleurs par rubrique (boutons du menu, tuiles, boutons Retour) */
     .c1 { --c: #2a6f97; }
@@ -16,12 +17,23 @@
     .c5 { --c: #c8372d; }
     .c6 { --c: #2e7d32; }
 
-    header { background: var(--navy); color: white; padding: 1.2rem 1rem; border-radius: 0 0 12px 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
-    header h1 { margin: 0; }
-    header p { margin: .2rem 0 0; }
-    header button { padding: .4rem .8rem; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; }
+    /* Bandeau d'en-tête pleine largeur */
+    .hero {
+      position: relative; min-height: 45vh; padding: 2rem 1rem; box-sizing: border-box;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; color: white;
+      background-color: var(--navy);
+      background-image: linear-gradient(rgba(31,42,68,.82), rgba(31,42,68,.82)), var(--hero-img, none);
+      background-size: cover; background-position: center;
+    }
+    .hero h1 { margin: 0; font-size: clamp(2.4rem, 8vw, 4rem); }
+    .hero .subtitle { margin: .5rem 0 1.2rem; font-size: 1.2rem; }
+    .hero .contact a { color: white; margin: 0 .7rem; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.6); }
+    .lang { position: absolute; top: 1rem; right: 1rem; padding: .4rem .8rem; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; }
 
-    nav { position: sticky; top: 0; z-index: 10; background: #f6f7fb; padding: .6rem 0; border-bottom: 1px solid #ddd; }
+    /* Menu collant pleine largeur */
+    nav { position: sticky; top: 0; z-index: 10; background: #f6f7fb; border-bottom: 1px solid #ddd; }
+    .nav-inner { max-width: 960px; margin: 0 auto; padding: .6rem 1rem; text-align: center; }
     nav button { padding: .4rem .8rem; margin: .15rem; cursor: pointer; border: 2px solid var(--c); background: white; color: var(--c); border-radius: 999px; font: inherit; font-weight: bold; }
     nav button:hover { background: var(--c); color: white; }
 
@@ -31,7 +43,8 @@
     .sous-titre { text-align: center; font-size: 1.3rem; color: var(--title); margin: 1.6rem 0 .8rem; }
     .intro { text-align: center; margin: .4rem 0 1rem; }
 
-    /* Tuiles : photo en haut, titre et aperçu en dessous */
+    /* Tuiles : photo en haut, titre et aperçu en dessous.
+       Cadrage de la photo : ajoute --pos:center 30%; dans le style d'une tuile */
     .tiles { display: grid; gap: 1rem; grid-template-columns: repeat(var(--cols, 3), 1fr); }
     .cols-2 { --cols: 2; }
     .cols-3 { --cols: 3; }
@@ -49,13 +62,18 @@
       display: block; height: 120px;
       background-color: var(--c);
       background-image: linear-gradient(rgba(0,0,0,.05), rgba(0,0,0,.3)), var(--img, none);
-      background-size: cover; background-position: center;
+      background-size: cover; background-position: var(--pos, center);
     }
     .cols-1 .tile-img, .cols-2 .tile-img { height: 170px; }
     .cols-4 .tile-img { height: 100px; }
     .tile-body { display: block; padding: .7rem .8rem .9rem; border-top: 4px solid var(--c); }
     .tile-title { display: block; font-weight: bold; color: var(--c); margin-bottom: .3rem; }
     .tile-preview { display: block; font-size: .88rem; color: #444; }
+
+    /* Lignes (compétences, langues) */
+    .lignes { list-style: none; padding: 0; max-width: 640px; margin: 0 auto; }
+    .lignes li { display: flex; flex-wrap: wrap; gap: .2rem 1rem; background: white; border-radius: 8px; border-left: 4px solid var(--c); box-shadow: 0 1px 4px rgba(0,0,0,.12); padding: .7rem 1rem; margin: .5rem 0; }
+    .lignes strong { min-width: 11rem; color: var(--c); }
 
     @media (max-width: 700px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 359px) { .tiles { grid-template-columns: 1fr; } }
@@ -81,23 +99,30 @@
 </head>
 
 <body>
-  <header>
-    <div>
-      <h1>Valentino</h1>
-      <p class="fr">Élève ingénieur à l'ENSEEIHT, Toulouse</p>
-      <p class="en">Engineering student at ENSEEIHT, Toulouse</p>
-    </div>
-    <button onclick="toggleLang()">FR / EN</button>
+  <header class="hero" style="--hero-img:url('hero.jpg')">
+    <button class="lang" onclick="toggleLang()">FR / EN</button>
+    <h1>Valentino</h1>
+    <p class="subtitle fr">Élève ingénieur à l'ENSEEIHT, Toulouse</p>
+    <p class="subtitle en">Engineering student at ENSEEIHT, Toulouse</p>
+    <p class="contact">
+      <a href="mailto:ADRESSE@EXEMPLE.FR">ADRESSE@EXEMPLE.FR</a>
+      <a href="https://www.linkedin.com/in/valentino-verdari-84ba20437" target="_blank">LinkedIn</a>
+      <a href="cv.pdf" target="_blank">CV</a>
+    </p>
   </header>
 
   <nav>
-    <button class="c1" onclick="goHome('s-welcome')"><span class="fr">Bienvenue</span><span class="en">Welcome</span></button>
-    <button class="c2" onclick="goHome('s-engineering')"><span class="fr">Cursus ingénieur</span><span class="en">Engineering course</span></button>
-    <button class="c3" onclick="goHome('s-mobility')"><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></button>
-    <button class="c4" onclick="goHome('s-sustainability')"><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></button>
-    <button class="c5" onclick="goHome('s-sport')"><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></button>
-    <button class="c6" onclick="goHome('s-career')"><span class="fr">Projet professionnel</span><span class="en">Career Development</span></button>
+    <div class="nav-inner">
+      <button class="c1" onclick="goHome('s-welcome')"><span class="fr">Bienvenue</span><span class="en">Welcome</span></button>
+      <button class="c2" onclick="goHome('s-engineering')"><span class="fr">Cursus ingénieur</span><span class="en">Engineering course</span></button>
+      <button class="c3" onclick="goHome('s-mobility')"><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></button>
+      <button class="c4" onclick="goHome('s-sustainability')"><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></button>
+      <button class="c5" onclick="goHome('s-sport')"><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></button>
+      <button class="c6" onclick="goHome('s-career')"><span class="fr">Projet professionnel</span><span class="en">Career Development</span></button>
+    </div>
   </nav>
+
+  <div class="page">
 
   <!-- PAGE D'ACCUEIL -->
   <main id="home">
@@ -110,8 +135,8 @@
 
     <section class="rubrique c2" id="s-engineering">
       <h2><span class="fr">Cursus ingénieur</span><span class="en">Engineering course</span></h2>
-      <p class="intro fr">Élève ingénieur en première année à l'ENSEEIHT, après une classe préparatoire.</p>
-      <p class="intro en">First-year engineering student at ENSEEIHT, after preparatory classes.</p>
+
+      <h3 class="sous-titre"><span class="fr">Parcours</span><span class="en">Background</span></h3>
       <div class="tiles cols-3">
         <button class="tile" style="--img:url('tuile-formation.jpg')" onclick="openSection('d-formation')">
           <span class="tile-img"></span>
@@ -135,13 +160,37 @@
           </span>
         </button>
       </div>
+
+      <h3 class="sous-titre"><span class="fr">Compétences</span><span class="en">Skills</span></h3>
+      <ul class="lignes">
+        <li>
+          <strong><span class="fr">Programmation</span><span class="en">Programming</span></strong>
+          <span>C/C++, Python</span>
+        </li>
+        <li>
+          <strong><span class="fr">Conception (CAO)</span><span class="en">Design (CAD)</span></strong>
+          <span>SolidWorks</span>
+        </li>
+        <li>
+          <strong><span class="fr">Autres outils</span><span class="en">Other tools</span></strong>
+          <span class="fr">À compléter : par exemple MATLAB/Simulink, Git, LaTeX.</span>
+          <span class="en">To be completed: for example MATLAB/Simulink, Git, LaTeX.</span>
+        </li>
+      </ul>
     </section>
 
     <section class="rubrique c3" id="s-mobility">
       <h2><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></h2>
-      <p class="intro fr">Projet : un stage de six mois à Turin, chez Leonardo, pendant une année de césure entre le M1 et le M2.</p>
-      <p class="intro en">Plan: a six-month internship in Turin at Leonardo, during a gap year between M1 and M2 (the two years of the Master's programme).</p>
+
+      <h3 class="sous-titre"><span class="fr">Projets</span><span class="en">Projects</span></h3>
       <div class="tiles cols-2">
+        <button class="tile" style="--img:url('tuile-mobilite.jpg')" onclick="openSection('d-mobilite')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Projet de mobilité</span><span class="en">Mobility plan</span></span>
+            <span class="tile-preview"><span class="fr">Stage de six mois à Turin, chez Leonardo, pendant une année de césure entre le M1 et le M2.</span><span class="en">Six-month internship in Turin at Leonardo, during a gap year between M1 and M2.</span></span>
+          </span>
+        </button>
         <button class="tile" style="--img:url('tuile-pce.jpg')" onclick="openSection('d-pce')">
           <span class="tile-img"></span>
           <span class="tile-body">
@@ -149,20 +198,30 @@
             <span class="tile-preview"><span class="fr">À compléter.</span><span class="en">To be completed.</span></span>
           </span>
         </button>
-        <button class="tile" style="--img:url('tuile-langues.jpg')" onclick="openSection('d-langues')">
-          <span class="tile-img"></span>
-          <span class="tile-body">
-            <span class="tile-title"><span class="fr">Langues</span><span class="en">Languages</span></span>
-            <span class="tile-preview"><span class="fr">Itaien (langue paternelle); Anglais; Langue des signes française; Allemand</span><span class="en">Sign language as LV2, Italian (paternal language), German.</span></span>
-          </span>
-        </button>
       </div>
+
+      <h3 class="sous-titre"><span class="fr">Langues</span><span class="en">Languages</span></h3>
+      <ul class="lignes">
+        <li>
+          <strong><span class="fr">Italien</span><span class="en">Italian</span></strong>
+          <span class="fr">Langue paternelle</span>
+          <span class="en">Paternal language</span>
+        </li>
+        <li>
+          <strong><span class="fr">Anglais</span><span class="en">English</span></strong>
+          <span class="fr">À compléter : niveau</span>
+          <span class="en">To be completed: level</span>
+        </li>
+        <li>
+          <strong><span class="fr">Langue des signes française (LV2)</span><span class="en">French sign language (LV2)</span></strong>
+          <span class="fr">À compléter : niveau</span>
+          <span class="en">To be completed: level</span>
+        </li>
+      </ul>
     </section>
 
     <section class="rubrique c4" id="s-sustainability">
       <h2><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
-      <p class="intro fr">Actions de sensibilisation (handicap, HVSS avec le procès King Kong), bénévolat au triathlon de Choisy-au-Bac et festival Futurs proches (à venir).</p>
-      <p class="intro en">Awareness-raising actions (disability, HVSS with the King Kong trial), volunteering at the Choisy-au-Bac triathlon and the upcoming Futurs proches festival.</p>
       <div class="tiles cols-4">
         <button class="tile" style="--img:url('tuile-handicap.jpg')" onclick="openSection('d-handicap')">
           <span class="tile-img"></span>
@@ -174,7 +233,7 @@
         <button class="tile" style="--img:url('tuile-kingkong.jpg')" onclick="openSection('d-kingkong')">
           <span class="tile-img"></span>
           <span class="tile-body">
-            <span class="tile-title"><span class="fr">Procès King Kong (VHS)</span><span class="en">King Kong trial (VHS)</span></span>
+            <span class="tile-title"><span class="fr">Procès King Kong (HVSS)</span><span class="en">King Kong trial (HVSS)</span></span>
             <span class="tile-preview"><span class="fr">À compléter.</span><span class="en">To be completed.</span></span>
           </span>
         </button>
@@ -188,8 +247,8 @@
         <button class="tile" style="--img:url('tuile-journee.jpg')" onclick="openSection('d-journee')">
           <span class="tile-img"></span>
           <span class="tile-body">
-            <span class="tile-title"><span class="fr">Festival Futurs Proches</span><span class="en">Futurs proches festival</span></span>
-            <span class="tile-preview"><span class="fr">Festival des campus en transition : atelier Fresqu'Aéro et Conférence alimentation végétale : pourquoi, comment ?.</span><span class="en">Campuses in transition festival: Fresqu'Aéro workshop and a talk (upcoming).</span></span>
+            <span class="tile-title"><span class="fr">Festival Futurs proches</span><span class="en">Futurs proches festival</span></span>
+            <span class="tile-preview"><span class="fr">Atelier Fresqu'Aéro et conférence sur l'alimentation végétale (à venir).</span><span class="en">Fresqu'Aéro workshop and a talk on plant-based food (upcoming).</span></span>
           </span>
         </button>
       </div>
@@ -197,8 +256,6 @@
 
     <section class="rubrique c5" id="s-sport">
       <h2><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></h2>
-      <p class="intro fr">Je pratique le vélo de route, surtout sur longues distances et en itinérance. Mes projets personnels (modélisme RC, vélos) sont aussi ici.</p>
-      <p class="intro en">I ride road bikes, mostly over long distances and on bike-touring trips. My personal projects (RC modelling, bikes) are here too.</p>
 
       <h3 class="sous-titre">Sport</h3>
       <div class="tiles cols-4">
@@ -245,7 +302,7 @@
           <span class="tile-img"></span>
           <span class="tile-body">
             <span class="tile-title"><span class="fr">Modélisme RC</span><span class="en">RC modelling</span></span>
-            <span class="tile-preview"><span class="fr">Avions en carton mousse (2024) et voitures RC.</span><span class="en">Foam-board planes (2024) and RC cars I tinkered with.</span></span>
+            <span class="tile-preview"><span class="fr">Avions en carton mousse (2024) et voitures RC.</span><span class="en">Foam-board planes (2024) and RC cars.</span></span>
           </span>
         </button>
       </div>
@@ -253,8 +310,6 @@
 
     <section class="rubrique c6" id="s-career">
       <h2><span class="fr">Projet professionnel</span><span class="en">Career Development</span></h2>
-      <p class="intro fr">Mon projet professionnel, éclairé par le parcours de professionnels que j'ai rencontrés.</p>
-      <p class="intro en">My career plans, seen through the career paths of professionals I met.</p>
 
       <h3 class="sous-titre"><span class="fr">Mon projet</span><span class="en">My plans</span></h3>
       <div class="tiles cols-1">
@@ -301,16 +356,16 @@
     <h2><span class="fr">Formation</span><span class="en">Education</span></h2>
 
     <h3><span class="fr">Lycée</span><span class="en">High school</span></h3>
-    <p class="fr">J'ai obtenu un baccalauréat général au lycée Pierre d'Ailly. J'ai suivi les spécialités Mathématiques et Physique-Chimie en Terminale. C'est mon attrait pour les sciences que j'avais depuis mon enfance qui m'a orienté dans cette voie. Cela m'a permi de confirmer cette orientation, ainsi que d'obtenir un rapide aperçu dans différents domaines scientifiques. </p>
-    <p class="en">I earned a general baccalaureate (the French high school diploma) at Lycée Pierre d'Ailly. To be completed: my chosen subjects, what drew me towards science.</p>
+    <p class="fr">J'ai obtenu un baccalauréat général au lycée Pierre d'Ailly, avec les spécialités mathématiques et physique-chimie en terminale. Mon goût pour les sciences, que j'ai depuis l'enfance, m'a orienté vers cette voie. Ces spécialités ont confirmé mon choix et m'ont donné un aperçu de différents domaines scientifiques.</p>
+    <p class="en">I earned a general baccalaureate (the French high school diploma) at Lycée Pierre d'Ailly, with mathematics and physics-chemistry as my specialisation subjects in my final year. My taste for science, which I've had since childhood, led me down this path. These subjects confirmed my choice and gave me an overview of different scientific fields.</p>
 
     <h3><span class="fr">Classe préparatoire</span><span class="en">Preparatory classes</span></h3>
-    <p class="fr">J'ai fait une classe préparatoire (PCSI puis PSI) au lycée Marcelin Berthelot. J'ai choisi cette filière par préférence pour les matières que sont la physique et les sciences de l'ingénieur, car elles ont un aspect physique et pratique concret. Au cours de ces deux ans de préparation intensive aux concours, j'ai notamment acquis une solide culture scientifique. A la suite de cette formation, j'ai passé plusieurs concours, dont le concours CCINP, par lequel j'ai ensuite intégré le cursus ingénieur 3EA à l'ENSEEIHT. </p>
-    <p class="en">I attended preparatory classes for the French engineering schools (PCSI, then PSI tracks) at Lycée Marcelin Berthelot. To be completed: the entrance exam I took to join the school, what the preparatory classes taught me.</p>
+    <p class="fr">J'ai fait une classe préparatoire (PCSI puis PSI) au lycée Marcelin Berthelot. J'ai choisi cette filière par goût pour la physique et les sciences de l'ingénieur, des matières à la fois concrètes et pratiques. Pendant ces deux ans de préparation intensive aux concours, j'ai acquis une solide culture scientifique. À l'issue de cette formation, j'ai passé plusieurs concours, dont le CCINP, par lequel j'ai intégré le département 3EA de l'ENSEEIHT.</p>
+    <p class="en">I attended preparatory classes for the French engineering schools (PCSI, then PSI tracks) at Lycée Marcelin Berthelot. I chose this track out of a taste for physics and engineering sciences, subjects that are both concrete and hands-on. Over these two years of intensive preparation for the entrance exams, I built a solid scientific background. At the end of the programme, I sat several exams, including the CCINP (a common entrance exam for a large group of French engineering schools), through which I joined the 3EA department of ENSEEIHT.</p>
 
     <h3>ENSEEIHT</h3>
     <p class="fr">J'ai intégré le département 3EA (électronique, énergie électrique et automatique) de l'ENSEEIHT en septembre 2026. À compléter : pourquoi ce choix, les enseignements et projets de première année qui m'ont marqué.</p>
-    <p class="en">I joined the 3EA department (electronics, electrical engineering and automation) of ENSEEIHT. To be completed: why I chose it, the first-year courses and projects that stood out.</p>
+    <p class="en">I joined the 3EA department (electronics, electrical engineering and automation) of ENSEEIHT in September 2026. To be completed: why I chose it, the first-year courses and projects that stood out.</p>
   </section>
 
   <section id="d-tipe" class="detail c2">
@@ -329,23 +384,23 @@
   <section id="d-aero" class="detail c2">
     <button class="back" onclick="goHome('s-engineering')">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2><span class="fr">Aéronautique</span><span class="en">Aeronautics</span></h2>
-    <p class="fr">En 2024, j'ai passé le BIA (brevet d'initiation à l'aéronautique) et, à cette occasion, effectué mes baptêmes de l'air en avion et en planeur. Ce fut mon premier contact avec le monde de l'aviation, et notamment l'aviation civile. J'ai </p>
-    <p class="en">In 2024, I took the BIA (a French aeronautics initiation certificate) and, as part of it, went on my first flights in a plane and a glider.</p>
+    <p class="fr">En 2024, j'ai passé le BIA (brevet d'initiation à l'aéronautique) et, à cette occasion, effectué mes baptêmes de l'air en avion et en planeur. Ce fut mon premier contact avec le monde de l'aviation, et notamment l'aviation civile. À compléter : ce que j'en ai retenu.</p>
+    <p class="en">In 2024, I took the BIA (a French aeronautics initiation certificate) and, as part of it, went on my first flights in a plane and a glider. It was my first contact with the world of aviation, and in particular civil aviation. To be completed: what I took from it.</p>
   </section>
 
   <!-- PAGES DÉTAILLÉES : Mobilité internationale -->
+  <section id="d-mobilite" class="detail c3">
+    <button class="back" onclick="goHome('s-mobility')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Projet de mobilité</span><span class="en">Mobility plan</span></h2>
+    <p class="fr">Je prévois un stage de six mois à Turin, chez Leonardo, pendant une année de césure entre le M1 et le M2. À compléter : pourquoi Turin et Leonardo, ce que j'en attends, les démarches.</p>
+    <p class="en">I'm planning a six-month internship in Turin at Leonardo, during a gap year between M1 and M2 (the two years of the Master's programme). To be completed: why Turin and Leonardo, what I expect from it, the steps involved.</p>
+  </section>
+
   <section id="d-pce" class="detail c3">
     <button class="back" onclick="goHome('s-mobility')">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2>PCE</h2>
     <p class="fr">À compléter.</p>
     <p class="en">To be completed.</p>
-  </section>
-
-  <section id="d-langues" class="detail c3">
-    <button class="back" onclick="goHome('s-mobility')">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">LV2 et autres langues</span><span class="en">LV2 and other languages</span></h2>
-    <p class="fr">LV2 : langue des signes. Italien : ma langue paternelle. Allemand : étudié au collège et au lycée, niveau élémentaire.</p>
-    <p class="en">LV2: sign language. Italian: my paternal language. German: studied in middle and high school, basic level.</p>
   </section>
 
   <!-- PAGES DÉTAILLÉES : Engagement -->
@@ -360,7 +415,7 @@
     <button class="back" onclick="goHome('s-sustainability')">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2><span class="fr">Procès King Kong (HVSS)</span><span class="en">King Kong trial (HVSS)</span></h2>
     <p class="fr">À compléter : de quoi il s'agit (écrire HVSS en toutes lettres), mon rôle.</p>
-    <p class="en">To be completed: what it is (spell out VHS), my role.</p>
+    <p class="en">To be completed: what it is (spell out HVSS), my role.</p>
   </section>
 
   <section id="d-benevolat" class="detail c4">
@@ -500,6 +555,8 @@
     <a href="cv.pdf" target="_blank">CV</a> |
     <a href="https://www.linkedin.com/in/valentino-verdari-84ba20437" target="_blank">LinkedIn</a>
   </footer>
+
+  </div>
 
   <script>
     function hideDetails() {
