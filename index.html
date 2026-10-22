@@ -22,7 +22,7 @@
     header button { padding: .4rem .8rem; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; }
 
     nav { position: sticky; top: 0; z-index: 10; background: #f6f7fb; padding: .6rem 0; border-bottom: 1px solid #ddd; }
-    nav button { padding: .4rem .8rem; margin: .15rem; cursor: pointer; border: 2px solid var(--c); background: white; color: var(--c); border-radius: 999px; font-weight: bold; font: inherit; font-weight: bold; }
+    nav button { padding: .4rem .8rem; margin: .15rem; cursor: pointer; border: 2px solid var(--c); background: white; color: var(--c); border-radius: 999px; font: inherit; font-weight: bold; }
     nav button:hover { background: var(--c); color: white; }
 
     /* Rubriques de la page d'accueil */
@@ -30,19 +30,33 @@
     .rubrique h2 { background: var(--c); color: white; padding: .6rem 1rem; border-radius: 8px; margin: 0 0 .6rem; }
     .intro { margin: .4rem 0 1rem; }
 
-    /* Tuiles cliquables avec photo */
-    .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+    /* Tuiles : photo en haut, titre et aperçu en dessous */
+    .tiles { display: grid; gap: 1rem; grid-template-columns: repeat(var(--cols, 3), 1fr); }
+    .cols-2 { --cols: 2; }
+    .cols-3 { --cols: 3; }
+    .cols-4 { --cols: 4; }
     .tile {
-      height: 140px; border: none; border-radius: 10px; cursor: pointer;
-      display: flex; align-items: flex-end; text-align: left; padding: .8rem;
-      color: white; font: inherit; font-size: 1.05rem; font-weight: bold;
-      background-color: var(--c);
-      background-image: linear-gradient(rgba(0,0,0,.15), rgba(0,0,0,.65)), var(--img, none);
-      background-size: cover; background-position: center;
+      display: flex; flex-direction: column; padding: 0; border: none; border-radius: 10px;
+      overflow: hidden; background: white; box-shadow: 0 1px 4px rgba(0,0,0,.18);
+      cursor: pointer; text-align: left; font: inherit; color: inherit;
       transition: transform .15s, box-shadow .15s;
     }
     .tile:hover { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0,0,0,.25); }
     .tile:focus-visible { outline: 3px solid var(--navy); outline-offset: 2px; }
+    .tile-img {
+      display: block; height: 120px;
+      background-color: var(--c);
+      background-image: linear-gradient(rgba(0,0,0,.05), rgba(0,0,0,.3)), var(--img, none);
+      background-size: cover; background-position: center;
+    }
+    .cols-2 .tile-img { height: 170px; }
+    .cols-4 .tile-img { height: 100px; }
+    .tile-body { display: block; padding: .7rem .8rem .9rem; border-top: 4px solid var(--c); }
+    .tile-title { display: block; font-weight: bold; color: var(--c); margin-bottom: .3rem; }
+    .tile-preview { display: block; font-size: .88rem; color: #444; }
+
+    @media (max-width: 700px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 359px) { .tiles { grid-template-columns: 1fr; } }
 
     /* Pages détaillées */
     .detail { display: none; background: white; border-radius: 10px; padding: 1rem 1.2rem; margin: 1.2rem 0; }
@@ -75,7 +89,7 @@
 
   <nav>
     <button class="c1" onclick="goHome('s-welcome')"><span class="fr">Bienvenue</span><span class="en">Welcome</span></button>
-    <button class="c2" onclick="goHome('s-engineering')"><span class="fr">Mon parcours</span><span class="en">Engineering course</span></button>
+    <button class="c2" onclick="goHome('s-engineering')"><span class="fr">Cursus ingénieur</span><span class="en">Engineering course</span></button>
     <button class="c3" onclick="goHome('s-mobility')"><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></button>
     <button class="c4" onclick="goHome('s-sustainability')"><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></button>
     <button class="c5" onclick="goHome('s-sport')"><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></button>
@@ -92,15 +106,31 @@
     </section>
 
     <section class="rubrique c2" id="s-engineering">
-      <h2><span class="fr">Mon parcours</span><span class="en">Engineering course</span></h2>
+      <h2><span class="fr">Cursus ingénieur</span><span class="en">Engineering course</span></h2>
       <p class="intro fr">Élève ingénieur en première année à l'ENSEEIHT, après une classe préparatoire.</p>
       <p class="intro en">First-year engineering student at ENSEEIHT, after preparatory classes.</p>
-      <div class="tiles">
-        <button class="tile" style="--img:url('tuile-formation.jpg')" onclick="openSection('d-formation')"><span class="fr">Formation</span><span class="en">Education</span></button>
-        <button class="tile" style="--img:url('tuile-tipe.jpg')" onclick="openSection('d-tipe')"><span>TIPE</span></button>
-        <button class="tile" style="--img:url('tuile-avions.jpg')" onclick="openSection('d-avions')"><span class="fr">Avions radiocommandés</span><span class="en">Radio-controlled aircraft</span></button>
-        <button class="tile" style="--img:url('tuile-velos.jpg')" onclick="openSection('d-velos')"><span class="fr">Projets vélo</span><span class="en">Bike projects</span></button>
-        <button class="tile" style="--img:url('tuile-realisations.jpg')" onclick="openSection('d-realisations')"><span class="fr">Réalisations</span><span class="en">Productions</span></button>
+      <div class="tiles cols-3">
+        <button class="tile" style="--img:url('tuile-formation.jpg')" onclick="openSection('d-formation')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Formation</span><span class="en">Education</span></span>
+            <span class="tile-preview"><span class="fr">Bac général, prépa PCSI puis PSI, puis département 3EA de l'ENSEEIHT.</span><span class="en">General baccalaureate, PCSI then PSI prep, then the 3EA department of ENSEEIHT.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-tipe.jpg')" onclick="openSection('d-tipe')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title">TIPE</span>
+            <span class="tile-preview"><span class="fr">Asservissement en position d'un volet d'aile d'avion.</span><span class="en">Position control of an aircraft wing flap.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-aero.jpg')" onclick="openSection('d-aero')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Aéronautique</span><span class="en">Aeronautics</span></span>
+            <span class="tile-preview"><span class="fr">BIA et baptêmes de l'air en avion et en planeur (2024).</span><span class="en">BIA certificate and first flights in a plane and a glider (2024).</span></span>
+          </span>
+        </button>
       </div>
     </section>
 
@@ -108,9 +138,21 @@
       <h2><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></h2>
       <p class="intro fr">Projet : un stage de six mois à Turin, chez Leonardo, pendant une année de césure entre le M1 et le M2.</p>
       <p class="intro en">Plan: a six-month internship in Turin at Leonardo, during a gap year between M1 and M2 (the two years of the Master's programme).</p>
-      <div class="tiles">
-        <button class="tile" style="--img:url('tuile-pce.jpg')" onclick="openSection('d-pce')"><span>PCE</span></button>
-        <button class="tile" style="--img:url('tuile-langues.jpg')" onclick="openSection('d-langues')"><span class="fr">Langues</span><span class="en">Languages</span></button>
+      <div class="tiles cols-2">
+        <button class="tile" style="--img:url('tuile-pce.jpg')" onclick="openSection('d-pce')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title">PCE</span>
+            <span class="tile-preview"><span class="fr">À compléter.</span><span class="en">To be completed.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-langues.jpg')" onclick="openSection('d-langues')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Langues</span><span class="en">Languages</span></span>
+            <span class="tile-preview"><span class="fr">LV2 en langue des signes, italien (langue paternelle), allemand.</span><span class="en">Sign language as LV2, Italian (paternal language), German.</span></span>
+          </span>
+        </button>
       </div>
     </section>
 
@@ -118,35 +160,120 @@
       <h2><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
       <p class="intro fr">Actions de sensibilisation (handicap, VHS avec le procès King Kong) et bénévolat au triathlon de Choisy-au-Bac.</p>
       <p class="intro en">Awareness-raising actions (disability, VHS with the King Kong trial) and volunteering at the Choisy-au-Bac triathlon.</p>
-      <div class="tiles">
-        <button class="tile" style="--img:url('tuile-handicap.jpg')" onclick="openSection('d-handicap')"><span class="fr">Sensibilisation au handicap</span><span class="en">Disability awareness</span></button>
-        <button class="tile" style="--img:url('tuile-kingkong.jpg')" onclick="openSection('d-kingkong')"><span class="fr">Procès King Kong (VHS)</span><span class="en">King Kong trial (VHS)</span></button>
-        <button class="tile" style="--img:url('tuile-benevolat.jpg')" onclick="openSection('d-benevolat')"><span class="fr">Bénévolat à Choisy-au-Bac</span><span class="en">Volunteering at Choisy-au-Bac</span></button>
+      <div class="tiles cols-3">
+        <button class="tile" style="--img:url('tuile-handicap.jpg')" onclick="openSection('d-handicap')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Sensibilisation au handicap</span><span class="en">Disability awareness</span></span>
+            <span class="tile-preview"><span class="fr">À compléter.</span><span class="en">To be completed.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-kingkong.jpg')" onclick="openSection('d-kingkong')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Procès King Kong (VHS)</span><span class="en">King Kong trial (VHS)</span></span>
+            <span class="tile-preview"><span class="fr">À compléter.</span><span class="en">To be completed.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-benevolat.jpg')" onclick="openSection('d-benevolat')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Bénévolat à Choisy-au-Bac</span><span class="en">Volunteering at Choisy-au-Bac</span></span>
+            <span class="tile-preview"><span class="fr">Signalisation du parcours en 2022, vélo-balai en 2023.</span><span class="en">Course marshal in 2022, sweep rider in 2023.</span></span>
+          </span>
+        </button>
       </div>
     </section>
 
     <section class="rubrique c5" id="s-sport">
       <h2><span class="fr">Sport et autres activités</span><span class="en">Sport &amp; other activities</span></h2>
-      <p class="intro fr">Je pratique le vélo de route, surtout sur longues distances et en itinérance.</p>
-      <p class="intro en">I ride road bikes, mostly over long distances and on bike-touring trips.</p>
-      <div class="tiles">
-        <button class="tile" style="--img:url('tuile-velo.jpg')" onclick="openSection('d-velo')"><span class="fr">Vélo</span><span class="en">Cycling</span></button>
-        <button class="tile" style="--img:url('tuile-triathlon.jpg')" onclick="openSection('d-triathlon')"><span>Triathlon</span></button>
-        <button class="tile" style="--img:url('tuile-autres-sports.jpg')" onclick="openSection('d-autres-sports')"><span class="fr">Autres sports</span><span class="en">Other sports</span></button>
-        <button class="tile" style="--img:url('tuile-runride.jpg')" onclick="openSection('d-runride')"><span>Run &amp; Ride</span></button>
-        <button class="tile" style="--img:url('tuile-aero.jpg')" onclick="openSection('d-aero')"><span class="fr">Aéronautique</span><span class="en">Aeronautics</span></button>
+      <p class="intro fr">Je pratique le vélo de route, surtout sur longues distances et en itinérance. Mes projets personnels (avions radiocommandés, vélos) sont aussi ici.</p>
+      <p class="intro en">I ride road bikes, mostly over long distances and on bike-touring trips. My personal projects (radio-controlled planes, bikes) are here too.</p>
+      <div class="tiles cols-3">
+        <button class="tile" style="--img:url('tuile-velo.jpg')" onclick="openSection('d-velo')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Vélo</span><span class="en">Cycling</span></span>
+            <span class="tile-preview"><span class="fr">Vélo de route, longues distances, première itinérance dans l'Avesnois.</span><span class="en">Road cycling, long distances, my first bike tour in the Avesnois.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-triathlon.jpg')" onclick="openSection('d-triathlon')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title">Triathlon</span>
+            <span class="tile-preview"><span class="fr">Cinq ans de triathlon, dont des compétitions de Run and Bike.</span><span class="en">Five years of triathlon, including Run and Bike competitions.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-autres-sports.jpg')" onclick="openSection('d-autres-sports')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Autres sports</span><span class="en">Other sports</span></span>
+            <span class="tile-preview"><span class="fr">Rugby pendant quatre ans, stages de catamaran.</span><span class="en">Four years of rugby, catamaran sailing courses.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-runride.jpg')" onclick="openSection('d-runride')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title">Run &amp; Ride</span>
+            <span class="tile-preview"><span class="fr">À compléter.</span><span class="en">To be completed.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-velos.jpg')" onclick="openSection('d-velos')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Projets vélo</span><span class="en">Bike projects</span></span>
+            <span class="tile-preview"><span class="fr">Un fixie monté sur un cadre acier des années 1970 (2025).</span><span class="en">A fixie built on a 1970s steel frame (2025).</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-avions.jpg')" onclick="openSection('d-avions')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Avions radiocommandés</span><span class="en">Radio-controlled aircraft</span></span>
+            <span class="tile-preview"><span class="fr">Deux avions en carton mousse construits en 2024.</span><span class="en">Two foam-board planes built in 2024.</span></span>
+          </span>
+        </button>
       </div>
     </section>
 
     <section class="rubrique c6" id="s-career">
       <h2><span class="fr">Projet professionnel</span><span class="en">Career Development</span></h2>
-      <p class="fr">À compléter : domaine visé et prochaines étapes.</p>
-      <p class="en">To be completed: target field and next steps.</p>
+      <p class="intro fr">Mon projet professionnel, éclairé par le parcours de professionnels que j'ai rencontrés.</p>
+      <p class="intro en">My career plans, seen through the career paths of professionals I met.</p>
+      <div class="tiles cols-4">
+        <button class="tile" style="--img:url('tuile-projet.jpg')" onclick="openSection('d-projet')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Mon projet</span><span class="en">My plans</span></span>
+            <span class="tile-preview"><span class="fr">À compléter.</span><span class="en">To be completed.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-pro1.jpg')" onclick="openSection('d-pro1')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Rencontre n° 1</span><span class="en">Meeting no. 1</span></span>
+            <span class="tile-preview"><span class="fr">À compléter : métier et entreprise.</span><span class="en">To be completed: job and company.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-pro2.jpg')" onclick="openSection('d-pro2')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Rencontre n° 2</span><span class="en">Meeting no. 2</span></span>
+            <span class="tile-preview"><span class="fr">À compléter : métier et entreprise.</span><span class="en">To be completed: job and company.</span></span>
+          </span>
+        </button>
+        <button class="tile" style="--img:url('tuile-pro3.jpg')" onclick="openSection('d-pro3')">
+          <span class="tile-img"></span>
+          <span class="tile-body">
+            <span class="tile-title"><span class="fr">Rencontre n° 3</span><span class="en">Meeting no. 3</span></span>
+            <span class="tile-preview"><span class="fr">À compléter : métier et entreprise.</span><span class="en">To be completed: job and company.</span></span>
+          </span>
+        </button>
+      </div>
     </section>
 
   </main>
 
-  <!-- PAGES DÉTAILLÉES : Mon parcours -->
+  <!-- PAGES DÉTAILLÉES : Cursus ingénieur -->
   <section id="d-formation" class="detail c2">
     <button class="back" onclick="goHome('s-engineering')">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2><span class="fr">Formation</span><span class="en">Education</span></h2>
@@ -167,37 +294,11 @@
     -->
   </section>
 
-  <section id="d-avions" class="detail c2">
+  <section id="d-aero" class="detail c2">
     <button class="back" onclick="goHome('s-engineering')">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Avions radiocommandés</span><span class="en">Radio-controlled aircraft</span></h2>
-    <p class="fr">En 2024, j'ai construit deux avions radiocommandés en carton mousse, en parallèle, à partir de plans trouvés en ligne. Les deux se sont écrasés lors de leur premier vol, notamment à cause de mon manque d'expérience en pilotage. J'ai arrêté ces projets : d'une part, je n'avais pas le budget pour acheter un simulateur sur PC ; d'autre part, et surtout, je n'avais pas de terrain dégagé et accessible pour faire voler les avions en sécurité. Ces projets ont été mes premiers pas dans l'électronique, aussi bien de puissance que d'information.</p>
-    <p class="en">In 2024, I built two radio-controlled aircraft from foam board, side by side, using plans I found online. Both crashed on their first flight, mainly because of my lack of piloting experience. I stopped the projects: I had no budget for a PC flight simulator and, above all, no open, accessible field where I could fly the planes safely. These projects were my first steps into electronics, both power and signal electronics.</p>
-    <!--
-    <figure>
-      <img src="avion-carton-mousse.jpg" alt="Avion radiocommandé en carton mousse">
-      <figcaption><span class="fr">Un des deux avions avant son premier vol.</span><span class="en">One of the two planes before its first flight.</span></figcaption>
-    </figure>
-    -->
-  </section>
-
-  <section id="d-velos" class="detail c2">
-    <button class="back" onclick="goHome('s-engineering')">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Projets vélo</span><span class="en">Bike projects</span></h2>
-    <p class="fr">Grâce à ma pratique du cyclisme, j'ai appris dès le lycée les rudiments de la mécanique vélo. En 2025, j'ai franchi un cap : j'ai récupéré un cadre en acier des années 1970 pour en faire un fixie (vélo monovitesse sans roue libre). J'ai ainsi acquis une connaissance plus approfondie du rôle de chaque pièce d'un vélo, que j'ai ensuite partagée en aidant un ami à monter son propre fixie.</p>
-    <p class="en">Cycling taught me the basics of bike mechanics back in high school. In 2025, I took it a step further: I salvaged a 1970s steel frame and turned it into a fixie (a single-speed bike with no freewheel). This gave me a much deeper understanding of how each part of a bike works, which I then shared by helping a friend build their own fixie.</p>
-    <!--
-    <figure>
-      <img src="fixie.jpg" alt="Vélo à pignon fixe monté sur un cadre acier des années 1970">
-      <figcaption><span class="fr">Mon fixie terminé.</span><span class="en">My finished fixie.</span></figcaption>
-    </figure>
-    -->
-  </section>
-
-  <section id="d-realisations" class="detail c2">
-    <button class="back" onclick="goHome('s-engineering')">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Réalisations</span><span class="en">Productions</span></h2>
-    <p class="fr">À compléter : rapports, présentations, rendus.</p>
-    <p class="en">To be completed: reports, presentations, deliverables.</p>
+    <h2><span class="fr">Aéronautique</span><span class="en">Aeronautics</span></h2>
+    <p class="fr">En 2024, j'ai passé le BIA (brevet d'initiation à l'aéronautique) et, à cette occasion, effectué mes baptêmes de l'air en avion et en planeur.</p>
+    <p class="en">In 2024, I took the BIA (a French aeronautics initiation certificate) and, as part of it, went on my first flights in a plane and a glider.</p>
   </section>
 
   <!-- PAGES DÉTAILLÉES : Mobilité internationale -->
@@ -272,11 +373,80 @@
     <p class="en">To be completed.</p>
   </section>
 
-  <section id="d-aero" class="detail c5">
+  <section id="d-velos" class="detail c5">
     <button class="back" onclick="goHome('s-sport')">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">Aéronautique</span><span class="en">Aeronautics</span></h2>
-    <p class="fr">En 2024, j'ai passé le BIA (brevet d'initiation à l'aéronautique) et, à cette occasion, effectué mes baptêmes de l'air en avion et en planeur.</p>
-    <p class="en">In 2024, I took the BIA (a French aeronautics initiation certificate) and, as part of it, went on my first flights in a plane and a glider.</p>
+    <h2><span class="fr">Projets vélo</span><span class="en">Bike projects</span></h2>
+    <p class="fr">Grâce à ma pratique du cyclisme, j'ai appris dès le lycée les rudiments de la mécanique vélo. En 2025, j'ai franchi un cap : j'ai récupéré un cadre en acier des années 1970 pour en faire un fixie (vélo monovitesse sans roue libre). J'ai ainsi acquis une connaissance plus approfondie du rôle de chaque pièce d'un vélo, que j'ai ensuite partagée en aidant un ami à monter son propre fixie.</p>
+    <p class="en">Cycling taught me the basics of bike mechanics back in high school. In 2025, I took it a step further: I salvaged a 1970s steel frame and turned it into a fixie (a single-speed bike with no freewheel). This gave me a much deeper understanding of how each part of a bike works, which I then shared by helping a friend build their own fixie.</p>
+    <!--
+    <figure>
+      <img src="fixie.jpg" alt="Vélo à pignon fixe monté sur un cadre acier des années 1970">
+      <figcaption><span class="fr">Mon fixie terminé.</span><span class="en">My finished fixie.</span></figcaption>
+    </figure>
+    -->
+  </section>
+
+  <section id="d-avions" class="detail c5">
+    <button class="back" onclick="goHome('s-sport')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Avions radiocommandés</span><span class="en">Radio-controlled aircraft</span></h2>
+    <p class="fr">En 2024, j'ai construit deux avions radiocommandés en carton mousse, en parallèle, à partir de plans trouvés en ligne. Les deux se sont écrasés lors de leur premier vol, notamment à cause de mon manque d'expérience en pilotage. J'ai arrêté ces projets : d'une part, je n'avais pas le budget pour acheter un simulateur sur PC ; d'autre part, et surtout, je n'avais pas de terrain dégagé et accessible pour faire voler les avions en sécurité. Ces projets ont été mes premiers pas dans l'électronique, aussi bien de puissance que d'information.</p>
+    <p class="en">In 2024, I built two radio-controlled aircraft from foam board, side by side, using plans I found online. Both crashed on their first flight, mainly because of my lack of piloting experience. I stopped the projects: I had no budget for a PC flight simulator and, above all, no open, accessible field where I could fly the planes safely. These projects were my first steps into electronics, both power and signal electronics.</p>
+    <!--
+    <figure>
+      <img src="avion-carton-mousse.jpg" alt="Avion radiocommandé en carton mousse">
+      <figcaption><span class="fr">Un des deux avions avant son premier vol.</span><span class="en">One of the two planes before its first flight.</span></figcaption>
+    </figure>
+    -->
+  </section>
+
+  <!-- PAGES DÉTAILLÉES : Projet professionnel -->
+  <section id="d-projet" class="detail c6">
+    <button class="back" onclick="goHome('s-career')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Mon projet</span><span class="en">My plans</span></h2>
+    <p class="fr">À compléter : le domaine et le type de poste que je vise, ce qui m'attire, les prochaines étapes.</p>
+    <p class="en">To be completed: the field and type of role I'm aiming for, what attracts me, the next steps.</p>
+  </section>
+
+  <section id="d-pro1" class="detail c6">
+    <button class="back" onclick="goHome('s-career')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Rencontre n° 1 : [métier, entreprise]</span><span class="en">Meeting no. 1: [job, company]</span></h2>
+    <h3><span class="fr">Son parcours</span><span class="en">Their career path</span></h3>
+    <p class="fr">À compléter : formation, étapes clés, poste actuel.</p>
+    <p class="en">To be completed: education, key steps, current role.</p>
+    <h3><span class="fr">Ce que j'en retiens</span><span class="en">What I took from it</span></h3>
+    <p class="fr">À compléter.</p>
+    <p class="en">To be completed.</p>
+    <h3><span class="fr">Lien avec mon projet</span><span class="en">Link with my plans</span></h3>
+    <p class="fr">À compléter : ce qui me ressemble, ce qui diffère, ce que ça change pour moi.</p>
+    <p class="en">To be completed: what is similar, what differs, what it changes for me.</p>
+  </section>
+
+  <section id="d-pro2" class="detail c6">
+    <button class="back" onclick="goHome('s-career')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Rencontre n° 2 : [métier, entreprise]</span><span class="en">Meeting no. 2: [job, company]</span></h2>
+    <h3><span class="fr">Son parcours</span><span class="en">Their career path</span></h3>
+    <p class="fr">À compléter : formation, étapes clés, poste actuel.</p>
+    <p class="en">To be completed: education, key steps, current role.</p>
+    <h3><span class="fr">Ce que j'en retiens</span><span class="en">What I took from it</span></h3>
+    <p class="fr">À compléter.</p>
+    <p class="en">To be completed.</p>
+    <h3><span class="fr">Lien avec mon projet</span><span class="en">Link with my plans</span></h3>
+    <p class="fr">À compléter : ce qui me ressemble, ce qui diffère, ce que ça change pour moi.</p>
+    <p class="en">To be completed: what is similar, what differs, what it changes for me.</p>
+  </section>
+
+  <section id="d-pro3" class="detail c6">
+    <button class="back" onclick="goHome('s-career')">← <span class="fr">Retour</span><span class="en">Back</span></button>
+    <h2><span class="fr">Rencontre n° 3 : [métier, entreprise]</span><span class="en">Meeting no. 3: [job, company]</span></h2>
+    <h3><span class="fr">Son parcours</span><span class="en">Their career path</span></h3>
+    <p class="fr">À compléter : formation, étapes clés, poste actuel.</p>
+    <p class="en">To be completed: education, key steps, current role.</p>
+    <h3><span class="fr">Ce que j'en retiens</span><span class="en">What I took from it</span></h3>
+    <p class="fr">À compléter.</p>
+    <p class="en">To be completed.</p>
+    <h3><span class="fr">Lien avec mon projet</span><span class="en">Link with my plans</span></h3>
+    <p class="fr">À compléter : ce qui me ressemble, ce qui diffère, ce que ça change pour moi.</p>
+    <p class="en">To be completed: what is similar, what differs, what it changes for me.</p>
   </section>
 
   <footer>
