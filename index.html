@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Valentino – e-portfolio</title>
+  <title>Valentino Verdari – e-portfolio</title>
   <style>
     :root { --navy: #1f2a44; --title: #1b5fa6; }
     body { font-family: sans-serif; margin: 0; background: #f6f7fb; color: #222; }
@@ -19,16 +19,16 @@
 
     /* Bandeau d'en-tête pleine largeur */
     .hero {
-      position: relative; min-height: 32vh; padding: 2rem 1rem; box-sizing: border-box;
+      position: relative; min-height: 40vh; padding: 2.5rem 1rem; box-sizing: border-box;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       text-align: center; color: white;
       background-color: var(--navy);
       background-image: linear-gradient(rgba(31,42,68,.82), rgba(31,42,68,.82)), var(--hero-img, none);
       background-size: cover; background-position: center;
     }
-    .hero h1 { margin: 0; font-size: clamp(2.2rem, 7vw, 3.4rem); }
-    .hero .subtitle { margin: .4rem 0 1rem; font-size: 1.15rem; }
-    .hero .contact { margin: 0; font-size: 1rem; }
+    .hero h1 { margin: 0; font-size: clamp(2.6rem, 9vw, 4.6rem); line-height: 1.1; }
+    .hero .subtitle { margin: .6rem 0 1.2rem; font-size: 1.25rem; }
+    .hero .contact { margin: 0; font-size: 1.05rem; }
     .hero .contact a { color: white; margin: 0 .6rem; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.6); }
     .lang { position: absolute; top: 1rem; right: 1rem; padding: .4rem .8rem; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; }
 
@@ -44,24 +44,34 @@
     .sous-titre { text-align: center; font-size: 1.3rem; color: var(--title); margin: 1.6rem 0 .8rem; }
     .intro { text-align: center; margin: .4rem 0 1rem; }
 
-    /* Cartes : 2 par ligne, ou pleine largeur avec .wide.
+    /* Cartes : 2 par ligne, pleine largeur avec .wide, 4 par ligne avec .cols-4.
        Cadrage de la photo : ajoute --pos:center 30%; dans le style de .card-img */
     .cards { display: grid; gap: 1.2rem; grid-template-columns: repeat(2, 1fr); }
+    .cards.cols-4 { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
     .card {
       display: flex; flex-direction: column; background: white; border-radius: 10px; overflow: hidden;
       border-top: 4px solid var(--c); box-shadow: 0 1px 4px rgba(0,0,0,.18);
     }
     .card.wide { grid-column: 1 / -1; }
     .card-img {
-      height: 170px; flex-shrink: 0;
+      position: relative; height: 170px; flex-shrink: 0;
       background-color: var(--c);
       background-image: linear-gradient(rgba(0,0,0,.05), rgba(0,0,0,.25)), var(--img, none);
       background-size: cover; background-position: var(--pos, center);
     }
+    .cols-4 .card-img { height: 110px; }
+    .icon-badge {
+      position: absolute; top: .6rem; left: .6rem; width: 2.2rem; height: 2.2rem; border-radius: 50%;
+      background: white; display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; box-shadow: 0 1px 4px rgba(0,0,0,.3);
+    }
     .card-body { padding: .9rem 1.1rem 1.1rem; }
+    .cols-4 .card-body { padding: .8rem .9rem 1rem; }
     .card-title { margin: 0 0 .5rem; color: var(--c); font-size: 1.2rem; }
+    .cols-4 .card-title { font-size: 1.05rem; }
     .card-body h5 { margin: .9rem 0 .2rem; color: #333; font-size: 1rem; }
     .card-body p { margin: .4rem 0; line-height: 1.5; }
+    .cols-4 .card-body p { font-size: .92rem; }
 
     /* Survol : toutes les cartes réagissent, seules celles qui s'ouvrent ont la main */
     .card { transition: transform .2s, box-shadow .2s; }
@@ -81,7 +91,8 @@
       .card.wide { flex-direction: row; }
       .card.wide .card-img { width: 36%; height: auto; min-height: 200px; }
     }
-    @media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .cards.cols-4 { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 700px) { .cards, .cards.cols-4 { grid-template-columns: 1fr; } }
 
     /* Lignes (compétences, langues) */
     .lignes { list-style: none; padding: 0; max-width: 640px; margin: 0 auto; }
@@ -111,11 +122,11 @@
 <body>
   <header class="hero" style="--hero-img:url('hero.jpg')">
     <button class="lang" onclick="toggleLang()">FR / EN</button>
-    <h1>Valentino</h1>
+    <h1>Valentino Verdari</h1>
     <p class="subtitle fr">Élève ingénieur à l'ENSEEIHT, Toulouse</p>
     <p class="subtitle en">Engineering student at ENSEEIHT, Toulouse</p>
     <p class="contact">
-      <a href="mailto:ADRESSE@EXEMPLE.FR">ADRESSE@EXEMPLE.FR</a>
+      <a href="mailto:valentinoverdari@gmail.com">valentinoverdari@gmail.com</a>
       <a href="https://www.linkedin.com/in/valentino-verdari-84ba20437" target="_blank">LinkedIn</a>
       <a href="cv.pdf" target="_blank">CV</a>
     </p>
@@ -170,7 +181,7 @@
         </article>
 
         <article class="card clickable" tabindex="0" role="button" onclick="openSection('d-tipe')" onkeydown="if(event.key==='Enter'){openSection('d-tipe')}">
-          <div class="card-img" style="--img:url('tuile-tipe.jpg')"></div>
+          <div class="card-img" style="--img:url('tipe-commande.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title">TIPE</h4>
             <p class="fr">Asservissement en position d'un volet d'aile d'avion. À compléter : objectif, méthode, résultats.</p>
@@ -194,7 +205,7 @@
       <ul class="lignes">
         <li>
           <strong><span class="fr">Programmation</span><span class="en">Programming</span></strong>
-          <span>C/C++, Python</span>
+          <span>C/C++, Python, SQL</span>
         </li>
         <li>
           <strong><span class="fr">Conception (CAO)</span><span class="en">Design (CAD)</span></strong>
@@ -212,10 +223,9 @@
     <section class="rubrique c3" id="s-mobility">
       <h2><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></h2>
 
-      <h3 class="sous-titre"><span class="fr">Projets</span><span class="en">Projects</span></h3>
+      <h3 class="sous-titre"><span class="fr">Projet</span><span class="en">Plan</span></h3>
       <div class="cards">
-
-        <article class="card">
+        <article class="card wide">
           <div class="card-img" style="--img:url('tuile-mobilite.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Projet de mobilité</span><span class="en">Mobility plan</span></h4>
@@ -223,20 +233,15 @@
             <p class="en">I'm planning a six-month internship in Turin at Leonardo, during a gap year between M1 and M2 (the two years of the Master's programme). To be completed: why Turin and Leonardo, what I expect from it, the steps involved.</p>
           </div>
         </article>
-
-        <article class="card">
-          <div class="card-img" style="--img:url('tuile-pce.jpg')"></div>
-          <div class="card-body">
-            <h4 class="card-title">PCE</h4>
-            <p class="fr">À compléter.</p>
-            <p class="en">To be completed.</p>
-          </div>
-        </article>
-
       </div>
 
       <h3 class="sous-titre"><span class="fr">Langues</span><span class="en">Languages</span></h3>
       <ul class="lignes">
+        <li>
+          <strong><span class="fr">Français</span><span class="en">French</span></strong>
+          <span class="fr">Langue maternelle</span>
+          <span class="en">Native language</span>
+        </li>
         <li>
           <strong><span class="fr">Italien</span><span class="en">Italian</span></strong>
           <span class="fr">Langue paternelle</span>
@@ -244,8 +249,13 @@
         </li>
         <li>
           <strong><span class="fr">Anglais</span><span class="en">English</span></strong>
-          <span class="fr">À compléter : niveau</span>
-          <span class="en">To be completed: level</span>
+          <span class="fr">À compléter : niveau actuel ou score TOEIC (B2 exigé pour le diplôme d'ingénieur)</span>
+          <span class="en">To be completed: current level or TOEIC score (B2 is required for the engineering diploma)</span>
+        </li>
+        <li>
+          <strong><span class="fr">Allemand</span><span class="en">German</span></strong>
+          <span class="fr">Étudié jusqu'en terminale (14/20 de moyenne)</span>
+          <span class="en">Studied up to the final year of high school (14/20 average)</span>
         </li>
         <li>
           <strong><span class="fr">Langue des signes française (LV2)</span><span class="en">French sign language (LV2)</span></strong>
@@ -258,43 +268,53 @@
     <!-- ENGAGEMENT -->
     <section class="rubrique c4" id="s-sustainability">
       <h2><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
-      <div class="cards">
+      <div class="cards cols-4">
 
         <article class="card">
-          <div class="card-img" style="--img:url('tuile-handicap.jpg')"></div>
+          <div class="card-img" style="--img:url('tuile-frontieres.jpg')"><span class="icon-badge" aria-hidden="true">🌍</span></div>
           <div class="card-body">
-            <h4 class="card-title"><span class="fr">Sensibilisation au handicap</span><span class="en">Disability awareness</span></h4>
-            <p class="fr">À compléter : ce que j'ai fait, mon rôle, ce que j'en retiens.</p>
-            <p class="en">To be completed: what I did, my role, what I took from it.</p>
+            <h4 class="card-title"><span class="fr">Fresque des frontières</span><span class="en">Boundaries fresco</span></h4>
+            <p class="fr">Atelier autour des 9 frontières environnementales, les critères qui permettent d'évaluer l'état de la planète et le changement climatique.</p>
+            <p class="en">Workshop on the 9 environmental boundaries, the criteria used to assess the state of the planet and climate change.</p>
+            <p class="fr">À compléter : date, ce que j'en retiens.</p>
+            <p class="en">To be completed: date, what I took from it.</p>
           </div>
         </article>
 
         <article class="card">
-          <div class="card-img" style="--img:url('tuile-kingkong.jpg')"></div>
+          <div class="card-img" style="--img:url('tuile-kingkong.jpg')"><span class="icon-badge" aria-hidden="true">🎭</span></div>
           <div class="card-body">
-            <h4 class="card-title"><span class="fr">Procès King Kong (HVSS)</span><span class="en">King Kong trial (HVSS)</span></h4>
-            <p class="fr">À compléter : de quoi il s'agit (écrire HVSS en toutes lettres), mon rôle.</p>
-            <p class="en">To be completed: what it is (spell out HVSS), my role.</p>
+            <h4 class="card-title"><span class="fr">Procès King Kong</span><span class="en">King Kong trial</span></h4>
+            <p class="fr">Pièce interactive sur le harcèlement et les violences sexistes et sexuelles (HVSS).</p>
+            <p class="en">Interactive play on harassment and sexist and sexual violence (HVSS).</p>
+            <p class="fr">À compléter : mon rôle, ce que j'en retiens.</p>
+            <p class="en">To be completed: my role, what I took from it.</p>
           </div>
         </article>
 
         <article class="card">
-          <div class="card-img" style="--img:url('tuile-benevolat.jpg')"></div>
-          <div class="card-body">
-            <h4 class="card-title"><span class="fr">Bénévolat au triathlon de Choisy-au-Bac</span><span class="en">Volunteering at the Choisy-au-Bac triathlon</span></h4>
-            <p class="fr">J'ai été bénévole au triathlon de Choisy-au-Bac à deux reprises : en 2022 pour signaler le parcours, puis en 2023 comme vélo-balai. À compléter : ce que j'en retiens.</p>
-            <p class="en">I volunteered twice at the Choisy-au-Bac triathlon: in 2022 as a course marshal, signalling the route to the athletes, and in 2023 as a sweep rider, closing the race behind the last participants. To be completed: what I took from it.</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img" style="--img:url('tuile-journee.jpg')"></div>
+          <div class="card-img" style="--img:url('tuile-journee.jpg')"><span class="icon-badge" aria-hidden="true">🌱</span></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Festival Futurs proches</span><span class="en">Futurs proches festival</span></h4>
-            <p class="fr">Futurs proches est le festival des campus en transition. Date : [à compléter]. Je participe à deux temps forts : l'atelier « Fresqu'Aéro : Aviation et climat », à l'ENAC (École nationale de l'aviation civile) à Toulouse, et la conférence « Alimentation végétale : pourquoi, comment ? ».</p>
-            <p class="en">Futurs proches is the festival of campuses in transition. Date: [to be completed]. I'm taking part in two highlights: the workshop "Fresqu'Aéro : Aviation et climat" (aviation and climate) at ENAC (the French civil aviation university) in Toulouse, and the talk "Alimentation végétale : pourquoi, comment ?" (plant-based food: why and how?).</p>
-            <p class="fr">À compléter après le festival : ce que j'ai appris et ce que j'en retiens.</p>
-            <p class="en">To be completed after the festival: what I learned and what I took from it.</p>
+            <p class="fr">Festival des campus en transition. Date : [à compléter].</p>
+            <p class="en">Festival of campuses in transition. Date: [to be completed].</p>
+
+            <h5><span class="fr">✈️ Fresqu'Aéro : Aviation et climat</span><span class="en">✈️ Fresqu'Aéro: Aviation and climate</span></h5>
+            <p class="fr">Atelier sur les enjeux de la transition écologique dans l'aéronautique, à l'ENAC (Toulouse).</p>
+            <p class="en">Workshop on the challenges of the ecological transition in aeronautics, at ENAC (Toulouse).</p>
+
+            <h5><span class="fr">🥗 Alimentation végétale : pourquoi, comment ?</span><span class="en">🥗 Plant-based food: why and how?</span></h5>
+            <p class="fr">Conférence de sensibilisation aux enjeux environnementaux d'une alimentation végétalisée.</p>
+            <p class="en">Talk raising awareness of the environmental issues of a plant-based diet.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-img" style="--img:url('tuile-benevolat.jpg')"><span class="icon-badge" aria-hidden="true">🚴</span></div>
+          <div class="card-body">
+            <h4 class="card-title"><span class="fr">Bénévolat au triathlon de Choisy-au-Bac</span><span class="en">Volunteering at the Choisy-au-Bac triathlon</span></h4>
+            <p class="fr">Signaleur de parcours en 2022, puis vélo-balai en 2023.</p>
+            <p class="en">Course marshal in 2022, then sweep rider in 2023.</p>
           </div>
         </article>
 
@@ -326,21 +346,12 @@
           </div>
         </article>
 
-        <article class="card">
+        <article class="card wide">
           <div class="card-img" style="--img:url('tuile-autres-sports.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Autres sports</span><span class="en">Other sports</span></h4>
             <p class="fr">J'ai joué au rugby pendant quatre ans, ce qui m'a appris l'esprit d'équipe. J'ai aussi suivi plusieurs stages de catamaran : ils m'ont ouvert à une autre culture du sport et appris à manœuvrer en binôme.</p>
             <p class="en">I played rugby for four years, which taught me team spirit. I also took several catamaran sailing courses, which opened me up to a different sporting culture and taught me to handle a boat as a pair.</p>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-img" style="--img:url('tuile-runride.jpg')"></div>
-          <div class="card-body">
-            <h4 class="card-title">Run &amp; Ride</h4>
-            <p class="fr">À compléter.</p>
-            <p class="en">To be completed.</p>
           </div>
         </article>
 
@@ -394,48 +405,40 @@
         <article class="card wide">
           <div class="card-img" style="--img:url('tuile-pro1.jpg')"></div>
           <div class="card-body">
-            <h4 class="card-title"><span class="fr">Rencontre n° 1 : [métier, entreprise]</span><span class="en">Meeting no. 1: [job, company]</span></h4>
+            <h4 class="card-title"><span class="fr">Rencontre n° 1 : directeur technique dans l'aéronautique</span><span class="en">Meeting no. 1: technical director in aeronautics</span></h4>
+
             <h5><span class="fr">Son parcours</span><span class="en">Their career path</span></h5>
-            <p class="fr">À compléter : formation, étapes clés, poste actuel.</p>
-            <p class="en">To be completed: education, key steps, current role.</p>
+            <p class="fr">Après un baccalauréat scientifique et des classes préparatoires, il a intégré l'ENSMM de Besançon, où il a obtenu un diplôme d'ingénieur généraliste après deux stages chez Airbus à Toulouse. Depuis plus de 25 ans, il travaille dans l'aéronautique pour des sociétés de services : calculateur de structure, chef de projet, directeur des opérations, puis directeur technique.</p>
+            <p class="en">After a scientific baccalaureate and preparatory classes, he joined the ENSMM engineering school in Besançon, where he earned a generalist engineering degree after two internships at Airbus in Toulouse. For over 25 years, he has worked in aeronautics for service companies: structural analyst, project manager, operations director, and now technical director.</p>
+            <p class="fr">Rattaché à la direction du département aéronautique, il intervient en transverse pour soutenir les différents métiers (commerce, opérations, qualité, RH) : réponses aux appels d'offres et développement commercial, application et optimisation des processus, développement des compétences, suivi de la performance des projets, digitalisation et innovation.</p>
+            <p class="en">Attached to the management of the aeronautics department, he works across functions to support the different trades (sales, operations, quality, HR): bids and business development, application and optimisation of processes, skills development, project performance monitoring, digitalisation and innovation.</p>
+
             <h5><span class="fr">Ce que j'en retiens</span><span class="en">What I took from it</span></h5>
-            <p class="fr">À compléter.</p>
-            <p class="en">To be completed.</p>
+            <p class="fr">Un parcours qui passe d'un métier très technique (calcul de structure) à la gestion de projet (relation client, suivi des coûts, des délais et de la qualité), puis à la direction des opérations et à la direction technique. Ce dernier rôle est transversal : il demande d'anticiper, de développer les compétences et d'innover, notamment avec l'IA. Il est aussi ouvert aux échanges sur l'aéronautique, la décarbonation et les nouvelles technologies.</p>
+            <p class="en">A career that moves from a very technical job (structural analysis) to project management (client relations, monitoring cost, deadlines and quality), then to operations and technical direction. This last role cuts across functions: it requires anticipating, developing skills and innovating, notably with AI. He is also happy to discuss aeronautics, decarbonisation and new technologies.</p>
+
             <h5><span class="fr">Lien avec mon projet</span><span class="en">Link with my plans</span></h5>
-            <p class="fr">À compléter : ce qui me ressemble, ce qui diffère, ce que ça change pour moi.</p>
-            <p class="en">To be completed: what is similar, what differs, what it changes for me.</p>
+            <p class="fr">Son parcours montre qu'on peut commencer par un métier très technique et évoluer vers la gestion de projet puis la direction technique, tout en restant dans l'aéronautique. Cela rejoint mon intérêt pour l'aviation (BIA, TIPE) et pour la décarbonation (atelier Fresqu'Aéro). À compléter : ce qui m'attire, ou non, dans ces postes transverses.</p>
+            <p class="en">His path shows that one can start in a very technical job and move towards project management and then technical direction, while staying in aeronautics. This echoes my interest in aviation (BIA, TIPE) and in decarbonisation (Fresqu'Aéro workshop). To be completed: what attracts me, or not, in these cross-functional roles.</p>
           </div>
         </article>
 
         <article class="card wide">
           <div class="card-img" style="--img:url('tuile-pro2.jpg')"></div>
           <div class="card-body">
-            <h4 class="card-title"><span class="fr">Rencontre n° 2 : [métier, entreprise]</span><span class="en">Meeting no. 2: [job, company]</span></h4>
-            <h5><span class="fr">Son parcours</span><span class="en">Their career path</span></h5>
-            <p class="fr">À compléter : formation, étapes clés, poste actuel.</p>
-            <p class="en">To be completed: education, key steps, current role.</p>
-            <h5><span class="fr">Ce que j'en retiens</span><span class="en">What I took from it</span></h5>
-            <p class="fr">À compléter.</p>
-            <p class="en">To be completed.</p>
-            <h5><span class="fr">Lien avec mon projet</span><span class="en">Link with my plans</span></h5>
-            <p class="fr">À compléter : ce qui me ressemble, ce qui diffère, ce que ça change pour moi.</p>
-            <p class="en">To be completed: what is similar, what differs, what it changes for me.</p>
-          </div>
-        </article>
+            <h4 class="card-title"><span class="fr">Rencontre n° 2 : ingénieur en optronique à la DGA</span><span class="en">Meeting no. 2: optronics engineer at the DGA</span></h4>
 
-        <article class="card wide">
-          <div class="card-img" style="--img:url('tuile-pro3.jpg')"></div>
-          <div class="card-body">
-            <h4 class="card-title"><span class="fr">Rencontre n° 3 : [métier, entreprise]</span><span class="en">Meeting no. 3: [job, company]</span></h4>
             <h5><span class="fr">Son parcours</span><span class="en">Their career path</span></h5>
-            <p class="fr">À compléter : formation, étapes clés, poste actuel.</p>
-            <p class="en">To be completed: education, key steps, current role.</p>
+            <p class="fr">À l'issue d'un doctorat en sciences de l'ingénieur (optique laser, acoustique, électronique), il a travaillé plus de 15 ans dans une société spécialisée dans les essais et tests sur composants et systèmes électroniques, comme ingénieur technique, formateur, puis ingénieur technico-commercial. Il a ensuite rejoint la Direction Générale de l'Armement (DGA), où il est ingénieur en optronique dans un centre d'essais : il réalise des mesures optroniques sur des missiles pour étudier leur propulsion, avec des caméras et des moyens de mesure spectrométriques.</p>
+            <p class="en">After a doctorate in engineering sciences (laser optics, acoustics, electronics), he worked for over 15 years in a company specialising in tests on electronic components and systems, as a technical engineer, trainer, and then sales engineer. He then joined the French defence procurement agency (DGA), where he is an optronics engineer in a test centre: he carries out optronic measurements on missiles to study their propulsion, using cameras and spectrometric measurement equipment.</p>
+
             <h5><span class="fr">Ce que j'en retiens</span><span class="en">What I took from it</span></h5>
-            <p class="fr">À compléter.</p>
-            <p class="en">To be completed.</p>
+            <p class="fr">Un parcours qui alterne recherche (enseignement et recherche pendant le doctorat), industrie privée (d'abord technique, puis technico-commercial : vendre au client) et service public. À la DGA, il passe des commandes d'armement, contrôle, et incite l'industrie à innover. Ses essais demandent beaucoup de mesures différentes, donc beaucoup de compétences différentes.</p>
+            <p class="en">A career that alternates between research (teaching and research during the doctorate), private industry (first technical, then sales engineering: selling to the client) and the public sector. At the DGA, the work involves ordering armaments, checking them, and encouraging industry to innovate. His tests call for many different measurements, and therefore many different skills.</p>
+
             <h5><span class="fr">Lien avec mon projet</span><span class="en">Link with my plans</span></h5>
-            <p class="fr">À compléter : ce qui me ressemble, ce qui diffère, ce que ça change pour moi.</p>
-            <p class="en">To be completed: what is similar, what differs, what it changes for me.</p>
+            <p class="fr">Ses mesures sur les missiles relèvent de l'instrumentation et de l'électronique, au cœur de ma formation en 3EA. Son parcours montre aussi qu'un doctorat peut mener à l'industrie comme au service public, et qu'on peut passer du technique au commercial. À compléter : si je me vois plutôt en recherche, en industrie ou dans le public.</p>
+            <p class="en">His missile measurements involve instrumentation and electronics, at the heart of my 3EA training. His path also shows that a doctorate can lead to industry as well as the public sector, and that one can move from technical to commercial roles. To be completed: whether I see myself in research, industry or the public sector.</p>
           </div>
         </article>
 
