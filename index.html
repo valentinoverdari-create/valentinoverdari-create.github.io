@@ -30,6 +30,9 @@
     .hero .subtitle { margin: .6rem 0 1.2rem; font-size: 1.25rem; }
     .hero .contact { margin: 0; font-size: 1.05rem; }
     .hero .contact a { color: white; margin: 0 .6rem; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.6); }
+    .hero .cv-buttons { margin-top: 1rem; }
+    .hero .contact .btn-cv { display: inline-block; padding: .35rem 1rem; border: 1px solid rgba(255,255,255,.85); border-radius: 999px; background: rgba(255,255,255,.12); font-weight: bold; }
+    .hero .contact .btn-cv:hover { background: white; color: var(--navy); }
     .lang { position: absolute; top: 1rem; right: 1rem; padding: .4rem .8rem; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; }
 
     /* Menu collant pleine largeur */
@@ -95,7 +98,7 @@
       .engagement .festival, .engagement .benevolat { grid-column: auto; grid-row: auto; }
     }
 
-    /* Lignes (compétences, langues) */
+    /* Lignes (compétences, langues, outils) */
     .lignes { list-style: none; padding: 0; max-width: 700px; margin: 0 auto; }
     .lignes li { display: flex; flex-wrap: wrap; gap: .2rem 1rem; background: white; border-radius: 8px; border-left: 4px solid var(--c); box-shadow: 0 1px 4px rgba(0,0,0,.12); padding: .7rem 1rem; margin: .5rem 0; }
     .lignes strong { min-width: 12rem; color: var(--c); }
@@ -130,8 +133,10 @@
     <p class="contact">
       <a href="mailto:valentinoverdari@gmail.com">valentinoverdari@gmail.com</a>
       <a href="https://www.linkedin.com/in/valentino-verdari-84ba20437" target="_blank">LinkedIn</a>
-      <a href="CV Valentino Verdari (Français).pdf" target="_blank">CV en Français</a>
-      <a href="CV Valentino Verdari (English).pdf" target="_blank">CV in English</a>
+    </p>
+    <p class="contact cv-buttons">
+      <a class="btn-cv" href="CV%20Valentino%20Verdari%20%28Fran%C3%A7ais%29.pdf" target="_blank">CV (Français)</a>
+      <a class="btn-cv" href="CV%20Valentino%20Verdari%20%28English%29.pdf" target="_blank">CV (English)</a>
     </p>
   </header>
 
@@ -186,8 +191,8 @@
           <div class="card-img" style="--img:url('tipe-commande.png')"></div>
           <div class="card-body">
             <h4 class="card-title">TIPE</h4>
-            <p class="fr">Asservissement en position du volet d'une aile d'avion : conception d'une maquette instrumentée, modélisation de son servomoteur et dimensionnement d'un correcteur proportionnel-intégral.</p>
-            <p class="en">Position control of an aircraft wing flap: design of an instrumented prototype, modelling of its servomotor and sizing of a proportional-integral controller.</p>
+            <p class="fr">Asservissement en position du volet d'une aile d'avion : chaînes d'acquisition et de traitement numérique pour caractériser le système, puis correcteur proportionnel-intégral.</p>
+            <p class="en">Position control of an aircraft wing flap: acquisition and digital processing chains to characterise the system, then a proportional-integral controller.</p>
             <p class="more"><span class="fr">Voir le détail →</span><span class="en">See details →</span></p>
           </div>
         </article>
@@ -477,34 +482,42 @@
     <p class="en"><em>TIPE: a supervised personal research project carried out during preparatory classes, here in a pair.</em></p>
 
     <h3><span class="fr">1. Problématique et maquette</span><span class="en">1. Problem statement and prototype</span></h3>
-    <p class="fr">Le volet, situé au bord de fuite de l'aile, permet de modifier la forme de l'aile : il augmente la portance et réduit la vitesse de décrochage au décollage et à l'atterrissage, et diminue la traînée en vol. Notre problématique : comment associer mesures aérodynamiques et asservissement numérique pour déterminer et atteindre la position angulaire du volet qui donne la performance optimale d'une aile ?</p>
-    <p class="en">The flap, located at the trailing edge of the wing, changes the shape of the wing: it increases lift and reduces the stall speed at take-off and landing, and decreases drag in flight. Our research question: how can aerodynamic measurements and digital control be combined to determine and reach the flap angle that gives the optimal performance of a wing?</p>
-    <p class="fr">Nous avons conçu et réalisé une maquette instrumentée : une aile fixée par des tiges de support (pour la soufflerie), un volet articulé par une charnière, commandé par un servomoteur et une biellette, et un capteur magnétique angulaire absolu qui mesure sa position.</p>
-    <p class="en">We designed and built an instrumented prototype: a wing held by support rods (for the wind tunnel), a flap hinged to it and driven by a servomotor and a connecting rod, and an absolute magnetic angle sensor that measures its position.</p>
-    <!--
+    <p class="fr">Le volet, situé au bord de fuite de l'aile, permet de modifier la forme de l'aile : il augmente la portance et réduit la vitesse de décrochage au décollage et à l'atterrissage, et diminue la traînée en vol. Notre problématique : comment associer mesures aérodynamiques et asservissement numérique pour déterminer et atteindre la position angulaire du volet qui donne la performance optimale d'une aile ? Pour y répondre, nous avons réalisé une maquette d'aile instrumentée, pouvant être placée en soufflerie.</p>
+    <p class="en">The flap, located at the trailing edge of the wing, changes the shape of the wing: it increases lift and reduces the stall speed at take-off and landing, and decreases drag in flight. Our research question: how can aerodynamic measurements and digital control be combined to determine and reach the flap angle that gives the optimal performance of a wing? To answer it, we built an instrumented wing prototype that can be placed in a wind tunnel.</p>
     <figure>
-      <img src="tipe-maquette.png" alt="Maquette instrumentée : aile, volet, servomoteur, biellette et capteur">
-      <figcaption><span class="fr">La maquette instrumentée.</span><span class="en">The instrumented prototype.</span></figcaption>
+      <img src="tipe-maquette.png" alt="Maquette d'aile instrumentée avec son volet" onerror="this.closest('figure').style.display='none'">
+      <figcaption><span class="fr">La maquette d'aile instrumentée.</span><span class="en">The instrumented wing prototype.</span></figcaption>
     </figure>
-    -->
 
-    <h3><span class="fr">2. Modélisation du système</span><span class="en">2. Modelling the system</span></h3>
-    <p class="fr">Nous avons modélisé le servomoteur comme un moteur à courant continu associé à un réducteur et à un potentiomètre. Les paramètres ont été identifiés expérimentalement avec une carte Arduino et des programmes Python (NumPy, SciPy, pandas, Matplotlib) : résistance R = (3,25 ± 0,03) Ω par régression linéaire, inductance L = (936 ± 9) µH à partir de la constante de temps électrique, et constante de temps mécanique τ<sub>m</sub> = (5,34 ± 0,35) ms après filtrage passe-bas des mesures.</p>
-    <p class="en">We modelled the servomotor as a DC motor combined with a gearbox and a potentiometer. The parameters were identified experimentally with an Arduino board and Python programs (NumPy, SciPy, pandas, Matplotlib): resistance R = (3.25 ± 0.03) Ω by linear regression, inductance L = (936 ± 9) µH from the electrical time constant, and mechanical time constant τ<sub>m</sub> = (5.34 ± 0.35) ms after low-pass filtering of the measurements.</p>
-    <p class="fr">Le coefficient de frottements visqueux, la constante technologique et l'inertie ont été déterminés par une méthode de Monte-Carlo afin d'estimer leurs incertitudes : f = (1,78 ± 0,84)·10<sup>-9</sup> N·m·s/rad, K<sub>e</sub> = (9,6 ± 2,4)·10<sup>-4</sup> V·s/rad et J = (1,60 ± 0,76)·10<sup>-9</sup> kg·m². Enfin, nous avons établi la relation géométrique entre l'angle de sortie du servomoteur et l'angle du volet (gain K<sub>G</sub> = 0,866).</p>
-    <p class="en">The viscous friction coefficient, the technological constant and the inertia were determined with a Monte Carlo method in order to estimate their uncertainties: f = (1.78 ± 0.84)·10<sup>-9</sup> N·m·s/rad, K<sub>e</sub> = (9.6 ± 2.4)·10<sup>-4</sup> V·s/rad and J = (1.60 ± 0.76)·10<sup>-9</sup> kg·m². Finally, we established the geometric relation between the servomotor output angle and the flap angle (gain K<sub>G</sub> = 0.866).</p>
-
-    <h3><span class="fr">3. Correcteur et résultats</span><span class="en">3. Controller and results</span></h3>
-    <p class="fr">Nous avons retenu un correcteur proportionnel-intégral pour annuler l'erreur due aux frottements secs (une perturbation de type échelon). Il a été dimensionné à l'aide des diagrammes de Bode de la boucle ouverte, avec la condition de stabilité T<sub>i</sub> &gt; τ<sub>m</sub> : K<sub>p</sub> = 13,6 s<sup>-1</sup> et T<sub>i</sub> = 7,49·10<sup>-2</sup> s.</p>
-    <p class="en">We chose a proportional-integral controller to cancel the error caused by dry friction (a step-type disturbance). It was sized using the open-loop Bode plots, with the stability condition T<sub>i</sub> &gt; τ<sub>m</sub>: K<sub>p</sub> = 13.6 s<sup>-1</sup> and T<sub>i</sub> = 7.49·10<sup>-2</sup> s.</p>
-    <p class="fr">Ce travail met en évidence les défis de l'asservissement en position d'un volet d'aile d'avion et propose une modélisation en cascade à partir de modèles physiques. Pour aller plus loin, il faudrait étudier le capteur magnétique et les perturbations engendrées par l'écoulement de l'air autour du volet.</p>
-    <p class="en">This work highlights the challenges of controlling the position of an aircraft wing flap and proposes a cascade model built from physical models. To go further, one would need to study the magnetic sensor and the disturbances caused by the airflow around the flap.</p>
-    <!--
+    <h3><span class="fr">2. Chaînes d'acquisition et de traitement numérique</span><span class="en">2. Acquisition and digital processing chains</span></h3>
+    <p class="fr">Pour caractériser le système, nous avons mis en place des chaînes d'acquisition de mesures électriques et mécaniques avec une carte Arduino, puis des chaînes de traitement numérique en Python : filtrage des signaux, régressions, ajustement de courbes et évaluation des incertitudes par une méthode de Monte-Carlo. Elles nous ont permis de déterminer les caractéristiques électriques et mécaniques du servomoteur, ainsi que la relation entre l'angle du servomoteur et celui du volet.</p>
+    <p class="en">To characterise the system, we set up acquisition chains for electrical and mechanical measurements with an Arduino board, then digital processing chains in Python: signal filtering, regressions, curve fitting and uncertainty evaluation with a Monte Carlo method. They allowed us to determine the electrical and mechanical characteristics of the servomotor, as well as the relation between the servomotor angle and the flap angle.</p>
     <figure>
-      <img src="tipe-bode.png" alt="Diagrammes de Bode de la boucle ouverte, avant et après correction">
-      <figcaption><span class="fr">Diagrammes de Bode de la boucle ouverte, avant et après correction.</span><span class="en">Open-loop Bode plots, before and after correction.</span></figcaption>
+      <img src="tipe-acquisition.png" alt="Banc de mesure avec carte Arduino" onerror="this.closest('figure').style.display='none'">
+      <figcaption><span class="fr">Banc de mesure avec carte Arduino.</span><span class="en">Measurement bench with an Arduino board.</span></figcaption>
     </figure>
-    -->
+
+    <h3><span class="fr">3. Asservissement</span><span class="en">3. Control</span></h3>
+    <p class="fr">À partir de ces caractéristiques, nous avons conçu une boucle d'asservissement en position du volet, avec un correcteur proportionnel-intégral pour annuler l'erreur due aux frottements secs. Il a été dimensionné à l'aide de diagrammes de Bode, en veillant à la stabilité de la boucle. Ce travail met en évidence les défis de l'asservissement en position d'un volet d'aile d'avion. Pour aller plus loin, il faudrait étudier le capteur magnétique et les perturbations engendrées par l'écoulement de l'air autour du volet.</p>
+    <p class="en">From these characteristics, we designed a position control loop for the flap, with a proportional-integral controller to cancel the error caused by dry friction. It was sized using Bode plots, making sure the loop stays stable. This work highlights the challenges of controlling the position of an aircraft wing flap. To go further, one would need to study the magnetic sensor and the disturbances caused by the airflow around the flap.</p>
+    <figure>
+      <img src="tipe-commande.png" alt="Schéma de la boucle d'asservissement du volet" onerror="this.closest('figure').style.display='none'">
+      <figcaption><span class="fr">Schéma de la boucle d'asservissement.</span><span class="en">Diagram of the control loop.</span></figcaption>
+    </figure>
+
+    <h3><span class="fr">Outils et compétences</span><span class="en">Tools and skills</span></h3>
+    <ul class="lignes">
+      <li>
+        <strong><span class="fr">Outils utilisés</span><span class="en">Tools used</span></strong>
+        <span class="fr">Arduino, Python (NumPy, SciPy, pandas, Matplotlib), instruments de mesure de laboratoire, capteur magnétique angulaire et potentiomètre</span>
+        <span class="en">Arduino, Python (NumPy, SciPy, pandas, Matplotlib), laboratory measuring instruments, magnetic angle sensor and potentiometer</span>
+      </li>
+      <li>
+        <strong><span class="fr">Compétences développées</span><span class="en">Skills developed</span></strong>
+        <span class="fr">Acquisition de mesures, traitement numérique de signaux et de données, évaluation des incertitudes, asservissement et stabilité, démarche expérimentale, travail en binôme</span>
+        <span class="en">Measurement acquisition, digital processing of signals and data, uncertainty evaluation, control and stability, experimental approach, teamwork</span>
+      </li>
+    </ul>
 
     <p class="lien"><a href="TIPE_pres.pdf" target="_blank"><span class="fr">Télécharger la présentation complète (PDF)</span><span class="en">Download the full presentation (PDF)</span></a></p>
   </section>
@@ -516,12 +529,12 @@
     <p class="en">Cycling taught me the basics of bike mechanics back in high school. In 2025, I took it a step further: I salvaged a 1970s steel frame and turned it into a fixie (a single-speed bike with no freewheel). This gave me a much deeper understanding of how each part of a bike works, which I then shared by helping a friend build their own fixie.</p>
 
     <figure>
-      <img src="fixie.jpg" alt="Vélo à pignon fixe monté sur un cadre acier des années 1970">
+      <img src="fixie.jpg" alt="Vélo à pignon fixe monté sur un cadre acier des années 1970" onerror="this.closest('figure').style.display='none'">
       <figcaption><span class="fr">Mon fixie terminé.</span><span class="en">My finished fixie.</span></figcaption>
     </figure>
 
     <figure>
-      <img src="fixie-papa.png" alt="Second vélo à pignon fixe monté dans le cadre du projet">
+      <img src="fixie-papa.png" alt="Second vélo à pignon fixe monté dans le cadre du projet" onerror="this.closest('figure').style.display='none'">
     </figure>
   </section>
 
@@ -545,7 +558,8 @@
   </section>
 
   <footer>
-    <a href="cv.pdf" target="_blank">CV</a> |
+    <a href="CV%20Valentino%20Verdari%20%28Fran%C3%A7ais%29.pdf" target="_blank">CV (Français)</a> |
+    <a href="CV%20Valentino%20Verdari%20%28English%29.pdf" target="_blank">CV (English)</a> |
     <a href="https://www.linkedin.com/in/valentino-verdari-84ba20437" target="_blank">LinkedIn</a>
   </footer>
 
