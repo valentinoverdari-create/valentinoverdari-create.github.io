@@ -70,9 +70,9 @@
     .card-body h5 { margin: .9rem 0 .2rem; color: #333; font-size: 1rem; }
     .card-body p { margin: .4rem 0; line-height: 1.5; }
 
-    /* Engagement : le festival s'étend sur deux rangées, le bénévolat sur toute la largeur */
-    .engagement .festival { grid-column: 2; grid-row: 1 / span 2; }
-    .engagement .benevolat { grid-column: 1 / -1; }
+    /* Engagement : le festival (le plus haut) occupe la colonne de droite sur trois rangées */
+    .engagement .festival { grid-column: 2; grid-row: 1 / span 3; }
+    .engagement .card-img.has-img { flex: 1 0 110px; }
 
     /* Survol : toutes les cartes réagissent, seules celles qui s'ouvrent ont la main */
     .card { transition: transform .2s, box-shadow .2s; }
@@ -95,7 +95,7 @@
     }
     @media (max-width: 700px) {
       .cards, .cards.cols-3 { grid-template-columns: 1fr; }
-      .engagement .festival, .engagement .benevolat { grid-column: auto; grid-row: auto; }
+      .engagement .festival { grid-column: auto; grid-row: auto; }
     }
 
     /* Lignes (compétences, langues, outils) */
@@ -109,15 +109,19 @@
     .detail h2 { text-align: center; font-size: 1.8rem; color: var(--title); }
     .detail h3 { color: var(--title); }
     .detail p { text-indent: 1.5em; line-height: 1.55; }
-    .detail p.lien { text-indent: 0; text-align: center; }
     .back { padding: .4rem .8rem; cursor: pointer; border: 2px solid var(--c); background: white; color: var(--c); border-radius: 999px; font: inherit; font-weight: bold; }
     .back:hover { background: var(--c); color: white; }
+
+    /* Photos des pages détaillées : invisibles tant que la photo n'existe pas */
+    figure.photo { display: none; margin: 1rem 0; text-align: center; }
+    figure.photo.ok { display: block; }
+    .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 700px) { .duo { grid-template-columns: 1fr; } }
 
     #home.hidden { display: none; }
     body.en .fr { display: none; }
     body:not(.en) .en { display: none; }
     img { max-width: 100%; height: auto; }
-    figure { margin: 1rem 0; text-align: center; }
     figure img { border-radius: 6px; max-height: 450px; object-fit: contain; }
     figcaption { font-size: .9rem; color: #555; margin-top: .3rem; }
     footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ccc; text-align: center; }
@@ -223,16 +227,6 @@
           <span class="fr">Arduino, mesures électriques (tension, courant) et mécaniques (angle, vitesse de rotation)</span>
           <span class="en">Arduino, electrical (voltage, current) and mechanical (angle, rotation speed) measurements</span>
         </li>
-        <li>
-          <strong><span class="fr">Automatique</span><span class="en">Control engineering</span></strong>
-          <span class="fr">Modélisation, identification de paramètres, correcteur PI, diagrammes de Bode</span>
-          <span class="en">Modelling, parameter identification, PI controller, Bode plots</span>
-        </li>
-        <li>
-          <strong><span class="fr">Données et incertitudes</span><span class="en">Data and uncertainties</span></strong>
-          <span class="fr">Régression, ajustement de courbes, méthode de Monte-Carlo</span>
-          <span class="en">Regression, curve fitting, Monte Carlo method</span>
-        </li>
       </ul>
     </section>
 
@@ -261,9 +255,9 @@
 
         <article class="card">
           <div class="card-body">
-            <h4 class="card-title"><span class="fr">Stage de fin d'études à l'étranger</span><span class="en">Final-year internship abroad</span></h4>
-            <p class="fr">Pour mon stage de fin d'études, je vise une entreprise aéronautique à l'étranger (par exemple au Canada, en Espagne ou aux Pays-Bas), afin de travailler en anglais dans un environnement international.</p>
-            <p class="en">For my final-year internship, I'm aiming for an aeronautics company abroad (for example in Canada, Spain or the Netherlands), to work in English in an international environment.</p>
+            <h4 class="card-title"><span class="fr">Stage de fin d'études</span><span class="en">Final-year internship</span></h4>
+            <p class="fr">Pour mon stage de fin d'études, je privilégie une entreprise aéronautique en France (Dassault, Safran, Airbus) ou une filiale étrangère d'Airbus.</p>
+            <p class="en">For my final-year internship, I'm leaning towards an aeronautics company in France (Dassault, Safran, Airbus) or a foreign subsidiary of Airbus.</p>
           </div>
         </article>
 
@@ -322,6 +316,15 @@
           </div>
         </article>
 
+        <article class="card">
+          <div class="card-img" style="--img:url('tuile-benevolat.jpg')"></div>
+          <div class="card-body">
+            <h4 class="card-title"><span class="fr">Bénévolat au triathlon de Choisy-au-Bac</span><span class="en">Volunteering at the Choisy-au-Bac triathlon</span></h4>
+            <p class="fr">Signaleur de parcours en 2022, puis vélo-balai en 2023.</p>
+            <p class="en">Course marshal in 2022, then sweep rider in 2023.</p>
+          </div>
+        </article>
+
         <article class="card festival">
           <div class="card-img" style="--img:url('tuile-journee.jpg')"></div>
           <div class="card-body">
@@ -336,15 +339,6 @@
             <h5><span class="fr">Alimentation végétale : pourquoi, comment ?</span><span class="en">Plant-based food: why and how?</span></h5>
             <p class="fr">Conférence de sensibilisation aux enjeux environnementaux d'une alimentation végétalisée.</p>
             <p class="en">Talk raising awareness of the environmental issues of a plant-based diet.</p>
-          </div>
-        </article>
-
-        <article class="card benevolat">
-          <div class="card-img" style="--img:url('tuile-benevolat.jpg')"></div>
-          <div class="card-body">
-            <h4 class="card-title"><span class="fr">Bénévolat au triathlon de Choisy-au-Bac</span><span class="en">Volunteering at the Choisy-au-Bac triathlon</span></h4>
-            <p class="fr">Signaleur de parcours en 2022, puis vélo-balai en 2023.</p>
-            <p class="en">Course marshal in 2022, then sweep rider in 2023.</p>
           </div>
         </article>
 
@@ -394,8 +388,8 @@
           <div class="card-img" style="--img:url('fixie.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Projets vélo</span><span class="en">Bike projects</span></h4>
-            <p class="fr">En 2025, j'ai récupéré un cadre en acier des années 1970 pour en faire un fixie (vélo monovitesse sans roue libre). J'ai ainsi découvert le rôle de chaque pièce d'un vélo, puis j'ai aidé un ami à monter le sien.</p>
-            <p class="en">In 2025, I salvaged a 1970s steel frame and turned it into a fixie (a single-speed bike with no freewheel). I discovered what each part of a bike does, then helped a friend build their own.</p>
+            <p class="fr">En 2025, j'ai récupéré un cadre en acier des années 1970 pour en faire un fixie (vélo monovitesse sans roue libre), puis j'en ai monté un second pour mon père : j'y ai appris à écouter les attentes d'un « client ».</p>
+            <p class="en">In 2025, I salvaged a 1970s steel frame and turned it into a fixie (a single-speed bike with no freewheel), then built a second one for my father: I learned to listen to a "client's" expectations.</p>
             <p class="more"><span class="fr">Voir le détail →</span><span class="en">See details →</span></p>
           </div>
         </article>
@@ -404,8 +398,8 @@
           <div class="card-img" style="--img:url('E-Revo.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Modélisme RC</span><span class="en">RC modelling</span></h4>
-            <p class="fr">En 2024, j'ai construit deux avions radiocommandés en carton mousse : ils se sont écrasés au premier vol, mais ont été mes premiers pas dans l'électronique. J'ai aussi eu et bricolé des voitures RC.</p>
-            <p class="en">In 2024, I built two foam-board radio-controlled planes: they crashed on their first flight, but were my first steps into electronics. I also owned and tinkered with RC cars.</p>
+            <p class="fr">En 2024, j'ai construit deux avions radiocommandés en carton mousse : ils se sont écrasés au premier vol, mais ont été mes premiers pas dans l'électronique. J'ai aussi réparé deux voitures RC (WLToys A959 et Traxxas E-Revo).</p>
+            <p class="en">In 2024, I built two foam-board radio-controlled planes: they crashed on their first flight, but were my first steps into electronics. I also repaired two RC cars (WLToys A959 and Traxxas E-Revo).</p>
             <p class="more"><span class="fr">Voir le détail →</span><span class="en">See details →</span></p>
           </div>
         </article>
@@ -422,8 +416,8 @@
         <article class="card wide">
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Ce que je vise</span><span class="en">What I'm aiming for</span></h4>
-            <p class="fr">Je souhaite me spécialiser dans l'électronique et l'automatique appliquées à l'aéronautique, en particulier les systèmes de commandes de vol, dans la continuité de mon TIPE. Pour cela, je prévois un stage en Italie, un semestre d'études dans un pays nordique, puis un stage de fin d'études dans une entreprise aéronautique à l'étranger.</p>
-            <p class="en">I want to specialise in electronics and control engineering applied to aeronautics, in particular flight control systems, building on my TIPE project. To do so, I'm planning an internship in Italy, a semester of study in a Nordic country, and then a final-year internship in an aeronautics company abroad.</p>
+            <p class="fr">Je souhaite me spécialiser dans l'électronique et l'automatique appliquées à l'aéronautique, en particulier les systèmes de commandes de vol, dans la continuité de mon TIPE. Pour cela, je prévois un stage en Italie, un semestre d'études dans un pays nordique, puis un stage de fin d'études dans l'aéronautique, en France (Dassault, Safran, Airbus) ou dans une filiale étrangère d'Airbus.</p>
+            <p class="en">I want to specialise in electronics and control engineering applied to aeronautics, in particular flight control systems, building on my TIPE project. To do so, I'm planning an internship in Italy, a semester of study in a Nordic country, and then a final-year internship in aeronautics, in France (Dassault, Safran, Airbus) or in a foreign subsidiary of Airbus.</p>
           </div>
         </article>
       </div>
@@ -484,24 +478,24 @@
     <h3><span class="fr">1. Problématique et maquette</span><span class="en">1. Problem statement and prototype</span></h3>
     <p class="fr">Le volet, situé au bord de fuite de l'aile, permet de modifier la forme de l'aile : il augmente la portance et réduit la vitesse de décrochage au décollage et à l'atterrissage, et diminue la traînée en vol. Notre problématique : comment associer mesures aérodynamiques et asservissement numérique pour déterminer et atteindre la position angulaire du volet qui donne la performance optimale d'une aile ? Pour y répondre, nous avons réalisé une maquette d'aile instrumentée, pouvant être placée en soufflerie.</p>
     <p class="en">The flap, located at the trailing edge of the wing, changes the shape of the wing: it increases lift and reduces the stall speed at take-off and landing, and decreases drag in flight. Our research question: how can aerodynamic measurements and digital control be combined to determine and reach the flap angle that gives the optimal performance of a wing? To answer it, we built an instrumented wing prototype that can be placed in a wind tunnel.</p>
-    <figure>
-      <img src="tipe-maquette.png" alt="Maquette d'aile instrumentée avec son volet" onerror="this.closest('figure').style.display='none'">
+    <figure class="photo">
+      <img data-src="tipe-maquette.png" alt="Maquette d'aile instrumentée avec son volet">
       <figcaption><span class="fr">La maquette d'aile instrumentée.</span><span class="en">The instrumented wing prototype.</span></figcaption>
     </figure>
 
     <h3><span class="fr">2. Chaînes d'acquisition et de traitement numérique</span><span class="en">2. Acquisition and digital processing chains</span></h3>
     <p class="fr">Pour caractériser le système, nous avons mis en place des chaînes d'acquisition de mesures électriques et mécaniques avec une carte Arduino, puis des chaînes de traitement numérique en Python : filtrage des signaux, régressions, ajustement de courbes et évaluation des incertitudes par une méthode de Monte-Carlo. Elles nous ont permis de déterminer les caractéristiques électriques et mécaniques du servomoteur, ainsi que la relation entre l'angle du servomoteur et celui du volet.</p>
     <p class="en">To characterise the system, we set up acquisition chains for electrical and mechanical measurements with an Arduino board, then digital processing chains in Python: signal filtering, regressions, curve fitting and uncertainty evaluation with a Monte Carlo method. They allowed us to determine the electrical and mechanical characteristics of the servomotor, as well as the relation between the servomotor angle and the flap angle.</p>
-    <figure>
-      <img src="tipe-acquisition.png" alt="Banc de mesure avec carte Arduino" onerror="this.closest('figure').style.display='none'">
+    <figure class="photo">
+      <img data-src="tipe-acquisition.png" alt="Banc de mesure avec carte Arduino">
       <figcaption><span class="fr">Banc de mesure avec carte Arduino.</span><span class="en">Measurement bench with an Arduino board.</span></figcaption>
     </figure>
 
     <h3><span class="fr">3. Asservissement</span><span class="en">3. Control</span></h3>
     <p class="fr">À partir de ces caractéristiques, nous avons conçu une boucle d'asservissement en position du volet, avec un correcteur proportionnel-intégral pour annuler l'erreur due aux frottements secs. Il a été dimensionné à l'aide de diagrammes de Bode, en veillant à la stabilité de la boucle. Ce travail met en évidence les défis de l'asservissement en position d'un volet d'aile d'avion. Pour aller plus loin, il faudrait étudier le capteur magnétique et les perturbations engendrées par l'écoulement de l'air autour du volet.</p>
     <p class="en">From these characteristics, we designed a position control loop for the flap, with a proportional-integral controller to cancel the error caused by dry friction. It was sized using Bode plots, making sure the loop stays stable. This work highlights the challenges of controlling the position of an aircraft wing flap. To go further, one would need to study the magnetic sensor and the disturbances caused by the airflow around the flap.</p>
-    <figure>
-      <img src="tipe-commande.png" alt="Schéma de la boucle d'asservissement du volet" onerror="this.closest('figure').style.display='none'">
+    <figure class="photo">
+      <img data-src="tipe-commande.png" alt="Schéma de la boucle d'asservissement du volet">
       <figcaption><span class="fr">Schéma de la boucle d'asservissement.</span><span class="en">Diagram of the control loop.</span></figcaption>
     </figure>
 
@@ -518,23 +512,26 @@
         <span class="en">Measurement acquisition, digital processing of signals and data, uncertainty evaluation, control and stability, experimental approach, teamwork</span>
       </li>
     </ul>
-
-    <p class="lien"><a href="TIPE_pres.pdf" target="_blank"><span class="fr">Télécharger la présentation complète (PDF)</span><span class="en">Download the full presentation (PDF)</span></a></p>
   </section>
 
   <section id="d-velos" class="detail c5">
     <button class="back" onclick="goHome('s-sport')">← <span class="fr">Retour</span><span class="en">Back</span></button>
     <h2><span class="fr">Projets vélo</span><span class="en">Bike projects</span></h2>
+
+    <h3><span class="fr">Mon fixie</span><span class="en">My fixie</span></h3>
     <p class="fr">Grâce à ma pratique du cyclisme, j'ai appris dès le lycée les rudiments de la mécanique vélo. En 2025, j'ai franchi un cap : j'ai récupéré un cadre en acier des années 1970 pour en faire un fixie (vélo monovitesse sans roue libre). J'ai ainsi acquis une connaissance plus approfondie du rôle de chaque pièce d'un vélo, que j'ai ensuite partagée en aidant un ami à monter son propre fixie.</p>
     <p class="en">Cycling taught me the basics of bike mechanics back in high school. In 2025, I took it a step further: I salvaged a 1970s steel frame and turned it into a fixie (a single-speed bike with no freewheel). This gave me a much deeper understanding of how each part of a bike works, which I then shared by helping a friend build their own fixie.</p>
-
-    <figure>
-      <img src="fixie.jpg" alt="Vélo à pignon fixe monté sur un cadre acier des années 1970" onerror="this.closest('figure').style.display='none'">
+    <figure class="photo">
+      <img data-src="fixie.jpg" alt="Vélo à pignon fixe monté sur un cadre acier des années 1970">
       <figcaption><span class="fr">Mon fixie terminé.</span><span class="en">My finished fixie.</span></figcaption>
     </figure>
 
-    <figure>
-      <img src="fixie-papa.png" alt="Second vélo à pignon fixe monté dans le cadre du projet" onerror="this.closest('figure').style.display='none'">
+    <h3><span class="fr">Un fixie pour mon père</span><span class="en">A fixie for my father</span></h3>
+    <p class="fr">J'ai aussi monté un fixie pour mon père, en suivant ses demandes. Ce projet m'a appris à écouter les attentes d'un « client » et à trouver des solutions qui lui conviennent, même si ce n'est pas forcément ce que j'aurais choisi de faire moi-même.</p>
+    <p class="en">I also built a fixie for my father, following his requests. This project taught me to listen to a "client's" expectations and to find solutions that suit them, even when they aren't necessarily what I would have chosen to do myself.</p>
+    <figure class="photo">
+      <img data-src="fixie-papa.png" alt="Vélo à pignon fixe monté pour mon père">
+      <figcaption><span class="fr">Le fixie monté pour mon père.</span><span class="en">The fixie I built for my father.</span></figcaption>
     </figure>
   </section>
 
@@ -545,16 +542,30 @@
     <h3><span class="fr">Avions</span><span class="en">Aircraft</span></h3>
     <p class="fr">En 2024, j'ai construit deux avions radiocommandés en carton mousse, en parallèle, à partir de plans trouvés en ligne. Les deux se sont écrasés lors de leur premier vol, notamment à cause de mon manque d'expérience en pilotage. J'ai arrêté ces projets : d'une part, je n'avais pas le budget pour acheter un simulateur sur PC ; d'autre part, et surtout, je n'avais pas de terrain dégagé et accessible pour faire voler les avions en sécurité. Ces projets ont été mes premiers pas dans l'électronique, aussi bien de puissance que d'information.</p>
     <p class="en">In 2024, I built two radio-controlled aircraft from foam board, side by side, using plans I found online. Both crashed on their first flight, mainly because of my lack of piloting experience. I stopped the projects: I had no budget for a PC flight simulator and, above all, no open, accessible field where I could fly the planes safely. These projects were my first steps into electronics, both power and signal electronics.</p>
-    <!--
-    <figure>
-      <img src="avion-carton-mousse.jpg" alt="Avion radiocommandé en carton mousse">
-      <figcaption><span class="fr">Un des deux avions avant son premier vol.</span><span class="en">One of the two planes before its first flight.</span></figcaption>
-    </figure>
-    -->
+    <div class="duo">
+      <figure class="photo">
+        <img data-src="avion-1.jpg" alt="Premier avion radiocommandé en carton mousse">
+        <figcaption><span class="fr">Avion n° 1.</span><span class="en">Plane no. 1.</span></figcaption>
+      </figure>
+      <figure class="photo">
+        <img data-src="avion-2.jpg" alt="Second avion radiocommandé en carton mousse">
+        <figcaption><span class="fr">Avion n° 2.</span><span class="en">Plane no. 2.</span></figcaption>
+      </figure>
+    </div>
 
     <h3><span class="fr">Voitures</span><span class="en">Cars</span></h3>
-    <p class="fr">J'ai aussi eu des voitures radiocommandées, que j'ai bricolées.</p>
-    <p class="en">I also owned radio-controlled cars, which I tinkered with.</p>
+    <p class="fr">J'ai aussi deux voitures radiocommandées que j'ai réparées : une WLToys A959 à l'échelle 1/18 et une Traxxas E-Revo à l'échelle 1/16.</p>
+    <p class="en">I also own two radio-controlled cars that I repaired: a WLToys A959 (1/18 scale) and a Traxxas E-Revo (1/16 scale).</p>
+    <div class="duo">
+      <figure class="photo">
+        <img data-src="wltoys-a959.jpg" alt="Voiture radiocommandée WLToys A959 au 1/18">
+        <figcaption>WLToys A959 (1/18)</figcaption>
+      </figure>
+      <figure class="photo">
+        <img data-src="E-Revo.jpg" alt="Voiture radiocommandée Traxxas E-Revo au 1/16">
+        <figcaption>Traxxas E-Revo (1/16)</figcaption>
+      </figure>
+    </div>
   </section>
 
   <footer>
@@ -594,13 +605,49 @@
     window.addEventListener('load', setNavOffset);
     window.addEventListener('resize', setNavOffset);
 
-    // La zone photo d'une carte n'apparaît que si la photo existe vraiment.
+    // Photos : on essaie plusieurs extensions (jpg, jpeg, png, webp) pour chaque photo,
+    // et rien ne s'affiche tant qu'aucune version n'existe dans le dépôt.
+    var EXTS = ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'PNG'];
+    function candidates(url) {
+      var m = url.match(/^(.*)\.([A-Za-z0-9]+)$/);
+      if (!m) return [url];
+      var list = [url];
+      EXTS.forEach(function (e) {
+        var u = m[1] + '.' + e;
+        if (list.indexOf(u) === -1) list.push(u);
+      });
+      return list;
+    }
+    function loadFirst(url, ok) {
+      var list = candidates(url), i = 0;
+      (function next() {
+        if (i >= list.length) return;
+        var u = list[i++];
+        var img = new Image();
+        img.onload = function () { ok(u); };
+        img.onerror = next;
+        img.src = u;
+      })();
+    }
+
+    // Photos des cartes
     document.querySelectorAll('.card-img').forEach(function (el) {
       var m = getComputedStyle(el).getPropertyValue('--img').match(/url\(["']?([^"')]+)["']?\)/);
       if (!m) return;
-      var img = new Image();
-      img.onload = function () { el.classList.add('has-img'); };
-      img.src = m[1];
+      loadFirst(m[1], function (u) {
+        el.style.setProperty('--img', "url('" + u + "')");
+        el.classList.add('has-img');
+      });
+    });
+
+    // Photos des pages détaillées
+    document.querySelectorAll('figure.photo img').forEach(function (img) {
+      var src = img.getAttribute('data-src');
+      if (!src) return;
+      loadFirst(src, function (u) {
+        img.src = u;
+        img.closest('figure').classList.add('ok');
+      });
     });
   </script>
 </body>
