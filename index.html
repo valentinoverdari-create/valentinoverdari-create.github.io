@@ -44,34 +44,32 @@
     .sous-titre { text-align: center; font-size: 1.3rem; color: var(--title); margin: 1.6rem 0 .8rem; }
     .intro { text-align: center; margin: .4rem 0 1rem; }
 
-    /* Cartes : 2 par ligne, pleine largeur avec .wide, 4 par ligne avec .cols-4.
+    /* Cartes : 2 par ligne, .cols-3 pour 3 par ligne, .wide pour pleine largeur.
+       La zone photo (.card-img) n'apparaît que si la photo existe (voir le script en bas).
        Cadrage de la photo : ajoute --pos:center 30%; dans le style de .card-img */
     .cards { display: grid; gap: 1.2rem; grid-template-columns: repeat(2, 1fr); }
-    .cards.cols-4 { grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
     .card {
       display: flex; flex-direction: column; background: white; border-radius: 10px; overflow: hidden;
       border-top: 4px solid var(--c); box-shadow: 0 1px 4px rgba(0,0,0,.18);
     }
     .card.wide { grid-column: 1 / -1; }
     .card-img {
-      position: relative; height: 170px; flex-shrink: 0;
+      display: none;
       background-color: var(--c);
       background-image: linear-gradient(rgba(0,0,0,.05), rgba(0,0,0,.25)), var(--img, none);
-      background-size: cover; background-position: var(--pos, center);
+      background-size: cover; background-position: center, var(--pos, center);
+      background-repeat: no-repeat;
     }
-    .cols-4 .card-img { height: 110px; }
-    .icon-badge {
-      position: absolute; top: .6rem; left: .6rem; width: 2.2rem; height: 2.2rem; border-radius: 50%;
-      background: white; display: flex; align-items: center; justify-content: center;
-      font-size: 1.2rem; box-shadow: 0 1px 4px rgba(0,0,0,.3);
-    }
+    .card-img.has-img { display: block; flex: 1 0 170px; }
     .card-body { padding: .9rem 1.1rem 1.1rem; }
-    .cols-4 .card-body { padding: .8rem .9rem 1rem; }
     .card-title { margin: 0 0 .5rem; color: var(--c); font-size: 1.2rem; }
-    .cols-4 .card-title { font-size: 1.05rem; }
     .card-body h5 { margin: .9rem 0 .2rem; color: #333; font-size: 1rem; }
     .card-body p { margin: .4rem 0; line-height: 1.5; }
-    .cols-4 .card-body p { font-size: .92rem; }
+
+    /* Engagement : le festival s'étend sur deux rangées, le bénévolat sur toute la largeur */
+    .engagement .festival { grid-column: 2; grid-row: 1 / span 2; }
+    .engagement .benevolat { grid-column: 1 / -1; }
 
     /* Survol : toutes les cartes réagissent, seules celles qui s'ouvrent ont la main */
     .card { transition: transform .2s, box-shadow .2s; }
@@ -89,22 +87,26 @@
 
     @media (min-width: 701px) {
       .card.wide { flex-direction: row; }
-      .card.wide .card-img { width: 36%; height: auto; min-height: 200px; }
+      .card.wide .card-img.has-img { flex: none; width: 36%; min-height: 200px; }
+      .card.wide .card-body { flex: 1; }
     }
-    @media (max-width: 900px) { .cards.cols-4 { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 700px) { .cards, .cards.cols-4 { grid-template-columns: 1fr; } }
+    @media (max-width: 700px) {
+      .cards, .cards.cols-3 { grid-template-columns: 1fr; }
+      .engagement .festival, .engagement .benevolat { grid-column: auto; grid-row: auto; }
+    }
 
     /* Lignes (compétences, langues) */
-    .lignes { list-style: none; padding: 0; max-width: 640px; margin: 0 auto; }
+    .lignes { list-style: none; padding: 0; max-width: 700px; margin: 0 auto; }
     .lignes li { display: flex; flex-wrap: wrap; gap: .2rem 1rem; background: white; border-radius: 8px; border-left: 4px solid var(--c); box-shadow: 0 1px 4px rgba(0,0,0,.12); padding: .7rem 1rem; margin: .5rem 0; }
-    .lignes strong { min-width: 11rem; color: var(--c); }
+    .lignes strong { min-width: 12rem; color: var(--c); }
 
     /* Pages détaillées */
     .detail { display: none; background: white; border-radius: 10px; padding: 1rem 1.2rem; margin: 1.2rem 0; }
     .detail.active { display: block; }
     .detail h2 { text-align: center; font-size: 1.8rem; color: var(--title); }
     .detail h3 { color: var(--title); }
-    .detail p { text-indent: 1.5em; }
+    .detail p { text-indent: 1.5em; line-height: 1.55; }
+    .detail p.lien { text-indent: 0; text-align: center; }
     .back { padding: .4rem .8rem; cursor: pointer; border: 2px solid var(--c); background: white; color: var(--c); border-radius: 999px; font: inherit; font-weight: bold; }
     .back:hover { background: var(--c); color: white; }
 
@@ -162,7 +164,6 @@
       <div class="cards">
 
         <article class="card wide">
-          <div class="card-img" style="--img:url('tuile-formation.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Formation</span><span class="en">Education</span></h4>
 
@@ -175,17 +176,17 @@
             <p class="en">I attended preparatory classes for the French engineering schools (PCSI, then PSI tracks) at Lycée Marcelin Berthelot. I chose this track out of a taste for physics and engineering sciences, subjects that are both concrete and hands-on. Over these two years of intensive preparation for the entrance exams, I built a solid scientific background. At the end of the programme, I sat several exams, including the CCINP (a common entrance exam for a large group of French engineering schools), through which I joined the 3EA department of ENSEEIHT.</p>
 
             <h5>ENSEEIHT</h5>
-            <p class="fr">J'ai intégré le département 3EA (électronique, énergie électrique et automatique) de l'ENSEEIHT en septembre 2026. À compléter : pourquoi ce choix, les enseignements et projets de première année qui m'ont marqué.</p>
-            <p class="en">I joined the 3EA department (electronics, electrical engineering and automation) of ENSEEIHT in September 2026. To be completed: why I chose it, the first-year courses and projects that stood out.</p>
+            <p class="fr">J'ai intégré le département 3EA (électronique, énergie électrique et automatique) de l'ENSEEIHT en septembre 2026.</p>
+            <p class="en">I joined the 3EA department (electronics, electrical engineering and automation) of ENSEEIHT in September 2026.</p>
           </div>
         </article>
 
         <article class="card clickable" tabindex="0" role="button" onclick="openSection('d-tipe')" onkeydown="if(event.key==='Enter'){openSection('d-tipe')}">
-          <div class="card-img" style="--img:url('tipe-commande.jpg')"></div>
+          <div class="card-img" style="--img:url('tipe-commande.png')"></div>
           <div class="card-body">
             <h4 class="card-title">TIPE</h4>
-            <p class="fr">Asservissement en position d'un volet d'aile d'avion. À compléter : objectif, méthode, résultats.</p>
-            <p class="en">Position control of an aircraft wing flap. To be completed: goal, method, results.</p>
+            <p class="fr">Asservissement en position du volet d'une aile d'avion : conception d'une maquette instrumentée, modélisation de son servomoteur et dimensionnement d'un correcteur proportionnel-intégral.</p>
+            <p class="en">Position control of an aircraft wing flap: design of an instrumented prototype, modelling of its servomotor and sizing of a proportional-integral controller.</p>
             <p class="more"><span class="fr">Voir le détail →</span><span class="en">See details →</span></p>
           </div>
         </article>
@@ -194,8 +195,8 @@
           <div class="card-img" style="--img:url('avion-au-sol.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Aéronautique</span><span class="en">Aeronautics</span></h4>
-            <p class="fr">En 2024, j'ai passé le BIA (brevet d'initiation à l'aéronautique) et, à cette occasion, effectué mes baptêmes de l'air en avion et en planeur. Ce fut mon premier contact avec le monde de l'aviation, et notamment l'aviation civile. À compléter : ce que j'en ai retenu.</p>
-            <p class="en">In 2024, I took the BIA (a French aeronautics initiation certificate) and, as part of it, went on my first flights in a plane and a glider. It was my first contact with the world of aviation, and in particular civil aviation. To be completed: what I took from it.</p>
+            <p class="fr">En 2024, j'ai passé le BIA (brevet d'initiation à l'aéronautique) et, à cette occasion, effectué mes baptêmes de l'air en avion et en planeur. Ce fut mon premier contact avec le monde de l'aviation, et notamment l'aviation civile.</p>
+            <p class="en">In 2024, I took the BIA (a French aeronautics initiation certificate) and, as part of it, went on my first flights in a plane and a glider. It was my first contact with the world of aviation, and in particular civil aviation.</p>
           </div>
         </article>
 
@@ -205,16 +206,26 @@
       <ul class="lignes">
         <li>
           <strong><span class="fr">Programmation</span><span class="en">Programming</span></strong>
-          <span>C/C++, Python, SQL</span>
+          <span>C/C++, Python (NumPy, SciPy, pandas, Matplotlib), SQL</span>
         </li>
         <li>
           <strong><span class="fr">Conception (CAO)</span><span class="en">Design (CAD)</span></strong>
           <span>SolidWorks</span>
         </li>
         <li>
-          <strong><span class="fr">Autres outils</span><span class="en">Other tools</span></strong>
-          <span class="fr">À compléter : par exemple MATLAB/Simulink, Git, LaTeX.</span>
-          <span class="en">To be completed: for example MATLAB/Simulink, Git, LaTeX.</span>
+          <strong><span class="fr">Électronique et instrumentation</span><span class="en">Electronics and instrumentation</span></strong>
+          <span class="fr">Arduino, mesures électriques (tension, courant) et mécaniques (angle, vitesse de rotation)</span>
+          <span class="en">Arduino, electrical (voltage, current) and mechanical (angle, rotation speed) measurements</span>
+        </li>
+        <li>
+          <strong><span class="fr">Automatique</span><span class="en">Control engineering</span></strong>
+          <span class="fr">Modélisation, identification de paramètres, correcteur PI, diagrammes de Bode</span>
+          <span class="en">Modelling, parameter identification, PI controller, Bode plots</span>
+        </li>
+        <li>
+          <strong><span class="fr">Données et incertitudes</span><span class="en">Data and uncertainties</span></strong>
+          <span class="fr">Régression, ajustement de courbes, méthode de Monte-Carlo</span>
+          <span class="en">Regression, curve fitting, Monte Carlo method</span>
         </li>
       </ul>
     </section>
@@ -223,16 +234,33 @@
     <section class="rubrique c3" id="s-mobility">
       <h2><span class="fr">Mobilité internationale</span><span class="en">International Mobility</span></h2>
 
-      <h3 class="sous-titre"><span class="fr">Projet</span><span class="en">Plan</span></h3>
-      <div class="cards">
-        <article class="card wide">
-          <div class="card-img" style="--img:url('tuile-mobilite.jpg')"></div>
+      <h3 class="sous-titre"><span class="fr">Projets</span><span class="en">Plans</span></h3>
+      <div class="cards cols-3">
+
+        <article class="card">
           <div class="card-body">
-            <h4 class="card-title"><span class="fr">Projet de mobilité</span><span class="en">Mobility plan</span></h4>
-            <p class="fr">Je prévois un stage de six mois à Turin, chez Leonardo, pendant une année de césure entre le M1 et le M2. À compléter : pourquoi Turin et Leonardo, ce que j'en attends, les démarches.</p>
-            <p class="en">I'm planning a six-month internship in Turin at Leonardo, during a gap year between M1 and M2 (the two years of the Master's programme). To be completed: why Turin and Leonardo, what I expect from it, the steps involved.</p>
+            <h4 class="card-title"><span class="fr">Stage à Turin</span><span class="en">Internship in Turin</span></h4>
+            <p class="fr">Stage de six mois chez Leonardo, pendant une année de césure entre le M1 et le M2. J'y acquerrais de l'expérience en commandes de vol et je développerais mon italien professionnel.</p>
+            <p class="en">Six-month internship at Leonardo, during a gap year between M1 and M2 (the two years of the Master's programme). I would gain experience in flight controls and develop my professional Italian.</p>
           </div>
         </article>
+
+        <article class="card">
+          <div class="card-body">
+            <h4 class="card-title"><span class="fr">Semestre d'études dans un pays nordique</span><span class="en">Semester abroad in a Nordic country</span></h4>
+            <p class="fr">Semestre d'études en Suède ou dans un autre pays nordique. Je recherche une école en lien avec l'électronique appliquée à l'aéronautique.</p>
+            <p class="en">Semester of study in Sweden or another Nordic country. I'm looking for a school with a focus on electronics applied to aeronautics.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-body">
+            <h4 class="card-title"><span class="fr">Stage de fin d'études à l'étranger</span><span class="en">Final-year internship abroad</span></h4>
+            <p class="fr">Pour mon stage de fin d'études, je vise une entreprise aéronautique à l'étranger (par exemple au Canada, en Espagne ou aux Pays-Bas), afin de travailler en anglais dans un environnement international.</p>
+            <p class="en">For my final-year internship, I'm aiming for an aeronautics company abroad (for example in Canada, Spain or the Netherlands), to work in English in an international environment.</p>
+          </div>
+        </article>
+
       </div>
 
       <h3 class="sous-titre"><span class="fr">Langues</span><span class="en">Languages</span></h3>
@@ -249,18 +277,18 @@
         </li>
         <li>
           <strong><span class="fr">Anglais</span><span class="en">English</span></strong>
-          <span class="fr">À compléter : niveau actuel ou score TOEIC (B2 exigé pour le diplôme d'ingénieur)</span>
-          <span class="en">To be completed: current level or TOEIC score (B2 is required for the engineering diploma)</span>
+          <span class="fr">Niveau B2</span>
+          <span class="en">B2 level</span>
         </li>
         <li>
           <strong><span class="fr">Allemand</span><span class="en">German</span></strong>
-          <span class="fr">Étudié jusqu'en terminale (14/20 de moyenne)</span>
-          <span class="en">Studied up to the final year of high school (14/20 average)</span>
+          <span class="fr">Étudié jusqu'en terminale</span>
+          <span class="en">Studied up to the final year of high school</span>
         </li>
         <li>
           <strong><span class="fr">Langue des signes française (LV2)</span><span class="en">French sign language (LV2)</span></strong>
-          <span class="fr">À compléter : niveau</span>
-          <span class="en">To be completed: level</span>
+          <span class="fr">Apprentissage en cours</span>
+          <span class="en">Currently learning</span>
         </li>
       </ul>
     </section>
@@ -268,36 +296,32 @@
     <!-- ENGAGEMENT -->
     <section class="rubrique c4" id="s-sustainability">
       <h2><span class="fr">Développement durable et engagement citoyen</span><span class="en">Sustainability &amp; Civic Engagement</span></h2>
-      <div class="cards cols-4">
+      <div class="cards engagement">
 
         <article class="card">
-          <div class="card-img" style="--img:url('quelles-sont-les-limites-planetaires-et-a-quoi-sert-ce-concept-en-ecologie-journee-mondiale-environnement-boehly.jpg')"><span class="icon-badge" aria-hidden="true">🌍</span></div>
+          <div class="card-img" style="--img:url('tuile-frontieres.jpg')"></div>
           <div class="card-body">
-            <h4 class="card-title"><span class="fr">Fresque des frontières planétaires</span><span class="en">Boundaries fresco</span></h4>
+            <h4 class="card-title"><span class="fr">Fresque des frontières</span><span class="en">Boundaries fresco</span></h4>
             <p class="fr">Atelier autour des 9 frontières environnementales, les critères qui permettent d'évaluer l'état de la planète et le changement climatique.</p>
             <p class="en">Workshop on the 9 environmental boundaries, the criteria used to assess the state of the planet and climate change.</p>
-            <p class="fr">À compléter : date, ce que j'en retiens.</p>
-            <p class="en">To be completed: date, what I took from it.</p>
           </div>
         </article>
 
         <article class="card">
-          <div class="card-img" style="--img:url('tuile-kingkong.jpg')"><span class="icon-badge" aria-hidden="true">🎭</span></div>
+          <div class="card-img" style="--img:url('tuile-kingkong.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Procès King Kong</span><span class="en">King Kong trial</span></h4>
             <p class="fr">Pièce interactive sur le harcèlement et les violences sexistes et sexuelles (HVSS).</p>
             <p class="en">Interactive play on harassment and sexist and sexual violence (HVSS).</p>
-            <p class="fr">À compléter : mon rôle, ce que j'en retiens.</p>
-            <p class="en">To be completed: my role, what I took from it.</p>
           </div>
         </article>
 
-        <article class="card">
-          <div class="card-img" style="--img:url('Futurs-proches-2026-1536x678.jpg')"><span class="icon-badge" aria-hidden="true">🌱</span></div>
+        <article class="card festival">
+          <div class="card-img" style="--img:url('tuile-journee.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Festival Futurs proches</span><span class="en">Futurs proches festival</span></h4>
-            <p class="fr">Festival des campus en transition. Date : 15/10/2026.</p>
-            <p class="en">Festival of campuses in transition. Date: 15/10/2026.</p>
+            <p class="fr">Festival des campus en transition.</p>
+            <p class="en">Festival of campuses in transition.</p>
 
             <h5><span class="fr">Fresqu'Aéro : Aviation et climat</span><span class="en">Fresqu'Aéro: Aviation and climate</span></h5>
             <p class="fr">Atelier sur les enjeux de la transition écologique dans l'aéronautique, à l'ENAC (Toulouse).</p>
@@ -309,8 +333,8 @@
           </div>
         </article>
 
-        <article class="card">
-          <div class="card-img" style="--img:url('tuile-benevolat.jpg')"><span class="icon-badge" aria-hidden="true">🚴</span></div>
+        <article class="card benevolat">
+          <div class="card-img" style="--img:url('tuile-benevolat.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Bénévolat au triathlon de Choisy-au-Bac</span><span class="en">Volunteering at the Choisy-au-Bac triathlon</span></h4>
             <p class="fr">Signaleur de parcours en 2022, puis vélo-balai en 2023.</p>
@@ -329,7 +353,7 @@
       <div class="cards">
 
         <article class="card">
-          <div class="card-img" style="--img:url('randonneuse.png')"></div>
+          <div class="card-img" style="--img:url('randonneuse-biketouring.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Vélo</span><span class="en">Cycling</span></h4>
             <p class="fr">Je pratique le vélo de route, surtout sur longues distances et en itinérance. Pour ma première itinérance, je suis parti seul avec ma randonneuse dans l'Avesnois. Ce que je retiens surtout, ce sont les rencontres faites en chemin, qui m'ont aidé à ne pas me sentir seul pendant ces quatre jours.</p>
@@ -361,7 +385,7 @@
       <div class="cards">
 
         <article class="card clickable" tabindex="0" role="button" onclick="openSection('d-velos')" onkeydown="if(event.key==='Enter'){openSection('d-velos')}">
-          <div class="card-img" style="--img:url('fixie-bis.png')"></div>
+          <div class="card-img" style="--img:url('fixie.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Projets vélo</span><span class="en">Bike projects</span></h4>
             <p class="fr">En 2025, j'ai récupéré un cadre en acier des années 1970 pour en faire un fixie (vélo monovitesse sans roue libre). J'ai ainsi découvert le rôle de chaque pièce d'un vélo, puis j'ai aidé un ami à monter le sien.</p>
@@ -390,11 +414,10 @@
       <h3 class="sous-titre"><span class="fr">Mon projet</span><span class="en">My plans</span></h3>
       <div class="cards">
         <article class="card wide">
-          <div class="card-img" style="--img:url('tuile-projet.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Ce que je vise</span><span class="en">What I'm aiming for</span></h4>
-            <p class="fr">À compléter : le domaine et le type de poste que je vise, ce qui m'attire, les prochaines étapes.</p>
-            <p class="en">To be completed: the field and type of role I'm aiming for, what attracts me, the next steps.</p>
+            <p class="fr">Je souhaite me spécialiser dans l'électronique et l'automatique appliquées à l'aéronautique, en particulier les systèmes de commandes de vol, dans la continuité de mon TIPE. Pour cela, je prévois un stage en Italie, un semestre d'études dans un pays nordique, puis un stage de fin d'études dans une entreprise aéronautique à l'étranger.</p>
+            <p class="en">I want to specialise in electronics and control engineering applied to aeronautics, in particular flight control systems, building on my TIPE project. To do so, I'm planning an internship in Italy, a semester of study in a Nordic country, and then a final-year internship in an aeronautics company abroad.</p>
           </div>
         </article>
       </div>
@@ -403,9 +426,8 @@
       <div class="cards">
 
         <article class="card wide">
-          <div class="card-img" style="--img:url('tuile-pro1.jpg')"></div>
           <div class="card-body">
-            <h4 class="card-title"><span class="fr">Rencontre n° 1 : directeur technique dans l'aéronautique</span><span class="en">Meeting no. 1: technical director in aeronautics</span></h4>
+            <h4 class="card-title"><span class="fr">Rencontre n° 1 : Marc Normand, directeur technique dans l'aéronautique</span><span class="en">Meeting no. 1: Marc Normand, technical director in aeronautics</span></h4>
 
             <h5><span class="fr">Son parcours</span><span class="en">Their career path</span></h5>
             <p class="fr">Après un baccalauréat scientifique et des classes préparatoires, il a intégré l'ENSMM de Besançon, où il a obtenu un diplôme d'ingénieur généraliste après deux stages chez Airbus à Toulouse. Depuis plus de 25 ans, il travaille dans l'aéronautique pour des sociétés de services : calculateur de structure, chef de projet, directeur des opérations, puis directeur technique.</p>
@@ -418,15 +440,14 @@
             <p class="en">A career that moves from a very technical job (structural analysis) to project management (client relations, monitoring cost, deadlines and quality), then to operations and technical direction. This last role cuts across functions: it requires anticipating, developing skills and innovating, notably with AI. He is also happy to discuss aeronautics, decarbonisation and new technologies.</p>
 
             <h5><span class="fr">Lien avec mon projet</span><span class="en">Link with my plans</span></h5>
-            <p class="fr">Son parcours montre qu'on peut commencer par un métier très technique et évoluer vers la gestion de projet puis la direction technique, tout en restant dans l'aéronautique. Cela rejoint mon intérêt pour l'aviation (BIA, TIPE) et pour la décarbonation (atelier Fresqu'Aéro). À compléter : ce qui m'attire, ou non, dans ces postes transverses.</p>
-            <p class="en">His path shows that one can start in a very technical job and move towards project management and then technical direction, while staying in aeronautics. This echoes my interest in aviation (BIA, TIPE) and in decarbonisation (Fresqu'Aéro workshop). To be completed: what attracts me, or not, in these cross-functional roles.</p>
+            <p class="fr">Son parcours montre qu'on peut commencer par un métier très technique et évoluer vers la gestion de projet puis la direction technique, tout en restant dans l'aéronautique. Cela rejoint mon objectif de travailler dans ce secteur (BIA, TIPE) et mon intérêt pour la décarbonation (atelier Fresqu'Aéro).</p>
+            <p class="en">His path shows that one can start in a very technical job and move towards project management and then technical direction, while staying in aeronautics. This echoes my goal of working in this sector (BIA, TIPE) and my interest in decarbonisation (Fresqu'Aéro workshop).</p>
           </div>
         </article>
 
         <article class="card wide">
-          <div class="card-img" style="--img:url('tuile-pro2.jpg')"></div>
           <div class="card-body">
-            <h4 class="card-title"><span class="fr">Rencontre n° 2 : ingénieur en optronique à la DGA</span><span class="en">Meeting no. 2: optronics engineer at the DGA</span></h4>
+            <h4 class="card-title"><span class="fr">Rencontre n° 2 : Grégory Andriamonje, ingénieur en optronique à la DGA</span><span class="en">Meeting no. 2: Grégory Andriamonje, optronics engineer at the DGA</span></h4>
 
             <h5><span class="fr">Son parcours</span><span class="en">Their career path</span></h5>
             <p class="fr">À l'issue d'un doctorat en sciences de l'ingénieur (optique laser, acoustique, électronique), il a travaillé plus de 15 ans dans une société spécialisée dans les essais et tests sur composants et systèmes électroniques, comme ingénieur technique, formateur, puis ingénieur technico-commercial. Il a ensuite rejoint la Direction Générale de l'Armement (DGA), où il est ingénieur en optronique dans un centre d'essais : il réalise des mesures optroniques sur des missiles pour étudier leur propulsion, avec des caméras et des moyens de mesure spectrométriques.</p>
@@ -437,8 +458,8 @@
             <p class="en">A career that alternates between research (teaching and research during the doctorate), private industry (first technical, then sales engineering: selling to the client) and the public sector. At the DGA, the work involves ordering armaments, checking them, and encouraging industry to innovate. His tests call for many different measurements, and therefore many different skills.</p>
 
             <h5><span class="fr">Lien avec mon projet</span><span class="en">Link with my plans</span></h5>
-            <p class="fr">Ses mesures sur les missiles relèvent de l'instrumentation et de l'électronique, au cœur de ma formation en 3EA. Son parcours montre aussi qu'un doctorat peut mener à l'industrie comme au service public, et qu'on peut passer du technique au commercial. À compléter : si je me vois plutôt en recherche, en industrie ou dans le public.</p>
-            <p class="en">His missile measurements involve instrumentation and electronics, at the heart of my 3EA training. His path also shows that a doctorate can lead to industry as well as the public sector, and that one can move from technical to commercial roles. To be completed: whether I see myself in research, industry or the public sector.</p>
+            <p class="fr">Ses mesures sur les missiles relèvent de l'instrumentation et de l'électronique, au cœur de ma formation en 3EA et de mon TIPE (mesures, asservissement). Son parcours montre aussi qu'un doctorat peut mener à l'industrie comme au service public, et qu'on peut passer du technique au commercial.</p>
+            <p class="en">His missile measurements involve instrumentation and electronics, at the heart of my 3EA training and my TIPE project (measurements, control). His path also shows that a doctorate can lead to industry as well as the public sector, and that one can move from technical to commercial roles.</p>
           </div>
         </article>
 
@@ -450,15 +471,41 @@
   <!-- PAGES DÉTAILLÉES (seulement TIPE et autres activités) -->
   <section id="d-tipe" class="detail c2">
     <button class="back" onclick="goHome('s-engineering')">← <span class="fr">Retour</span><span class="en">Back</span></button>
-    <h2><span class="fr">TIPE</span><span class="en">TIPE (personal research project, preparatory classes)</span></h2>
-    <p class="fr">Asservissement en position d'un volet d'aile d'avion. À compléter : objectif, méthode, résultats.</p>
-    <p class="en">Position control of an aircraft wing flap. To be completed: goal, method, results.</p>
+    <h2><span class="fr">TIPE : optimisation aérodynamique d'une aile d'avion à volet par asservissement numérique</span><span class="en">TIPE: aerodynamic optimisation of a flapped aircraft wing through digital control</span></h2>
+    <p class="fr"><em>TIPE : travail d'initiative personnelle encadré, réalisé en classe préparatoire, ici en binôme.</em></p>
+    <p class="en"><em>TIPE: a supervised personal research project carried out during preparatory classes, here in a pair.</em></p>
+
+    <h3><span class="fr">1. Problématique et maquette</span><span class="en">1. Problem statement and prototype</span></h3>
+    <p class="fr">Le volet, situé au bord de fuite de l'aile, permet de modifier la forme de l'aile : il augmente la portance et réduit la vitesse de décrochage au décollage et à l'atterrissage, et diminue la traînée en vol. Notre problématique : comment associer mesures aérodynamiques et asservissement numérique pour déterminer et atteindre la position angulaire du volet qui donne la performance optimale d'une aile ?</p>
+    <p class="en">The flap, located at the trailing edge of the wing, changes the shape of the wing: it increases lift and reduces the stall speed at take-off and landing, and decreases drag in flight. Our research question: how can aerodynamic measurements and digital control be combined to determine and reach the flap angle that gives the optimal performance of a wing?</p>
+    <p class="fr">Nous avons conçu et réalisé une maquette instrumentée : une aile fixée par des tiges de support (pour la soufflerie), un volet articulé par une charnière, commandé par un servomoteur et une biellette, et un capteur magnétique angulaire absolu qui mesure sa position.</p>
+    <p class="en">We designed and built an instrumented prototype: a wing held by support rods (for the wind tunnel), a flap hinged to it and driven by a servomotor and a connecting rod, and an absolute magnetic angle sensor that measures its position.</p>
     <!--
     <figure>
-      <img src="tipe-schema.jpg" alt="Schéma du système d'asservissement du volet">
-      <figcaption><span class="fr">Schéma de principe de l'asservissement.</span><span class="en">Block diagram of the control system.</span></figcaption>
+      <img src="tipe-maquette.png" alt="Maquette instrumentée : aile, volet, servomoteur, biellette et capteur">
+      <figcaption><span class="fr">La maquette instrumentée.</span><span class="en">The instrumented prototype.</span></figcaption>
     </figure>
     -->
+
+    <h3><span class="fr">2. Modélisation du système</span><span class="en">2. Modelling the system</span></h3>
+    <p class="fr">Nous avons modélisé le servomoteur comme un moteur à courant continu associé à un réducteur et à un potentiomètre. Les paramètres ont été identifiés expérimentalement avec une carte Arduino et des programmes Python (NumPy, SciPy, pandas, Matplotlib) : résistance R = (3,25 ± 0,03) Ω par régression linéaire, inductance L = (936 ± 9) µH à partir de la constante de temps électrique, et constante de temps mécanique τ<sub>m</sub> = (5,34 ± 0,35) ms après filtrage passe-bas des mesures.</p>
+    <p class="en">We modelled the servomotor as a DC motor combined with a gearbox and a potentiometer. The parameters were identified experimentally with an Arduino board and Python programs (NumPy, SciPy, pandas, Matplotlib): resistance R = (3.25 ± 0.03) Ω by linear regression, inductance L = (936 ± 9) µH from the electrical time constant, and mechanical time constant τ<sub>m</sub> = (5.34 ± 0.35) ms after low-pass filtering of the measurements.</p>
+    <p class="fr">Le coefficient de frottements visqueux, la constante technologique et l'inertie ont été déterminés par une méthode de Monte-Carlo afin d'estimer leurs incertitudes : f = (1,78 ± 0,84)·10<sup>-9</sup> N·m·s/rad, K<sub>e</sub> = (9,6 ± 2,4)·10<sup>-4</sup> V·s/rad et J = (1,60 ± 0,76)·10<sup>-9</sup> kg·m². Enfin, nous avons établi la relation géométrique entre l'angle de sortie du servomoteur et l'angle du volet (gain K<sub>G</sub> = 0,866).</p>
+    <p class="en">The viscous friction coefficient, the technological constant and the inertia were determined with a Monte Carlo method in order to estimate their uncertainties: f = (1.78 ± 0.84)·10<sup>-9</sup> N·m·s/rad, K<sub>e</sub> = (9.6 ± 2.4)·10<sup>-4</sup> V·s/rad and J = (1.60 ± 0.76)·10<sup>-9</sup> kg·m². Finally, we established the geometric relation between the servomotor output angle and the flap angle (gain K<sub>G</sub> = 0.866).</p>
+
+    <h3><span class="fr">3. Correcteur et résultats</span><span class="en">3. Controller and results</span></h3>
+    <p class="fr">Nous avons retenu un correcteur proportionnel-intégral pour annuler l'erreur due aux frottements secs (une perturbation de type échelon). Il a été dimensionné à l'aide des diagrammes de Bode de la boucle ouverte, avec la condition de stabilité T<sub>i</sub> &gt; τ<sub>m</sub> : K<sub>p</sub> = 13,6 s<sup>-1</sup> et T<sub>i</sub> = 7,49·10<sup>-2</sup> s.</p>
+    <p class="en">We chose a proportional-integral controller to cancel the error caused by dry friction (a step-type disturbance). It was sized using the open-loop Bode plots, with the stability condition T<sub>i</sub> &gt; τ<sub>m</sub>: K<sub>p</sub> = 13.6 s<sup>-1</sup> and T<sub>i</sub> = 7.49·10<sup>-2</sup> s.</p>
+    <p class="fr">Ce travail met en évidence les défis de l'asservissement en position d'un volet d'aile d'avion et propose une modélisation en cascade à partir de modèles physiques. Pour aller plus loin, il faudrait étudier le capteur magnétique et les perturbations engendrées par l'écoulement de l'air autour du volet.</p>
+    <p class="en">This work highlights the challenges of controlling the position of an aircraft wing flap and proposes a cascade model built from physical models. To go further, one would need to study the magnetic sensor and the disturbances caused by the airflow around the flap.</p>
+    <!--
+    <figure>
+      <img src="tipe-bode.png" alt="Diagrammes de Bode de la boucle ouverte, avant et après correction">
+      <figcaption><span class="fr">Diagrammes de Bode de la boucle ouverte, avant et après correction.</span><span class="en">Open-loop Bode plots, before and after correction.</span></figcaption>
+    </figure>
+    -->
+
+    <p class="lien"><a href="TIPE_pres.pdf" target="_blank"><span class="fr">Télécharger la présentation complète (PDF)</span><span class="en">Download the full presentation (PDF)</span></a></p>
   </section>
 
   <section id="d-velos" class="detail c5">
@@ -466,12 +513,15 @@
     <h2><span class="fr">Projets vélo</span><span class="en">Bike projects</span></h2>
     <p class="fr">Grâce à ma pratique du cyclisme, j'ai appris dès le lycée les rudiments de la mécanique vélo. En 2025, j'ai franchi un cap : j'ai récupéré un cadre en acier des années 1970 pour en faire un fixie (vélo monovitesse sans roue libre). J'ai ainsi acquis une connaissance plus approfondie du rôle de chaque pièce d'un vélo, que j'ai ensuite partagée en aidant un ami à monter son propre fixie.</p>
     <p class="en">Cycling taught me the basics of bike mechanics back in high school. In 2025, I took it a step further: I salvaged a 1970s steel frame and turned it into a fixie (a single-speed bike with no freewheel). This gave me a much deeper understanding of how each part of a bike works, which I then shared by helping a friend build their own fixie.</p>
-    <!--
+
     <figure>
-      <img src="fixie-bis.png" alt="Vélo à pignon fixe monté sur un cadre acier des années 1970">
+      <img src="fixie.jpg" alt="Vélo à pignon fixe monté sur un cadre acier des années 1970">
       <figcaption><span class="fr">Mon fixie terminé.</span><span class="en">My finished fixie.</span></figcaption>
     </figure>
-    -->
+
+    <figure>
+      <img src="fixie-papa.png" alt="Second vélo à pignon fixe monté dans le cadre du projet">
+    </figure>
   </section>
 
   <section id="d-modelisme" class="detail c5">
@@ -489,8 +539,8 @@
     -->
 
     <h3><span class="fr">Voitures</span><span class="en">Cars</span></h3>
-    <p class="fr">À compléter : les voitures RC que j'ai eues et bricolées (modèles, modifications, ce que j'en ai appris).</p>
-    <p class="en">To be completed: the RC cars I owned and tinkered with (models, modifications, what I learned).</p>
+    <p class="fr">J'ai aussi eu des voitures radiocommandées, que j'ai bricolées.</p>
+    <p class="en">I also owned radio-controlled cars, which I tinkered with.</p>
   </section>
 
   <footer>
@@ -528,6 +578,15 @@
     }
     window.addEventListener('load', setNavOffset);
     window.addEventListener('resize', setNavOffset);
+
+    // La zone photo d'une carte n'apparaît que si la photo existe vraiment.
+    document.querySelectorAll('.card-img').forEach(function (el) {
+      var m = getComputedStyle(el).getPropertyValue('--img').match(/url\(["']?([^"')]+)["']?\)/);
+      if (!m) return;
+      var img = new Image();
+      img.onload = function () { el.classList.add('has-img'); };
+      img.src = m[1];
+    });
   </script>
 </body>
 </html>
