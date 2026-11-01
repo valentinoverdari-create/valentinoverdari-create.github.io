@@ -31,7 +31,7 @@
     .hero .contact { margin: 0; font-size: 1.05rem; }
     .hero .contact a { color: white; margin: 0 .6rem; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,.6); }
     .hero .cv-buttons { margin-top: 1rem; }
-    .hero .contact .btn-cv { display: inline-block; padding: .35rem 1rem; border: 1px solid rgba(255,255,255,.85); border-radius: 999px; background: rgba(255,255,255,.12); font-weight: bold; }
+    .hero .contact .btn-cv { display: inline-block; margin-bottom: .4rem; padding: .35rem 1rem; border: 1px solid rgba(255,255,255,.85); border-radius: 999px; background: rgba(255,255,255,.12); font-weight: bold; }
     .hero .contact .btn-cv:hover { background: white; color: var(--navy); }
     .lang { position: absolute; top: 1rem; right: 1rem; padding: .4rem .8rem; cursor: pointer; border: none; border-radius: 6px; font-weight: bold; }
 
@@ -46,6 +46,9 @@
     .rubrique h2 { text-align: center; font-size: 2rem; color: var(--title); margin: 0 0 .6rem; }
     .sous-titre { text-align: center; font-size: 1.3rem; color: var(--title); margin: 1.6rem 0 .8rem; }
     .intro { text-align: center; margin: .4rem 0 1rem; }
+    .pitch-wrap { text-align: center; margin: .4rem 0 0; }
+    .btn-pitch { display: inline-block; padding: .5rem 1.3rem; border: 2px solid var(--c); border-radius: 999px; background: white; color: var(--c); font-weight: bold; text-decoration: none; }
+    .btn-pitch:hover { background: var(--c); color: white; }
 
     /* Cartes : 2 par ligne, .cols-3 pour 3 par ligne, .wide pour pleine largeur.
        La zone photo (.card-img) n'apparaît que si la photo existe (voir le script en bas).
@@ -141,6 +144,7 @@
     <p class="contact cv-buttons">
       <a class="btn-cv" href="CV%20Valentino%20Verdari%20%28Fran%C3%A7ais%29.pdf" target="_blank">CV (Français)</a>
       <a class="btn-cv" href="CV%20Valentino%20Verdari%20%28English%29.pdf" target="_blank">CV (English)</a>
+      <a class="btn-cv pitch" href="#" target="_blank">Elevator pitch</a>
     </p>
   </header>
 
@@ -223,9 +227,9 @@
           <span>SolidWorks</span>
         </li>
         <li>
-          <strong><span class="fr">Électronique</span><span class="en">Electronics</span></strong>
-          <span class="fr">Arduino, traitement numérique du signal</span>
-          <span class="en">Arduino, digital signal processing</span>
+          <strong><span class="fr">Électronique et instrumentation</span><span class="en">Electronics and instrumentation</span></strong>
+          <span class="fr">Arduino, mesures électriques (tension, courant) et mécaniques (angle, vitesse de rotation)</span>
+          <span class="en">Arduino, electrical (voltage, current) and mechanical (angle, rotation speed) measurements</span>
         </li>
       </ul>
     </section>
@@ -299,7 +303,7 @@
       <div class="cards engagement">
 
         <article class="card">
-          <div class="card-img" style="--img:url('quelles-sont-les-limites-planetaires-et-a-quoi-sert-ce-concept-en-ecologie-journee-modiale-environnement-boehly.jpg')"></div>
+          <div class="card-img" style="--img:url('tuile-frontieres.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Fresque des frontières</span><span class="en">Boundaries fresco</span></h4>
             <p class="fr">Atelier autour des 9 frontières environnementales, les critères qui permettent d'évaluer l'état de la planète et le changement climatique.</p>
@@ -320,13 +324,13 @@
           <div class="card-img" style="--img:url('tuile-benevolat.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Bénévolat au triathlon de Choisy-au-Bac</span><span class="en">Volunteering at the Choisy-au-Bac triathlon</span></h4>
-            <p class="fr">Signalement du parcours en 2022, puis vélo-balai en 2023.</p>
+            <p class="fr">Signaleur de parcours en 2022, puis vélo-balai en 2023.</p>
             <p class="en">Course marshal in 2022, then sweep rider in 2023.</p>
           </div>
         </article>
 
         <article class="card festival">
-          <div class="card-img" style="--img:url('Futurs-proches-2026-1536x678.png')"></div>
+          <div class="card-img" style="--img:url('tuile-journee.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Festival Futurs proches</span><span class="en">Futurs proches festival</span></h4>
             <p class="fr">Festival des campus en transition.</p>
@@ -353,7 +357,7 @@
       <div class="cards">
 
         <article class="card">
-          <div class="card-img" style="--img:url('randonneuse.png')"></div>
+          <div class="card-img" style="--img:url('randonneuse-biketouring.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Vélo</span><span class="en">Cycling</span></h4>
             <p class="fr">Je pratique le vélo de route, surtout sur longues distances et en itinérance. Pour ma première itinérance, je suis parti seul avec ma randonneuse dans l'Avesnois. Ce que je retiens surtout, ce sont les rencontres faites en chemin, qui m'ont aidé à ne pas me sentir seul pendant ces quatre jours.</p>
@@ -385,7 +389,7 @@
       <div class="cards">
 
         <article class="card clickable" tabindex="0" role="button" onclick="openSection('d-velos')" onkeydown="if(event.key==='Enter'){openSection('d-velos')}">
-          <div class="card-img" style="--img:url('fixie-bis.jpg')"></div>
+          <div class="card-img" style="--img:url('fixie.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Projets vélo</span><span class="en">Bike projects</span></h4>
             <p class="fr">En 2025, j'ai récupéré un cadre en acier des années 1970 pour en faire un fixie (vélo monovitesse sans roue libre), puis j'en ai monté un second pour mon père : j'y ai appris à écouter les attentes d'un « client ».</p>
@@ -398,8 +402,8 @@
           <div class="card-img" style="--img:url('E-Revo.jpg')"></div>
           <div class="card-body">
             <h4 class="card-title"><span class="fr">Modélisme RC</span><span class="en">RC modelling</span></h4>
-            <p class="fr">En 2024, j'ai construit deux avions radiocommandés en carton mousse : ils se sont écrasés au premier vol, mais ont été mes premiers pas dans l'électronique.</p>
-            <p class="en">In 2024, I built two foam-board radio-controlled planes: they crashed on their first flight, but were my first steps into electronics.</p>
+            <p class="fr">En 2024, j'ai construit deux avions radiocommandés en carton mousse : ils se sont écrasés au premier vol, mais ont été mes premiers pas dans l'électronique. J'ai aussi réparé deux voitures RC (WLToys A959 et Traxxas E-Revo).</p>
+            <p class="en">In 2024, I built two foam-board radio-controlled planes: they crashed on their first flight, but were my first steps into electronics. I also repaired two RC cars (WLToys A959 and Traxxas E-Revo).</p>
             <p class="more"><span class="fr">Voir le détail →</span><span class="en">See details →</span></p>
           </div>
         </article>
@@ -410,6 +414,7 @@
     <!-- PROJET PROFESSIONNEL -->
     <section class="rubrique c6" id="s-career">
       <h2><span class="fr">Projet professionnel</span><span class="en">Career Development</span></h2>
+      <p class="pitch-wrap"><a class="btn-pitch pitch" href="#" target="_blank">▶ Elevator pitch</a></p>
 
       <h3 class="sous-titre"><span class="fr">Mon projet</span><span class="en">My plans</span></h3>
       <div class="cards">
@@ -460,6 +465,26 @@
             <h5><span class="fr">Lien avec mon projet</span><span class="en">Link with my plans</span></h5>
             <p class="fr">Ses mesures sur les missiles relèvent de l'instrumentation et de l'électronique, au cœur de ma formation en 3EA et de mon TIPE (mesures, asservissement). Son parcours montre aussi qu'un doctorat peut mener à l'industrie comme au service public, et qu'on peut passer du technique au commercial.</p>
             <p class="en">His missile measurements involve instrumentation and electronics, at the heart of my 3EA training and my TIPE project (measurements, control). His path also shows that a doctorate can lead to industry as well as the public sector, and that one can move from technical to commercial roles.</p>
+          </div>
+        </article>
+
+        <article class="card wide">
+          <div class="card-body">
+            <h4 class="card-title"><span class="fr">Rencontre n° 3 : Pierre Montanier, expert technique en support client chez Airbus</span><span class="en">Meeting no. 3: Pierre Montanier, technical expert in customer support at Airbus</span></h4>
+
+            <h5><span class="fr">Son parcours</span><span class="en">Their career path</span></h5>
+            <p class="fr">Il a obtenu son baccalauréat en 1998, puis a fait trois ans de classe préparatoire aux grandes écoles. Il a ensuite intégré ISAE-SUPAERO, où il a obtenu son diplôme d'ingénieur en aéronautique, et la Louisiana State University, où il a obtenu un master of science en génie mécanique.</p>
+            <p class="en">He earned his baccalaureate in 1998, then spent three years in preparatory classes for the French engineering schools. He then joined ISAE-SUPAERO, where he earned his aeronautical engineering degree, and Louisiana State University, where he earned a master of science in mechanical engineering.</p>
+            <p class="fr">Il travaille chez Airbus, dans les équipes de support client technique, où il est l'expert technique sur les trois missions principales de l'équipe : répondre aux questions des compagnies aériennes sur l'exploitation et la maintenance des avions ; identifier les problèmes qui touchent la flotte, en trouver la cause « racine » et proposer une solution ; communiquer vers les compagnies sur les moyens d'améliorer la fiabilité de l'avion. Il transmet aussi aux équipes de développement un retour sur la fiabilité des avions en service, pour améliorer les avions actuels et les futurs programmes.</p>
+            <p class="en">He works at Airbus in the technical customer support teams, where he is the technical expert on the team's three main missions: answering airlines' questions on aircraft operation and maintenance; identifying problems affecting the fleet, finding their root cause and providing a solution; and advising airlines on how to improve aircraft reliability. He also gives the development teams feedback on the reliability of aircraft in service, to improve current aircraft and future programmes.</p>
+
+            <h5><span class="fr">Ce que j'en retiens</span><span class="en">What I took from it</span></h5>
+            <p class="fr">Un métier à l'interface entre les compagnies aériennes et les équipes de développement : comprendre les problèmes rencontrés en service, remonter à leur cause racine, proposer des solutions, puis communiquer pour améliorer la fiabilité. Le retour d'expérience de la flotte en service nourrit la conception des avions actuels et futurs. Son parcours est aussi international, avec un diplôme d'ingénieur en France et un master obtenu aux États-Unis.</p>
+            <p class="en">A job at the interface between airlines and development teams: understanding problems met in service, tracing them back to their root cause, proposing solutions, then communicating to improve reliability. Feedback from the fleet in service feeds into the design of current and future aircraft. His path is also international, with an engineering degree in France and a master's obtained in the United States.</p>
+
+            <h5><span class="fr">Lien avec mon projet</span><span class="en">Link with my plans</span></h5>
+            <p class="fr">Son poste montre une autre facette de l'aéronautique que la conception : l'exploitation et la fiabilité des avions, au contact des compagnies aériennes. Cela complète mon projet de stage de fin d'études chez Airbus ou dans l'une de ses filiales, et son parcours, avec un master à l'étranger, éclaire ma démarche de mobilité internationale.</p>
+            <p class="en">His job shows another side of aeronautics than design: the operation and reliability of aircraft, in contact with airlines. It complements my plan for a final-year internship at Airbus or one of its subsidiaries, and his path, with a master's abroad, sheds light on my approach to international mobility.</p>
           </div>
         </article>
 
@@ -522,13 +547,13 @@
     <p class="fr">Grâce à ma pratique du cyclisme, j'ai appris dès le lycée les rudiments de la mécanique vélo. En 2025, j'ai franchi un cap : j'ai récupéré un cadre en acier des années 1970 pour en faire un fixie (vélo monovitesse sans roue libre). J'ai ainsi acquis une connaissance plus approfondie du rôle de chaque pièce d'un vélo, que j'ai ensuite partagée en aidant un ami à monter son propre fixie.</p>
     <p class="en">Cycling taught me the basics of bike mechanics back in high school. In 2025, I took it a step further: I salvaged a 1970s steel frame and turned it into a fixie (a single-speed bike with no freewheel). This gave me a much deeper understanding of how each part of a bike works, which I then shared by helping a friend build their own fixie.</p>
     <figure class="photo">
-      <img data-src="fixie-bis.jpg" alt="Vélo à pignon fixe monté sur un cadre acier des années 1970">
+      <img data-src="fixie.jpg" alt="Vélo à pignon fixe monté sur un cadre acier des années 1970">
       <figcaption><span class="fr">Mon fixie terminé.</span><span class="en">My finished fixie.</span></figcaption>
     </figure>
 
     <h3><span class="fr">Un fixie pour mon père</span><span class="en">A fixie for my father</span></h3>
-    <p class="fr">J'ai aussi monté un fixie pour mon père, en suivant ses demandes. Ce projet m'a appris à écouter les attentes d'un « client » et à trouver des solutions en fonctiion de son budget.</p>
-    <p class="en">I also built a fixie for my father, following his requests. This project taught me to listen to a "client's" expectations and to find solutions that suit them, dealing with their budget.</p>
+    <p class="fr">J'ai aussi monté un fixie pour mon père, en suivant ses demandes. Ce projet m'a appris à écouter les attentes d'un « client » et à trouver des solutions qui lui conviennent, même si ce n'est pas forcément ce que j'aurais choisi de faire moi-même.</p>
+    <p class="en">I also built a fixie for my father, following his requests. This project taught me to listen to a "client's" expectations and to find solutions that suit them, even when they aren't necessarily what I would have chosen to do myself.</p>
     <figure class="photo">
       <img data-src="fixie-papa.png" alt="Vélo à pignon fixe monté pour mon père">
       <figcaption><span class="fr">Le fixie monté pour mon père.</span><span class="en">The fixie I built for my father.</span></figcaption>
@@ -554,11 +579,11 @@
     </div>
 
     <h3><span class="fr">Voitures</span><span class="en">Cars</span></h3>
-    <p class="fr">J'ai aussi deux voitures radiocommandées que j'ai bricolées, réparées et améliorées: une WLToys A959 à l'échelle 1/18 et une Traxxas E-Revo à l'échelle 1/16.</p>
-    <p class="en">I also own two radio-controlled cars that I repaired and upgraded : a WLToys A959 (1/18 scale) and a Traxxas E-Revo (1/16 scale).</p>
+    <p class="fr">J'ai aussi deux voitures radiocommandées que j'ai réparées : une WLToys A959 à l'échelle 1/18 et une Traxxas E-Revo à l'échelle 1/16.</p>
+    <p class="en">I also own two radio-controlled cars that I repaired: a WLToys A959 (1/18 scale) and a Traxxas E-Revo (1/16 scale).</p>
     <div class="duo">
       <figure class="photo">
-        <img data-src="WLToys.jpg" alt="Voiture radiocommandée WLToys A959 au 1/18">
+        <img data-src="wltoys-a959.jpg" alt="Voiture radiocommandée WLToys A959 au 1/18">
         <figcaption>WLToys A959 (1/18)</figcaption>
       </figure>
       <figure class="photo">
@@ -571,12 +596,17 @@
   <footer>
     <a href="CV%20Valentino%20Verdari%20%28Fran%C3%A7ais%29.pdf" target="_blank">CV (Français)</a> |
     <a href="CV%20Valentino%20Verdari%20%28English%29.pdf" target="_blank">CV (English)</a> |
+    <a class="pitch" href="#" target="_blank">Elevator pitch</a> |
     <a href="https://www.linkedin.com/in/valentino-verdari-84ba20437" target="_blank">LinkedIn</a>
   </footer>
 
   </div>
 
   <script>
+    // ▼▼ Colle ici le lien de ton elevator pitch (YouTube, Drive, ou pitch.mp4 déposé dans le dépôt).
+    // Tant que ce champ est vide, les boutons « Elevator pitch » restent cachés.
+    var PITCH_URL = '';
+
     function hideDetails() {
       document.querySelectorAll('.detail').forEach(d => d.classList.remove('active'));
     }
@@ -604,6 +634,16 @@
     }
     window.addEventListener('load', setNavOffset);
     window.addEventListener('resize', setNavOffset);
+
+    // Boutons de l'elevator pitch : lien unique, caché tant qu'il est vide
+    document.querySelectorAll('a.pitch').forEach(function (a) {
+      if (PITCH_URL) {
+        a.href = PITCH_URL;
+      } else {
+        var wrap = a.closest('.pitch-wrap');
+        (wrap || a).style.display = 'none';
+      }
+    });
 
     // Photos : on essaie plusieurs extensions (jpg, jpeg, png, webp) pour chaque photo,
     // et rien ne s'affiche tant qu'aucune version n'existe dans le dépôt.
